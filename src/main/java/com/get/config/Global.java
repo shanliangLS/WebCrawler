@@ -20,7 +20,7 @@ public class Global {
 
     public static final String userAgentJsonPath = "/home/dong/IdeaProjects/get/src/main/java/com/get/spider/util/useragent/fake_useragent.json";
 
-    public static final String phantomJsPath = "/home/dong/youGetSetting/phantomjs-2.1.1-linux-x86_64/bin/phantomjs";
+    public static final String phantomJsPath = "/home/dong/youGet/phantomjs-2.1.1-linux-x86_64/bin/phantomjs";
 
     public static final String downHtmlJs = "/home/dong/IdeaProjects/get/src/main/java/com/get/spider/util/js/downHtml.js";
 

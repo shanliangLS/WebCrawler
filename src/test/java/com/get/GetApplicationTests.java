@@ -3,8 +3,7 @@ package com.get;
 import com.get.domain.Task;
 import com.get.domain.Theme;
 import com.get.repository.ThemeRepository;
-import com.get.spider.entity.enums.HtmlFieldEnum;
-import com.get.spider.entity.enums.PolicyEnum;
+import com.get.crawl.enums.HtmlFieldEnum;
 import com.get.spider.entity.policy.BaseCrawlPolicy;
 import com.get.spider.entity.policy.ListCrawlPolicy;
 import com.get.spider.entity.selector.HtmlFieldSelector;
@@ -92,7 +91,7 @@ class GetApplicationTests {
         htmlFieldSelector.setName("标题");
         htmlFieldSelector.setCss("h2.xl_title");
         htmlFieldSelector.setNum(1);
-        htmlFieldSelector.setType(HtmlFieldEnum.TYPE_TEXT);
+//        htmlFieldSelector.setType(HtmlFieldEnum.TYPE_TEXT);
         htmlFieldSelector.setCrawlPolicyId(3L);
 
         htmlFieldSelectorRepository.save(htmlFieldSelector);

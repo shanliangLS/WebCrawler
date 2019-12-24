@@ -1,7 +1,7 @@
 package com.get.spider.entity.selector;
 
 import com.get.domain.BaseEntity;
-import com.get.spider.entity.enums.HtmlFieldEnum;
+import com.get.crawl.enums.HtmlFieldEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
