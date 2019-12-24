@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="得到 | 让信息获取更简单"/>
+    <meta name="author" content=""/>
+    <title>得到 | 让信息获取更简单</title>
+    <style>
+        #getHeader {
+            margin: 0;
+            width: 100%;
+            height: 100vh;
+            font-family: "Exo", sans-serif;
+            color: #fff;
+            background: linear-gradient(-45deg, #feac5e, #c779d0, #4bc0c8, #e73c7e, #3b93b3, #23d5ab, #0e90d2, #0fb391);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+    <link rel="icon" href="static/image/favicon.ico" type="image/x-icon"/>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="static/other/bootstrap/css/bootstrap.min.css"/>
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="static/other/freelancer/css/freelancer.min.css"/>
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="static/other/font-awesome/css/font-awesome.min.css"/>
+    <!-- toastr -->
+    <link rel="stylesheet" href="static/other/toastr/toastr.min.css"/>
+</head>
+
+<body id="page-top" class="index">
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="#page-top">得到</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li id="userStatus">
+                    <a href="user/login.html">登录</a>
+                </li>
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.nav bar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<!-- Header -->
+<header id="getHeader">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <img class="img-responsive" src="static/image/index/profile.png" alt=""/>
+                <div class="intro-text">
+                    <span class="name">得到</span>
+                    <hr class="star-light"/>
+                    <span class="skills">随时随地 - 方便快捷 - 智慧采集</span><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Portfolio Grid Section -->
+<!--<section id="portfolio">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12 text-center">-->
+<!--<h2>优势</h2>-->
+<!--<hr class="star-primary"/>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-sm-4 portfolio-item">-->
+<!--<a href="" class="portfolio-link" data-toggle="modal">-->
+<!--<div class="caption">-->
+<!--<div class="caption-content">-->
+<!--&lt;!&ndash;<i class="fa fa-search-plus fa-3x"></i>&ndash;&gt;-->
+<!--<p>方便</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<img src="static/image/index/portfolio/game.png" class="img-responsive" alt=""/>-->
+<!--</a>-->
+<!--</div>-->
+<!--<div class="col-sm-4 portfolio-item">-->
+<!--<a href="" class="portfolio-link" data-toggle="modal">-->
+<!--<div class="caption">-->
+<!--<div class="caption-content">-->
+<!--&lt;!&ndash;<i class="fa fa-search-plus fa-3x"></i>&ndash;&gt;-->
+<!--<p>安全</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<img src="static/image/index/portfolio/safe.png" class="img-responsive" alt=""/>-->
+<!--</a>-->
+<!--</div>-->
+<!--<div class="col-sm-4 portfolio-item">-->
+<!--<a href="" class="portfolio-link" data-toggle="modal">-->
+<!--<div class="caption">-->
+<!--<div class="caption-content">-->
+<!--&lt;!&ndash;<i class="fa fa-search-plus fa-3x"></i>&ndash;&gt;-->
+<!--<p>智能</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<img src="static/image/index/portfolio/submarine.png" class="img-responsive" alt=""/>-->
+<!--</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</section>-->
+
+
+<!-- About Section -->
+<!--<section class="success" id="about">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12 text-center">-->
+<!--<h2>关于我们</h2>-->
+<!--<hr class="star-light"/>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+
+<!--<div class="col-lg-4 col-lg-offset-2">-->
+<!--<p>我们做了一个可以智能采集数据的一个网站-->
+<!--<br/>可以在这个网站上进行数据采集。-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="col-lg-4">-->
+<!--<p>我们是一群热爱生活，热爱开源，热爱分享的IT人！-->
+<!--<br/>开放、自由、分享、开源是我们的主题！-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</section>-->
+
+
+<!-- Footer -->
+<footer class="text-center">
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright &copy; Get 0000-2019 得到 | 让信息获取更简单
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+    <a class="btn btn-primary" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+<!-- jQuery -->
+<script src="static/other/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="static/other/bootstrap/js/bootstrap.min.js"></script>
+<!-- Theme JavaScript -->
+<script src="static/other/freelancer/js/freelancer.min.js"></script>
+<!-- toastr -->
+<script src="static/other/toastr/toastr.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            async: false,
+            url: '/api/user/info/now/name',
+            type: 'POST',
+            dataType: "json",
+            error: function () {
+                alert('请求错误，发生异常！请检查网络链接是否正确！');
+            },
+            success: function (data) {
+                if (data != null && data.code == '000000') {
+                    if (data.hasOwnProperty('data') && data.data != '') {
+                        $('#userStatus').html('<a href="AdminLTE/home.html" class="userName">' + data.data + '</a>\n');
+                    }
+                } else {
+                    toastr.error(data.msg, '操作失败');
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

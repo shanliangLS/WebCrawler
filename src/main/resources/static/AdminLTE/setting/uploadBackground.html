@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>得到 | 让信息获取更简单</title>
+  <link rel="icon" href="../../static/image/favicon.ico" type="image/x-icon"/>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- cropper -->
+  <link rel="stylesheet" href="../../static/other/cropper/cropper.min.css"/>
+  <!-- toastr -->
+  <link rel="stylesheet" href="../../static/other/toastr/toastr.min.css"/>
+  <style type="text/css">
+    .myPanel {
+      margin-bottom: 21px;
+      background-color: #ffffff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .myPanel-heading {
+      font-size: 14px;
+      border-bottom: 0;
+      padding: 10px 15px;
+      border-bottom: 1px solid transparent;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+    }
+
+    .myPanel-body {
+      padding: 15px;
+    }
+
+    .myForm-group {
+      margin-bottom: 15px;
+    }
+
+    .myForm-control {
+      box-shadow: 0 0 0 #000 !important;
+      display: block;
+      width: 100%;
+      height: 35px;
+      padding: 6px 16px;
+      font-size: 14px;
+      line-height: 1.52857143;
+      color: #3a3f51;
+      background-color: #ffffff;
+      background-image: none;
+      border: 1px solid #dde6e9;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .myBootstrap-filestyle {
+      max-width: 380px;
+    }
+
+    .myInput-group {
+      position: relative;
+      display: table;
+      border-collapse: separate;
+    }
+
+    .myInput-group-btn {
+      position: relative;
+      font-size: 0;
+      white-space: nowrap;
+      width: 1%;
+      vertical-align: middle;
+      display: table-cell;
+      border-collapse: separate;
+    }
+
+    .myGroup-span-filestyle {
+
+    }
+
+    .myCropper-preview {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 200px;
+      margin: 0 auto;
+      text-align: center;
+      background: #dde6e9;
+    }
+
+    .myCropper-area {
+      overflow: hidden;
+      width: 100%;
+      height: 410px;
+      background: #dde6e9;
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+          class="fas fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../index3.html" class="brand-link">
+      <img src="../../static/image/logo-single.png" alt="AdminLTE Logo" class="brand-image img-circle"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">得到</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <!-- -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-user nav-icon"></i>
+              <p>个人首页</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-cog nav-icon"></i>
+              <p>
+                用户设置
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-address-card nav-icon"></i>
+                  <p>修改昵称</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-anchor nav-icon"></i>
+                  <p>修改密码</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-gavel nav-icon"></i>
+                  <p>修改头像</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="fa fa-rocket nav-icon"></i>
+                  <p>修改背景图</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h3>上传背景</h3>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">选择一个心仪的背景</ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-md-3">
+            <div class="myPanel">
+              <div class="myPanel-heading">
+                请选择一张图片
+              </div>
+              <div class="myPanel-body">
+                <div class="myForm-group">
+                  <input id="cropper-file" type="file" class="myForm-control" style="position: absolute; clip: rect(0px, 0px, 0px, 0px);"/>
+                  <div class="myBootstrap-filestyle myInput-group">
+                    <input id="cropper-file-url" type="text" class="myForm-control" disabled=""/>
+                    <span class="myGroup-span-filestyle myInput-group-btn">
+                      <label for="cropper-file" class="btn btn-default">
+                         <span class="fa fa-folder-open text-muted"></span>
+                      </label>
+                    </span>
+                  </div>
+                </div>
+                <br />
+                <div id="cropper-preview" class="myCropper-preview" data-text="截取的图像" style="min-height: 80px;"></div>
+              </div>
+            </div>
+            <button id="cropper-submit" class="btn btn-primary btn-block" disabled="disabled" type="submit">提交</button>
+          </div>
+          <div class="col-lg-9 col-md-9">
+            <div class="myPanel">
+              <div class="myPanel-body">
+                <div class="myCropper-area">
+                  <img id="cropper-image" src="" alt=""/></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 0000-2019 得到 | 让信息获取更简单</strong>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
+<!-- cropper -->
+<script src="../../static/other/cropper/cropper.min.js"></script>
+<!-- toastr -->
+<script src="../../static/other/toastr/toastr.min.js"></script>
+<script>
+  toastr.success('成功');
+  /*<![CDATA[*/
+  $(function () {
+    $("body").removeClass("offsidebar-open");
+
+    var $cropperImage = $('#cropper-image');
+    var $cropperFile = $('#cropper-file');
+    var $cropperFileUrl = $('#cropper-file-url');
+    var $cropperSubmit = $('#cropper-submit');
+    var $cropperPreview = $('.myCropper-preview');
+    var URL = window.URL || window.webkitURL;
+    var blobURL;
+    var croppable = false;
+
+    $cropperSubmit.prop('disabled', true);
+
+    $cropperImage.cropper({
+      aspectRatio: 75 / 28,
+      viewMode: 1,
+      preview: $cropperPreview,
+      background: false,
+      mouseWheelZoom: false,
+      built: function () {
+        croppable = true;
+      }
+    });
+
+    if (URL) {
+      $cropperFile.change(function () {
+        var files = this.files;
+        var file;
+        if (!$cropperImage.data('cropper')) {
+          return;
+        }
+        if (files && files.length) {
+          file = files[0];
+          if (/^image\/\w+$/.test(file.type)) {
+            blobURL = URL.createObjectURL(file);
+            $cropperFileUrl.val($cropperFile.val());
+            $cropperSubmit.prop('disabled', false);
+            $cropperImage.one('built.cropper', function () {
+              URL.revokeObjectURL(blobURL);
+            }).cropper('reset').cropper('replace', blobURL);
+            $cropperFile.val('');
+          } else {
+            window.alert('请选择一个图像文件。');
+          }
+        }
+      });
+    } else {
+      $cropperFile.prop('disabled', true);
+    }
+
+    function getRectangleCanvas(sourceCanvas) {
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      var width = 750;
+      var height = 280;
+
+      canvas.width = width;
+      canvas.height = height;
+      context.beginPath();
+      context.rect(0, 0, width, height);
+      context.strokeStyle = 'rgba(0,0,0,0)';
+      context.stroke();
+      context.clip();
+      context.drawImage(sourceCanvas, 0, 0, width, height);
+
+      return canvas;
+    }
+
+    $cropperSubmit.on('click', function () {
+      var croppedCanvas;
+      var rectangleCanvas;
+      if (!croppable) {
+        return;
+      }
+      croppedCanvas = $cropperImage.cropper('getCroppedCanvas');
+      rectangleCanvas = getRectangleCanvas(croppedCanvas);
+      var dataUrl = rectangleCanvas.toDataURL("image/png").replace(/\+/g, '%2B');
+      $.ajax({
+        url: '/api/user/doUploadBackground',
+        data: 'dataUrl=' + dataUrl,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        },
+        success: function (response) {
+          if (response.code == '000000') {
+            $cropperFile.prop('disabled', true);
+            $cropperSubmit.prop('disabled', true);
+            $(".cropper-area .cropper-container").hide();
+            $(".cropper-area .cropper-container").hide();
+            toastr.success('背景上传成功！', '操作成功');
+          } else {
+            toastr.error(response.msg, '操作失败');
+          }
+        },
+        error: function (XmlHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
+          console.log(textStatus);
+          console.log(errorThrown);
+        }
+      });
+    });
+  });
+  /*]]>*/
+</script>
+</body>
+</html>

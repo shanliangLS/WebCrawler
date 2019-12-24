@@ -1,0 +1,27 @@
+.l {
+    float: left !important;
+}
+
+.r {
+    float: right !important;
+}
+
+.bk-gray {
+    border: solid 1px #eee;
+}
+
+.cl {
+    zoom: 1;
+}
+
+.pd-5 {
+    padding: 5px;
+}
+
+.bg-1 {
+    background-color: #f5fafe;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}

@@ -1,0 +1,8 @@
+{
+  "ignoreSslErrors": true,
+  "outputEncoding": "utf8",
+  "autoLoadImages": false,
+  "localToRemoteUrlAccessEnabled":true,
+  "diskCacheEnabled": true,
+  "printDebugMessages": false
+}
