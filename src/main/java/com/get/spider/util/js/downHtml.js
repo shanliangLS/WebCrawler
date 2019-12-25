@@ -70,23 +70,17 @@ try {
 
             function render() {
                 key = 1 - 1;
-                page.viewportSize = viewports[key];
-                // if (clipping) {
-                //     page.clipRect = viewports[key];
-                // }
-                var fileName = urlAddress.replace(/[^a-z0-9]+/gi, "_") + ext;
-                output = '/home/dong/youGet/photoSave/' + fileName;
+                //page.viewportSize = viewports[key];
+               // var fileName = urlAddress.replace(/[^a-z0-9]+/gi, "_") + ext;
+                //output = 'D:/youGet/photoSave/' + fileName;
+                //page.render(output);
+                // var myDict = {};
+                // myDict['img'] = output;
+                // myDict['content'] = page.content;
+                // console.log("JsonStart***" + JSON.stringify(myDict) + "***JsonEnd");
 
-                page.render(output);
-
-                var myDict = {};
-                myDict['img'] = output;
-                myDict['content'] = page.content;
-                // console.log(page.content);
-                // downloadUrls.remove(urlAddress);
                 // console.log(JSON.stringify(downloadUrls));
-                // console.log(page.content);
-                console.log("JsonStart***" + JSON.stringify(myDict) + "***JsonEnd");
+                console.log('JsonStart***' + page.content + '***JsonEnd');
             }
 
             render();

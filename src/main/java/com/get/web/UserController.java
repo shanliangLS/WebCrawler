@@ -2,6 +2,7 @@ package com.get.web;
 
 import com.get.comm.Const;
 import com.get.comm.aop.LoggerManage;
+import com.get.config.Global;
 import com.get.domain.User;
 import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
@@ -34,16 +35,6 @@ public class UserController extends BaseController {
 
     @Value("${newPassword.url}")
     private String NewPasswordUrl;
-
-    @Value("${profilePictures.path}")
-    private String fileProfilePicturesPath;
-
-    @Value("${static.path}")
-    private String staticPath;
-
-    @Value("${backgroundPictures.path}")
-    private String fileBackgroundPicturesPath;
-
 
     @PostMapping(value = "/info/now/name")
     @LoggerManage(description = "获取当前用户信息姓名")
@@ -315,9 +306,9 @@ public class UserController extends BaseController {
     public AjaxResult uploadHeadPortrait(String dataUrl) {
         logger.info("执行 上传头像 开始");
         try {
-            String filePath = staticPath + fileProfilePicturesPath;
+            final String filePath = Global.outPath + Global.profilePicturesPath;
             String fileName = UUID.randomUUID().toString() + ".png";
-            String savePath = fileProfilePicturesPath + fileName;
+            String savePath = Global.profilePicturesPath + fileName;
             String image = dataUrl;
             String header = "data:image";
             String[] imageArr = image.split(",");
@@ -350,9 +341,11 @@ public class UserController extends BaseController {
     @LoggerManage(description = "上传背景")
     public AjaxResult uploadBackground(String dataUrl) {
         try {
-            String filePath = staticPath + fileBackgroundPicturesPath;
+            // 绝对路径
+            String filePath = Global.outPath + Global.backgroundPicturesPath;
             String fileName = UUID.randomUUID().toString() + ".png";
-            String savePath = fileBackgroundPicturesPath + fileName;
+            // 相对路径
+            String savePath = Global.backgroundPicturesPath + fileName;
             String image = dataUrl;
             String header = "data:image";
             String[] imageArr = image.split(",");

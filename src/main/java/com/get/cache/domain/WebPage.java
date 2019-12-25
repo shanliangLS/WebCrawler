@@ -33,15 +33,15 @@ public class WebPage extends BaseEntity implements Serializable {
     private String reason;
 
     // 保存路径
-    @Column(nullable = false, length = 65535, columnDefinition = "Text")
+    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String filePath;
 
     // 文件名
-    @Column(nullable = false, length = 65535, columnDefinition = "Text")
+    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String fileName;
 
     // 文件扩展名
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String fileExtension;
 
     public String getFilePath() {

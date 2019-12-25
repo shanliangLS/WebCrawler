@@ -18,6 +18,7 @@ import static com.get.cache.help.FileTypeHelp.getExtByAll;
 
 public class DownloadHelp {
 
+    private static final String cachePath = Global.outPath + Global.cachePath;
 
     /**
      * 根据urlStr下载静态文件
@@ -65,7 +66,7 @@ public class DownloadHelp {
             } else {
                 fileName = fileId + "." + fileExt;
             }
-            String filePath = Global.downloadPath + fileName;
+            String filePath = cachePath + fileName;
 
             byte[] bs = new byte[1024 * 8];
 
@@ -82,7 +83,8 @@ public class DownloadHelp {
             page.setFileName(fileName);
             page.setFilePath(filePath);
             return page;
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             page.setSuccess(false);
             page.setReason(e.getMessage());
             return page;

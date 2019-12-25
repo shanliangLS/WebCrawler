@@ -1,10 +1,8 @@
 package com.get.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -24,7 +22,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/cache/**").addResourceLocations("file:" + Global.downloadPath);
+        // 缓存位置
+        final String cachePath = Global.outPath + Global.cachePath;
+        // 头像位置
+        final String profilePicturesPath = Global.outPath + Global.profilePicturesPath;
+        // 背景图片位置
+        final String backgroundPicturesPath = Global.outPath + Global.backgroundPicturesPath;
+
+        registry.addResourceHandler("/cache/**").addResourceLocations("file:" + cachePath);
+        registry.addResourceHandler("/profilePictures/**").addResourceLocations("file:" + profilePicturesPath);
+        registry.addResourceHandler("/backgroundPictures/**").addResourceLocations("file:" + backgroundPicturesPath);
     }
 
 }

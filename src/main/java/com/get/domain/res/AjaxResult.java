@@ -1,5 +1,7 @@
 package com.get.domain.res;
 
+import com.google.gson.Gson;
+
 import java.util.HashMap;
 
 public class AjaxResult extends HashMap<String, Object> {
@@ -82,5 +84,11 @@ public class AjaxResult extends HashMap<String, Object> {
 
     public static AjaxResult error() {
         return new AjaxResult(ExceptionMsg.ERROR);
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

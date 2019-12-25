@@ -23,12 +23,19 @@ public class CacheController {
             if (isStrEmpty(url) || isStrEmpty(htmlUrl)) {
                 return "";
             }
+            System.out.println(htmlUrl);
+            System.out.println(url);
             webHtmlNeedService.checkSave(htmlUrl, url);
             WebPage page = webPageRepository.findWebPageByUrl(url);
             if (page == null) {
                 WebPage webPage1 = DownloadHelp.down(url);
-                webPageRepository.save(webPage1);
-                return "redirect:/cache/" + webPage1.getFileName();
+                if (webPage1.getSuccess()) {
+                    webPageRepository.save(webPage1);
+                    return "redirect:/cache/" + webPage1.getFileName();
+                } else {
+                    webPageRepository.save(webPage1);
+                    return "";
+                }
             } else {
                 if (page.getSuccess()) {
                     return "redirect:/cache/" + page.getFileName();

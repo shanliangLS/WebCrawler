@@ -3,7 +3,6 @@ package com.get;
 import com.get.domain.Task;
 import com.get.domain.Theme;
 import com.get.repository.ThemeRepository;
-import com.get.crawl.enums.HtmlFieldEnum;
 import com.get.spider.entity.policy.BaseCrawlPolicy;
 import com.get.spider.entity.policy.ListCrawlPolicy;
 import com.get.spider.entity.selector.HtmlFieldSelector;

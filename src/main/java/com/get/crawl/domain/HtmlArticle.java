@@ -32,7 +32,7 @@ public class HtmlArticle extends BaseEntity implements Serializable {
     private String time;
 
     // 文章内容
-    @Column(nullable = false, length = 65535, columnDefinition = "Text")
+    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String content;
 
     public Integer getId() {
