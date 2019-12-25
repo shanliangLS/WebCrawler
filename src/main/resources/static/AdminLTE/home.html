@@ -116,13 +116,13 @@
         <div class="row">
           <div class="col-md-10">
             <div style="padding: 15px !important;">
-              <div style="border-radius: 20px;background: url('../static/image/profile-bg.jpeg') no-repeat center;
+              <div id="backgroundImg" style="border-radius: 20px;background: url('../static/image/profile-bg.jpeg') no-repeat center;
               background-size: cover;">
                 <div style="background-size: cover;">
                   <div class="text-center text-white" style="padding: 50px !important;">
                     <a href="javascript:void(0);">
-                      <img src="../static/image/favicon.png" alt="" class="img-thumbnail img-circle"
-                           style="width: 128px !important;height: 128px !important;"/>
+                      <img id="headerImg" class="img-thumbnail img-circle" onerror="javascript:this.src='../static/image/favicon.png'"
+                           src="" style="width: 128px !important;height: 128px !important;"/>
                     </a>
                     <h3 style="margin: 10px 0 0 !important;font-size:24px;font-weight: bold;">
                       用户昵称
@@ -196,6 +196,26 @@
             console.log(res);
             alert('请求错误，发生异常！请检查网络链接是否正确！');
           });
+        }
+      }
+    });
+
+    $.ajax({
+      url: '/api/user/info/now',
+      type: 'POST',
+      dataType: "json",
+      data: {},
+      success: function (data) {
+        console.log(data);
+        if (data.code == '000000') {
+          //头像
+          var profilePictureSrc = 'http://localhost:8888/' + data.data.profilePicture.replace('\\','/');
+          $("#headerImg").attr("src", profilePictureSrc);
+          //背景图片
+          var backgroundPictureSrc = 'http://localhost:8888/' + data.data.backgroundPicture.replace('\\','/');
+          $("#backgroundImg").css("background","url(" + backgroundPictureSrc + ") no-repeat center");
+          $("#backgroundImg").css("background-size","cover");
+        } else {
         }
       }
     });
