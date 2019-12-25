@@ -17,11 +17,29 @@ public class CacheController {
     @Autowired
     private WebHtmlNeedService webHtmlNeedService;
 
+    boolean isPingBi(String s) {
+        if (s.endsWith(".css")) {
+            return true;
+        }
+        if (s.startsWith("http://api.cas.cn/app/click/count.json")) {
+            return true;
+        }
+        if (s.startsWith("http://bdimg.share.baidu.com/static/api/js/"))
+        {
+            return true;
+        }
+        return false;
+    }
+
     @RequestMapping("/cacheByUrl")
     public String cacheByUrl(String url, String htmlUrl) {
         try {
             if (isStrEmpty(url) || isStrEmpty(htmlUrl)) {
-                return "";
+                return null;
+            }
+            if(isPingBi(url))
+            {
+                return null;
             }
             System.out.println(htmlUrl);
             System.out.println(url);
@@ -34,7 +52,7 @@ public class CacheController {
                     return "redirect:/cache/" + webPage1.getFileName();
                 } else {
                     webPageRepository.save(webPage1);
-                    return "";
+                    return null;
                 }
             } else {
                 if (page.getSuccess()) {
@@ -50,7 +68,7 @@ public class CacheController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 

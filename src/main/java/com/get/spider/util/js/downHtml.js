@@ -28,21 +28,22 @@ try {
         // }
         // // downloadUrls.push(requestData['url']);
         // 原始请求重定向
-        if (requestData['url'].indexOf('http://localhost') == -1) {
+
+        if (requestData['url'].indexOf('http://localhost') === -1) {
             var urlStr = 'http://localhost:8888/cacheByUrl?url=' + encodeURIComponent(requestData['url']) + "&htmlUrl=" + encodeURIComponent(urlAddress);
             request.changeUrl(urlStr);
-            // if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || requestData.headers['Content-Type'].indexOf('text/css') != -1) {
-            // console.log('The url of the request is matching. Aborting: ' + requestData['url']);
-            // var res = postAjax(requestData['url']);
-            // console.log(res);
-            // request.abort();
-            // request.changeUrl(urlStr);
+            // if (requestData['url'].indexOf("http://api.cas.cn/app/click/count.json") !== -1) {
+            //     request.abort();
             // }
-            // if ((/http:\/\/.+?\.js/gi).test(requestData['url']) || requestData.headers['Content-Type'].indexOf('text/javascript') != -1) {
-            // console.log('The url of the request is matching. Aborting: ' + requestData['url']);
-            // var res = postAjax(requestData['url']);
-            // console.log(res);
-            // request.changeUrl(urlStr);
+            //
+            // if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || requestData.headers['Content-Type'].indexOf('text/css') !== -1) {
+            //     request.abort();
+            // }
+            //
+            //
+            //  {
+            //
+            //
             // }
         }
     };
@@ -71,7 +72,7 @@ try {
             function render() {
                 key = 1 - 1;
                 //page.viewportSize = viewports[key];
-               // var fileName = urlAddress.replace(/[^a-z0-9]+/gi, "_") + ext;
+                // var fileName = urlAddress.replace(/[^a-z0-9]+/gi, "_") + ext;
                 //output = 'D:/youGet/photoSave/' + fileName;
                 //page.render(output);
                 // var myDict = {};
