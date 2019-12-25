@@ -49,7 +49,7 @@ public class Crawl {
     }
 
     public static void main(String[] args) {
-        String[] startUrls = {"http://www.cas.cn/yw/", "http://www.cas.ac.cn/syky/"};
+        String[] startUrls = {"http://www.cas.cn/yw/", "http://www.cas.ac.cn/syky/", "http://www.cas.ac.cn/sygz/"};
         String linkCss = "#content a";
         String nextHtmlCss = "a:nth-of-type(8)";
 
