@@ -8,6 +8,7 @@ import com.get.crawl.repository.WebSiteSubtypeRepository;
 import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
 import com.get.web.BaseController;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,17 @@ public class WebSiteCrawlController extends BaseController {
         }
     }
 
+    @RequestMapping("/delete")
+    public AjaxResult delete(Long id) {
+        try {
+            policyRepository.deleteById(id);
+            return successAjax();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return errorAjax();
+        }
+    }
+
     @RequestMapping("/update")
     public AjaxResult update(WebSiteCrawlPolicy webSiteCrawlPolicy) {
         try {
@@ -57,7 +69,12 @@ public class WebSiteCrawlController extends BaseController {
             if (policy == null) {
                 return failAjax(ExceptionMsg.ParamError);
             }
-            policyRepository.save(policy);
+            final Long id =  policy.getId();
+            policyRepository.deleteById(policy.getId());
+            policyRepository.flush();
+            webSiteCrawlPolicy.setId(id);
+            policyRepository.save(webSiteCrawlPolicy);
+            policyRepository.flush();
             return successAjax();
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,16 +83,20 @@ public class WebSiteCrawlController extends BaseController {
     }
 
     @RequestMapping("/test/crawl")
-    public AjaxResult testCrawl(Integer policyId, Integer subtypeId) {
+    public AjaxResult testCrawl(Long subtypeId) {
         try {
-            WebSiteCrawlPolicy policy = policyRepository.findWebSiteCrawlPolicyById(policyId.longValue());
-            if (policy == null) {
-                return failAjax(ExceptionMsg.ParamError);
-            }
-            WebSiteSubtype subtype = subtypeRepository.findWebSiteSubtypeById(subtypeId.longValue());
+            WebSiteSubtype subtype = subtypeRepository.findWebSiteSubtypeById(subtypeId);
             if (subtype == null) {
                 return failAjax(ExceptionMsg.ParamError);
             }
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(subtype));
+
+            WebSiteCrawlPolicy policy = policyRepository.findWebSiteCrawlPolicyById(subtype.getSiteId());
+            if (policy == null) {
+                return failAjax(ExceptionMsg.ParamError);
+            }
+            System.out.println(gson.toJson(policy));
             new Thread(new Runnable() {
                 @Override
                 public void run() {

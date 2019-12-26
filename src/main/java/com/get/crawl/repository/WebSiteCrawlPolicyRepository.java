@@ -12,4 +12,5 @@ public interface WebSiteCrawlPolicyRepository extends JpaRepository<WebSiteCrawl
     List<WebSiteCrawlPolicy> findAll();
 
     WebSiteCrawlPolicy findWebSiteCrawlPolicyById(Long id);
+
 }
