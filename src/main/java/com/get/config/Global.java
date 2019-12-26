@@ -30,6 +30,8 @@ public class Global {
 
     private static final String FILE_SEPARATOR;
 
+    public static final String jieBaPyPath;
+
     static {
         FILE_SEPARATOR = System.getProperty("file.separator");
         File file = new File("");
@@ -38,6 +40,7 @@ public class Global {
         userAgentJsonPath = getRealFilePath(javaPath + "com/get/spider/util/useragent/fake_useragent.json");
         downHtmlConfigJson = getRealFilePath(javaPath + "com/get/spider/util/js/downHtmlConfigJson.json");
         downHtmlJs = getRealFilePath(javaPath + "com/get/spider/util/js/downHtml.js");
+        jieBaPyPath = getRealFilePath(javaPath + "com/get/util/jiebaKeywords.py");
     }
 
 

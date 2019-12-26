@@ -4,6 +4,7 @@ import com.get.crawl.domain.HtmlArticle;
 import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.spider.util.DownloadUtil;
 import com.get.spider.util.UserAgentUtil;
+import com.get.util.JiebaUtil;
 import com.get.util.StringUtil;
 import com.get.util.UrlUtil;
 import com.google.gson.Gson;
@@ -199,12 +200,14 @@ public class Crawl {
         final Document document = getDocument(url, downloadType);
         if (document != null) {
             HtmlArticle htmlArticle = new HtmlArticle();
+            final String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
+            htmlArticle.setAuthor(author);
 
-            htmlArticle.setAuthor(getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector()));
+            final String title = getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector());
+            htmlArticle.setTitle(title);
 
-            htmlArticle.setTitle(getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector()));
-
-            htmlArticle.setContent(getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector()));
+            final String content = getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector());
+            htmlArticle.setContent(content);
 
             htmlArticle.setTime(getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector()));
 
@@ -212,9 +215,23 @@ public class Crawl {
             htmlArticle.setUrl(url);
             // 保存
             System.out.printf("提取信息为:%s\n", new Gson().toJson(htmlArticle));
+            System.out.println(getAllPhoto(document, crawlPolicy.getPhotoCss(), url));
+            System.out.println(JiebaUtil.getKeyWords(content));
             return htmlArticle;
         }
         return null;
+    }
+
+    private static List<String> getAllPhoto(Document doc, String css, String url) {
+        Elements elements = doc.select(css);
+        if (elements == null || elements.size() <= 0) {
+            return null;
+        }
+        List<String> strings = new ArrayList<>();
+        for (Element element : elements) {
+            strings.add(UrlUtil.join(url, element.attr("src")));
+        }
+        return strings;
     }
 
 
