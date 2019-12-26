@@ -83,16 +83,22 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
+
         <!-- thymeleaf -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
         <!--</dependency>-->
 
         <!-- thymeleaf layout -->
         <!--<dependency>-->
-            <!--<groupId>nz.net.ultraq.thymeleaf</groupId>-->
-            <!--<artifactId>thymeleaf-layout-dialect</artifactId>-->
+        <!--<groupId>nz.net.ultraq.thymeleaf</groupId>-->
+        <!--<artifactId>thymeleaf-layout-dialect</artifactId>-->
         <!--</dependency>-->
 
         <!--jsp支持-->
