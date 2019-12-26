@@ -9,61 +9,77 @@ import java.io.Serializable;
 @Entity
 public class Task extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
+//id name,TaskEnum、start、end
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long themeId;
+//    @Column(nullable = false)
+//    private Long themeId;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true, length = 65535, columnDefinition = "Text")
-    private String description;
+//    @Column(nullable = true, length = 65535, columnDefinition = "Text")
+//    private String description;
 
-    @Column(nullable = false)
-    private Long crawlPolicyId;
+//    @Column(nullable = false)
+//    private Long crawlPolicyId;
 
     @Column(nullable = false)
     private Long createTime;
 
     // 最小值为0,
-    @Column(nullable = false)
-    private Integer sleepTime;
+//    @Column(nullable = false)
+//    private Integer sleepTime;
 
     // 状态
     @Column(nullable = false)
     private TaskEnum taskEnum;
+
+
+    @Column(nullable = true)
+    private Long start;
+
+    @Column(nullable = true)
+    private Long end;
 
     // get
     public Long getId() {
         return id;
     }
 
-    public Long getThemeId() {
-        return themeId;
-    }
+//    public Long getThemeId() {
+//        return themeId;
+//    }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
 
-    public Long getCrawlPolicyId() {
-        return crawlPolicyId;
-    }
+//    public Long getCrawlPolicyId() {
+//        return crawlPolicyId;
+//    }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
+//    public Long getCreateTime() {
+//        return createTime;
+//    }
 
     public TaskEnum getTaskEnum() {
         return taskEnum;
+    }
+
+
+    public Long getStart() {
+        return start;
+    }
+
+    public Long getEnd() {
+        return end;
     }
 
     // set
@@ -71,27 +87,35 @@ public class Task extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public void setThemeId(Long themeId) {
-        this.themeId = themeId;
-    }
+//    public void setThemeId(Long themeId) {
+//        this.themeId = themeId;
+//    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
-    public void setCrawlPolicyId(Long crawlPolicyId) {
-        this.crawlPolicyId = crawlPolicyId;
-    }
+//    public void setCrawlPolicyId(Long crawlPolicyId) {
+//        this.crawlPolicyId = crawlPolicyId;
+//    }
 
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+//    public void setCreateTime(Long createTime) {
+//        this.createTime = createTime;
+//    }
 
     public void setTaskEnum(TaskEnum taskEnum) {
         this.taskEnum = taskEnum;
+    }
+
+    public void setStart(Long start) {
+        this.start = start;
+    }
+
+    public void setEnd(Long end) {
+        this.end = end;
     }
 }

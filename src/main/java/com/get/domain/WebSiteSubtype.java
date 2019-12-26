@@ -1,4 +1,4 @@
-package com.get.crawl.domain;
+package com.get.domain;
 
 import com.get.domain.BaseEntity;
 
@@ -19,6 +19,12 @@ public class WebSiteSubtype extends BaseEntity implements Serializable {
     private String name;
 
     private String url;
+
+    public WebSiteSubtype(Long siteId, String name, String url) {
+        this.siteId = siteId;
+        this.name = name;
+        this.url = url;
+    }
 
     public String getName() {
         return name;

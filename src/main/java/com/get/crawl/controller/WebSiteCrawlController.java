@@ -2,7 +2,7 @@ package com.get.crawl.controller;
 
 import com.get.crawl.Crawl;
 import com.get.crawl.domain.WebSiteCrawlPolicy;
-import com.get.crawl.domain.WebSiteSubtype;
+import com.get.domain.WebSiteSubtype;
 import com.get.crawl.repository.WebSiteCrawlPolicyRepository;
 import com.get.crawl.repository.WebSiteSubtypeRepository;
 import com.get.domain.res.AjaxResult;
