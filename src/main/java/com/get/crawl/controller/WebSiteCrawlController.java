@@ -35,6 +35,18 @@ public class WebSiteCrawlController extends BaseController {
         }
     }
 
+    @RequestMapping("/add")
+    public AjaxResult add(WebSiteCrawlPolicy webSiteCrawlPolicy) {
+        try {
+            webSiteCrawlPolicy.setId(-1L);
+            policyRepository.save(webSiteCrawlPolicy);
+            return successAjax();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return errorAjax();
+        }
+    }
+
     @RequestMapping("/update")
     public AjaxResult update(WebSiteCrawlPolicy webSiteCrawlPolicy) {
         try {
