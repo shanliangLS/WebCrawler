@@ -206,7 +206,7 @@ public class Crawl {
 
             htmlArticle.setContent(getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector()));
 
-            htmlArticle.setTime(getOneText(document, crawlPolicy.getTimeSeletorType(), crawlPolicy.getTimeSelector()));
+            htmlArticle.setTime(getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector()));
 
             htmlArticle.setCrawlTime(System.currentTimeMillis());
             htmlArticle.setUrl(url);

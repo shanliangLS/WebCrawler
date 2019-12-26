@@ -1,9 +1,11 @@
 package com.get.crawl.domain;
 
 import com.get.domain.BaseEntity;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class HtmlArticle extends BaseEntity implements Serializable {
@@ -35,6 +37,9 @@ public class HtmlArticle extends BaseEntity implements Serializable {
     @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String content;
 
+    @ElementCollection
+    private List<String> photoList;
+
     public Integer getId() {
         return id;
     }
@@ -61,6 +66,10 @@ public class HtmlArticle extends BaseEntity implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<String> getPhotoList() {
+        return photoList;
     }
 
     public void setId(Integer id) {
@@ -91,4 +100,7 @@ public class HtmlArticle extends BaseEntity implements Serializable {
         this.title = title;
     }
 
+    public void setPhotoList(List<String> photoList) {
+        this.photoList = photoList;
+    }
 }

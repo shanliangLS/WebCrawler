@@ -69,7 +69,7 @@ public class WebSiteCrawlController extends BaseController {
                 public void run() {
                     Crawl.crawlAllList(policy, subtype.getUrl());
                 }
-            }).run();
+            }).start();
             return successAjax();
         } catch (Exception e) {
             e.printStackTrace();

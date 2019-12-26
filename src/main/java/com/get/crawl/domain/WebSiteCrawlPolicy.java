@@ -57,12 +57,15 @@ public class WebSiteCrawlPolicy extends BaseEntity implements Serializable {
     // 时间
     private String timeSelector;
 
-    private Integer timeSeletorType;
+    private Integer timeSelectorType;
 
     // 内容
     private String contentSelector;
 
     private Integer contentSelectorType;
+
+    // 图片选择器
+    private String photoCss;
 
 //    private static WebSiteCrawlPolicy getCasWebSiteCrawlPolicy() {
 //        WebSiteCrawlPolicy crawlPolicy = new WebSiteCrawlPolicy();
@@ -99,8 +102,12 @@ public class WebSiteCrawlPolicy extends BaseEntity implements Serializable {
 //        return crawlPolicy;
 //    }
 
-    public static void main(String[] args) {
+    public String getPhotoCss() {
+        return photoCss;
+    }
 
+    public void setPhotoCss(String photoCss) {
+        this.photoCss = photoCss;
     }
 
     public String getUrl() {
@@ -135,8 +142,8 @@ public class WebSiteCrawlPolicy extends BaseEntity implements Serializable {
         return listSelectorType;
     }
 
-    public Integer getTimeSeletorType() {
-        return timeSeletorType;
+    public Integer getTimeSelectorType() {
+        return timeSelectorType;
     }
 
     public Integer getTitleSelectorType() {
@@ -227,8 +234,8 @@ public class WebSiteCrawlPolicy extends BaseEntity implements Serializable {
         this.timeSelector = timeSelector;
     }
 
-    public void setTimeSeletorType(Integer timeSeletorType) {
-        this.timeSeletorType = timeSeletorType;
+    public void setTimeSelectorType(Integer timeSelectorType) {
+        this.timeSelectorType = timeSelectorType;
     }
 
     public void setTitleSelector(String titleSelector) {
