@@ -1,6 +1,6 @@
 package com.get.crawl.repository;
 
-import com.get.crawl.domain.WebSiteSubtype;
+import com.get.domain.WebSiteSubtype;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

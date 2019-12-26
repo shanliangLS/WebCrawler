@@ -1,7 +1,10 @@
 package com.get.domain;
 
+import org.hibernate.validator.constraints.EAN;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Theme extends BaseEntity implements Serializable {
@@ -18,17 +21,20 @@ public class Theme extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true, length = 65535, columnDefinition = "Text")
-    private String description;
+//    @Column(nullable = true, length = 65535, columnDefinition = "Text")
+//    private String description;
+//
+//    @Column(nullable = false)
+//    private Long createTime;
 
-    @Column(nullable = false)
-    private Long createTime;
+    @ElementCollection
+    private List<Long> listId;
 
     public Theme() {
         super();
     }
 
-    public Theme(Long id, Long userId, String name) {
+    public Theme(Long id, Long userId, String name ,Long uid) {
         super();
         this.id = id;
         this.userId = userId;
@@ -48,13 +54,19 @@ public class Theme extends BaseEntity implements Serializable {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public List<Long> getListId() {
+        return listId;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
+
+
+    //    public String getDescription() {
+//        return description;
+//    }
+//
+//    public Long getCreateTime() {
+//        return createTime;
+//    }
 
     //setter
     public void setId(Long id) {
@@ -69,11 +81,17 @@ public class Theme extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setListId(List<Long> listId) {
+        this.listId = listId;
     }
 
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+
+
+    //    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public void setCreateTime(Long createTime) {
+//        this.createTime = createTime;
+//    }
 }
