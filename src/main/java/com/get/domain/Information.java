@@ -34,8 +34,24 @@ public class Information extends BaseEntity implements Serializable {
     @Column(nullable = true)
     private Long classes;
 
+    //任务id
+    @Column(nullable = true)
+    private Long taskId;
+
     public Information() {
         super();
+    }
+
+    public Information(String title, Long createTime, String author, String content, String picture, String near, List<String> keyWords, Long classes, Long taskId) {
+        this.title = title;
+        this.createTime = createTime;
+        this.author = author;
+        this.content = content;
+        this.picture = picture;
+        this.near = near;
+        this.keyWords = keyWords;
+        this.classes = classes;
+        this.taskId = taskId;
     }
 
     public Information(String title, Long createTime, String author, String content, String picture, String near, List<String> keyWords, Long classes) {
@@ -93,6 +109,12 @@ public class Information extends BaseEntity implements Serializable {
         return picture;
     }
 
+    public Long getTaskId() {
+        return taskId;
+    }
+
+
+
     public void setPicture(String picture) {
         this.picture = picture;
     }
@@ -121,4 +143,7 @@ public class Information extends BaseEntity implements Serializable {
         this.classes = classes;
     }
 
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
 }
