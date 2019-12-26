@@ -24,8 +24,22 @@ public class CacheController {
         if (s.startsWith("http://api.cas.cn/app/click/count.json")) {
             return true;
         }
-        if (s.startsWith("http://bdimg.share.baidu.com/static/api/js/"))
-        {
+        if (s.startsWith("http://bdimg.share.baidu.com/static/api/js/")) {
+            return true;
+        }
+        if (s.startsWith("http://www.cssn.cn/adintrs/adintrs/data/script/adlocation_70/gglocation_70.js")) {
+            return true;
+        }
+        if (s.startsWith("http://cl2.webterren.com/webdig.js")) {
+            return true;
+        }
+        if (s.startsWith("http://c.cnzz.com/core.php")) {
+            return true;
+        }
+        if (s.startsWith("http://s22.cnzz.com/stat.php")) {
+            return true;
+        }
+        if (s.startsWith("http://pv.cssn.cn/phpstat/count/abceffgh/abceffgh.js")) {
             return true;
         }
         return false;
@@ -37,8 +51,7 @@ public class CacheController {
             if (isStrEmpty(url) || isStrEmpty(htmlUrl)) {
                 return null;
             }
-            if(isPingBi(url))
-            {
+            if (isPingBi(url)) {
                 return null;
             }
             System.out.println(htmlUrl);

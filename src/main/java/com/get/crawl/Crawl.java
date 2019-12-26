@@ -93,7 +93,7 @@ public class Crawl {
                 break;
             }
             i++;
-            if (i > 3) {
+            if (i > 2) {
                 break;
             }
             nextPageUrl = UrlUtil.join(url, nextPageUrl);
@@ -209,31 +209,48 @@ public class Crawl {
             final String content = getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector());
             htmlArticle.setContent(content);
 
-            htmlArticle.setTime(getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector()));
+            final String timeSelector = getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector());
+            htmlArticle.setTime(timeSelector);
+
+            final String photoUrl = getOnePhoto(document, crawlPolicy.getPhotoCss(), url);
 
             htmlArticle.setCrawlTime(System.currentTimeMillis());
             htmlArticle.setUrl(url);
             // 保存
             System.out.printf("提取信息为:%s\n", new Gson().toJson(htmlArticle));
-            System.out.println(getAllPhoto(document, crawlPolicy.getPhotoCss(), url));
-            System.out.println(JiebaUtil.getKeyWords(content));
+            System.out.printf("图片为:%s\n", photoUrl);
+            System.out.printf("关键词为:%s\n", JiebaUtil.getKeyWords(content));
             return htmlArticle;
         }
         return null;
     }
 
-    private static List<String> getAllPhoto(Document doc, String css, String url) {
+//    private static List<String> getAllPhoto(Document doc, String css, String url) {
+//        if (doc == null || css == null) {
+//            return null;
+//        }
+//        Elements elements = doc.select(css);
+//        if (elements == null || elements.size() <= 0) {
+//            return null;
+//        }
+//        List<String> strings = new ArrayList<>();
+//        for (Element element : elements) {
+//            strings.add(UrlUtil.join(url, element.attr("src")));
+//        }
+//        return strings;
+//    }
+
+    private static String getOnePhoto(Document doc, String css, String url) {
+        if (StringUtil.isEmpty(css) || doc == null) {
+            return null;
+        }
         Elements elements = doc.select(css);
         if (elements == null || elements.size() <= 0) {
             return null;
         }
-        List<String> strings = new ArrayList<>();
-        for (Element element : elements) {
-            strings.add(UrlUtil.join(url, element.attr("src")));
-        }
-        return strings;
+        String imgUrl = elements.first().attr("src");
+        return UrlUtil.join(url, imgUrl);
     }
-
 
 //    public static void crawlCasAllList(String url) {
 //        String nextPageUrl = url;
@@ -335,13 +352,17 @@ public class Crawl {
 //            return null;
 //        }
 //    }
-    public static void main(String[] args) {
-        Document doc = getStaticDocument("http://photo.sina.com.cn/");
-        System.out.println(doc.html());
+    public static void main(String[] args) throws Exception {
+//        Document doc = getStaticDocument("http://photo.sina.com.cn/");
+//        System.out.println(doc.html());
 //        System.out.println(getRunDocument());
 //        crawlCas();
 //        crawlOneArticle("http://www.cas.ac.cn/sygz/201912/t20191220_4728496.shtml", getCasArticleSelector());
         // http://www.stdaily.com/rgzn/tuijianq/2019-12/25/content_846974.shtml
+        Document doc = Jsoup.connect("http://orig.cssn.cn/sf/201912/t20191213_5058150.shtml").get();
+//        System.out.println(doc.html());
+        final String time = getOneText(doc, WebSiteCrawlPolicy.re, "");
+        System.out.println(time);
     }
 
 }
