@@ -100,6 +100,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-edit nav-icon"></i>
+              <p>
+                给🎅爪巴
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="working/dataTable.html" class="nav-link">
+                  <i class="fa fa-table nav-icon"></i>
+                  <p>表格</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -204,9 +221,8 @@
       url: '/api/user/info/now',
       type: 'POST',
       dataType: "json",
-      data: {},
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         if (data.code == '000000') {
           //头像
           var profilePictureSrc = 'http://localhost:8888/' + data.data.profilePicture.replace('\\','/');
