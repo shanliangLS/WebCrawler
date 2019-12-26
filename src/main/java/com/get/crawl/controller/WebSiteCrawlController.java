@@ -9,6 +9,7 @@ import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
 import com.get.web.BaseController;
 import com.google.gson.Gson;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,12 +70,14 @@ public class WebSiteCrawlController extends BaseController {
             if (policy == null) {
                 return failAjax(ExceptionMsg.ParamError);
             }
-            final Long id =  policy.getId();
-            policyRepository.deleteById(policy.getId());
-            policyRepository.flush();
-            webSiteCrawlPolicy.setId(id);
+//            final Long id =  policy.getId();
+//            policyRepository.deleteById(policy.getId());
+//            policyRepository.flush();
+//            webSiteCrawlPolicy.setId(id);
+//            WebSiteCrawlPolicy policy1 = policyRepository.save(webSiteCrawlPolicy);
+//            System.out.println(policy1.getId());
+//            policyRepository.flush();
             policyRepository.save(webSiteCrawlPolicy);
-            policyRepository.flush();
             return successAjax();
         } catch (Exception e) {
             e.printStackTrace();
