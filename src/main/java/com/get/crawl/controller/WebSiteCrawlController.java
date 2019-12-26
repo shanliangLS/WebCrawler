@@ -47,6 +47,17 @@ public class WebSiteCrawlController extends BaseController {
         }
     }
 
+    @RequestMapping("/delete")
+    public AjaxResult delete(Long id) {
+        try {
+            policyRepository.deleteById(id);
+            return successAjax();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return errorAjax();
+        }
+    }
+
     @RequestMapping("/update")
     public AjaxResult update(WebSiteCrawlPolicy webSiteCrawlPolicy) {
         try {
@@ -57,7 +68,10 @@ public class WebSiteCrawlController extends BaseController {
             if (policy == null) {
                 return failAjax(ExceptionMsg.ParamError);
             }
+            policyRepository.deleteById(policy.getId());
+            policyRepository.flush();
             policyRepository.save(policy);
+            policyRepository.flush();
             return successAjax();
         } catch (Exception e) {
             e.printStackTrace();
