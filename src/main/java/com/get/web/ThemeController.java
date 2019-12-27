@@ -83,7 +83,7 @@ public class ThemeController extends BaseController {
     public AjaxResult modifyTheme(Theme theme){
         try {
             Long userId = getUserId();
-            Theme findTheme = themeRepository.findThemeByIdAndByUserId(theme.getId(),userId);
+            Theme findTheme = themeRepository.findThemeByIdAndUserId(theme.getId(),userId);
             if (findTheme == null) {//主题不存在，无法修改
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
