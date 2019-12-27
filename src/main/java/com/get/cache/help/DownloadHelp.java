@@ -51,7 +51,7 @@ public class DownloadHelp {
             // 设置
             con.setRequestProperty("User-Agent", UserAgentUtil.random());
 
-//            System.out.println(urlStr);
+            System.out.println(urlStr);
             InputStream is = con.getInputStream();
 
             String contentType = con.getContentType();

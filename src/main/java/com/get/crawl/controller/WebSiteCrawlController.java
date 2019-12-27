@@ -4,7 +4,7 @@ import com.get.crawl.Crawl;
 import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.domain.WebSiteSubtype;
 import com.get.crawl.repository.WebSiteCrawlPolicyRepository;
-import com.get.crawl.repository.WebSiteSubtypeRepository;
+import com.get.repository.WebSiteSubtypeRepository;
 import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
 import com.get.web.BaseController;
@@ -69,12 +69,14 @@ public class WebSiteCrawlController extends BaseController {
             if (policy == null) {
                 return failAjax(ExceptionMsg.ParamError);
             }
-            final Long id =  policy.getId();
-            policyRepository.deleteById(policy.getId());
-            policyRepository.flush();
-            webSiteCrawlPolicy.setId(id);
+//            final Long id =  policy.getId();
+//            policyRepository.deleteById(policy.getId());
+//            policyRepository.flush();
+//            webSiteCrawlPolicy.setId(id);
+//            WebSiteCrawlPolicy policy1 = policyRepository.save(webSiteCrawlPolicy);
+//            System.out.println(policy1.getId());
+//            policyRepository.flush();
             policyRepository.save(webSiteCrawlPolicy);
-            policyRepository.flush();
             return successAjax();
         } catch (Exception e) {
             e.printStackTrace();

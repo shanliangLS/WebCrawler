@@ -1,4 +1,4 @@
-package com.get.crawl.repository;
+package com.get.repository;
 
 import com.get.domain.WebSiteSubtype;
 import org.springframework.data.jpa.repository.JpaRepository;

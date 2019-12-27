@@ -31,6 +31,7 @@ public class Crawl {
         for (int j = 0; j < 3; j++) {
             System.out.printf("PhantomJs 第%d次下载,URL为:%s\n", j, url);
             String html = DownloadUtil.downRunHtml(url);
+            System.out.println(html);
             if (!StringUtil.isEmpty(html)) {
                 return Jsoup.parse(html);
             }
@@ -133,10 +134,14 @@ public class Crawl {
             }
             return elements.first().text();
         } else if (type == WebSiteCrawlPolicy.re) {
-            Pattern pattern = Pattern.compile(selector);
-            Matcher matcher = pattern.matcher(doc.html());
-            if (matcher.find()) {
-                return matcher.group(0);
+            try {
+                Pattern pattern = Pattern.compile(selector);
+                Matcher matcher = pattern.matcher(doc.html());
+                if (matcher.find()) {
+                    return matcher.group(0);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             System.out.println("re:没有找到元素");
             return null;

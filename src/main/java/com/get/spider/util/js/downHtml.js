@@ -6,7 +6,7 @@ try {
 // 初始化
     var page = new WebPage();
 // 设置userAgent
-    page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36';
+    page.settings.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36';
 // 设置不加载图片
     page.settings.loadImages = false;
 
