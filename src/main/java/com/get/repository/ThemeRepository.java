@@ -32,6 +32,12 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
     @Query(value = "select count(distinct name) from theme where name=#{#theme.name} and id<>#{#theme.id}",nativeQuery=true)
     int selectName(@Param("theme") Theme theme);
 
+//    /**
+//     * 根据多个id查询主题
+//     * @param theme
+//     */
+//    @Query(value = "",nativeQuery = true)
+//
     /*
      * 更新主题
      */

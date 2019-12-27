@@ -117,9 +117,9 @@ public class ThemeController extends BaseController {
 
     @RequestMapping(value = "/deleteTheme", method = RequestMethod.POST)
     @LoggerManage(description = "删除主题")
-    public AjaxResult deleteTheme(String data){
+    public AjaxResult deleteTheme(String sid){
         try {
-            Long id= Long.parseLong(data);
+            Long id= Long.parseLong(sid);
             Long userId = getUserId();
             Theme findTheme = themeRepository.findThemeById(id);
             if (findTheme == null) {//主题不存在，无法删除
