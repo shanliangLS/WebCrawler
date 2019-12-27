@@ -69,17 +69,17 @@ public class ThemeController extends BaseController {
     }
 //
 //    @LoginRequired
-//    @RequestMapping(value = "/doGetThemesByUserId", method = RequestMethod.POST)
-//    @LoggerManage(description = "得到主题")
-//    public AjaxResult doGetThemesByUserId() {
-//        try {
-//            Long userId = getUserId();
-//            return successAjax(themeRepository.findThemesByUserId(userId));
-//        } catch (Exception e) {
-//            logger.error("得到主题", e);
-//            return errorAjax();
-//        }
-//    }
+    @RequestMapping(value = "/doGetThemesByUserId", method = RequestMethod.POST)
+    @LoggerManage(description = "得到主题")
+    public AjaxResult doGetThemesByUserId() {
+        try {
+            Long userId = getUserId();
+            return successAjax(themeRepository.findThemesByUserId(userId));
+        } catch (Exception e) {
+            logger.error("得到主题", e);
+            return errorAjax();
+        }
+    }
 //
 //    private long getCurrentTime() {
 //        return System.currentTimeMillis();
@@ -88,8 +88,11 @@ public class ThemeController extends BaseController {
 
     @RequestMapping(value = "/modifyTheme", method = RequestMethod.POST)
     @LoggerManage(description = "修改主题")
-    public AjaxResult modifyTheme(Theme theme){
+    public AjaxResult modifyTheme(String data){
         try {
+
+            Gson gson = new Gson();
+            Theme theme=gson.fromJson(data, Theme.class);
             Long userId = getUserId();
             Theme findTheme = themeRepository.findThemeByIdAndUserId(theme.getId(),userId);
             if (findTheme == null) {//主题不存在，无法修改
@@ -114,15 +117,16 @@ public class ThemeController extends BaseController {
 
     @RequestMapping(value = "/deleteTheme", method = RequestMethod.POST)
     @LoggerManage(description = "删除主题")
-    public AjaxResult deleteTheme(Theme theme){
+    public AjaxResult deleteTheme(String data){
         try {
+            Long id= Long.parseLong(data);
             Long userId = getUserId();
-            Theme findTheme = themeRepository.findThemeById(theme.getId());
+            Theme findTheme = themeRepository.findThemeById(id);
             if (findTheme == null) {//主题不存在，无法删除
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //以下是删除主题
-            themeRepository.deleteThemeByIdAndUserId(theme);
+            themeRepository.deleteThemeByIdAndUserId(id,userId);
             return successAjax();
         }catch (Exception e) {
             logger.error("删除主题失败", e);

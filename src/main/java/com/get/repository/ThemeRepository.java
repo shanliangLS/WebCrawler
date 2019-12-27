@@ -45,6 +45,6 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
      */
     @Modifying
     @Transactional
-    @Query(value = "delete from theme where id=#{#theme.id} and userId=#{#theme.userId}",nativeQuery=true)
-    void deleteThemeByIdAndUserId(@Param("theme") Theme theme);
+    @Query(value = "delete from theme where id=:id and userId=:userId",nativeQuery=true)
+    void deleteThemeByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
 }
