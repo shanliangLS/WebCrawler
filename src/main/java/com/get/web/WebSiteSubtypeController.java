@@ -16,6 +16,17 @@ public class WebSiteSubtypeController extends BaseController {
     @Autowired
     private WebSiteSubtypeRepository subtypeRepository;
 
+    @RequestMapping("/add")
+    public AjaxResult add(WebSiteSubtype subtype) {
+        try {
+            subtypeRepository.save(subtype);
+            return successAjax();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return errorAjax();
+        }
+    }
+
     @RequestMapping("/all")
     public AjaxResult all() {
         try {
