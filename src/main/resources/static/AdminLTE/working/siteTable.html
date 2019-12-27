@@ -124,13 +124,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="dataTable.html" class="nav-link">
                   <i class="fa fa-table nav-icon"></i>
                   <p>爬取策略</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="siteTable.html" class="nav-link">
+                <a href="#" class="nav-link active">
                   <i class="fa fa-table nav-icon"></i>
                   <p>入口网站</p>
                 </a>
@@ -162,7 +162,7 @@
       <div id="main" class="row">
 
         <!-- Modal -->
-        <div class="modal fade" id="policyInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="siteInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -179,99 +179,15 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="url" class="col-sm-4 col-form-label">链接</label>
+                      <label for="siteID" class="col-sm-4 col-form-label">网站ID</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="siteId" v-model="form_siteId">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="url" class="col-sm-4 col-form-label">链接url</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control" id="url" v-model="form_url">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="listDownloadType" class="col-sm-4 col-form-label">列表下载类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="listDownloadType" v-model="form_listDownloadType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="listSelector" class="col-sm-4 col-form-label">列表选择器</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="listSelector" v-model="form_listSelector">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="listSelectorType" class="col-sm-4 col-form-label">列表选择器类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="listSelectorType" v-model="form_listSelectorType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="nextCss" class="col-sm-4 col-form-label">下一页的CSS</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="nextCss" v-model="form_nextCss">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="nextText" class="col-sm-4 col-form-label">下一页文本</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="nextText" v-model="form_nextText">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="articleDownloadType" class="col-sm-4 col-form-label">文章下载类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="articleDownloadType" v-model="form_articleDownloadType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="titleSelector" class="col-sm-4 col-form-label">标题选择器</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="titleSelector" v-model="form_titleSelector">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="titleSelectorType" class="col-sm-4 col-form-label">标题选择器类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="titleSelectorType" v-model="form_titleSelectorType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="authorSelector" class="col-sm-4 col-form-label">作者选择器</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="authorSelector" v-model="form_authorSelector">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="authorSelectorType" class="col-sm-4 col-form-label">作者选择器类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="authorSelectorType" v-model="form_authorSelectorType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="timeSelector" class="col-sm-4 col-form-label">时间选择器</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="timeSelector" v-model="form_timeSelector">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="timeSelectorType" class="col-sm-4 col-form-label">时间选择器类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="timeSelectorType" v-model="form_timeSelectorType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="contentSelector" class="col-sm-4 col-form-label">内容选择器</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="contentSelector" v-model="form_contentSelector">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="contentSelectorType" class="col-sm-4 col-form-label">内容选择器类型</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="contentSelectorType" v-model="form_contentSelectorType">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="photoCss" class="col-sm-4 col-form-label">图片</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="photoCss" v-model="form_photoCss">
                       </div>
                     </div>
                   </div>
@@ -299,87 +215,45 @@
                   </div>
                   <div class="col-sm-1">
                     <button type="button" class="btn btn-block btn-primary"
-                            data-toggle="modal" data-target="#policyInfoModal" @click="openModal(1,0)">添加</button>
+                            data-toggle="modal" data-target="#siteInfoModal" @click="openModal(1,0)">添加</button>
                   </div>
                 </div>
               </div><!-- /.container-fluid -->
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="policyTable" class="table table-bordered table-striped">
+              <table id="siteTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>文章下载类型</th>
-                  <th>作者选择器</th>
-                  <th>作者选择器类型</th>
-                  <th>内容选择器</th>
-                  <th>内容选择器类型</th>
-                  <th>列表下载类型</th>
-                  <th>列表选择器</th>
-                  <th>列表选择器类型</th>
                   <th>名称</th>
-                  <th>下一页的CSS</th>
-                  <th>下一页</th>
-                  <th>时间选择器</th>
-                  <th>时间选择器类型</th>
-                  <th>标题选择器</th>
-                  <th>标题选择器类型</th>
+                  <th>网站ID</th>
                   <th>链接url</th>
-                  <th>图片</th>
-                  <th>操作</th>
+                  <th style="width: 60px;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(policy,index) in policyData" :key="index">
-                  <td>{{policy.id}}</td>
-                  <td>{{policy.articleDownloadType}}</td>
-                  <td>{{policy.authorSelector}}</td>
-                  <td>{{policy.authorSelectorType}}</td>
-                  <td>{{policy.contentSelector}}</td>
-                  <td>{{policy.contentSelectorType}}</td>
-                  <td>{{policy.listDownloadType}}</td>
-                  <td>{{policy.listSelector}}</td>
-                  <td>{{policy.listSelectorType}}</td>
-                  <td>{{policy.name}}</td>
-                  <td>{{policy.nextCss}}</td>
-                  <td>{{policy.nextText}}</td>
-                  <td>{{policy.timeSelector}}</td>
-                  <td>{{policy.timeSelectorType}}</td>
-                  <td>{{policy.titleSelector}}</td>
-                  <td>{{policy.titleSelectorType}}</td>
-                  <td>{{policy.url}}</td>
-                  <td>{{policy.photoCss}}</td>
-                  <th>
+                <tr v-for="(site,index) in siteData" :key="index">
+                  <td>{{site.id}}</td>
+                  <td>{{site.name}}</td>
+                  <td>{{site.siteId}}</td>
+                  <td>{{site.url}}</td>
+                  <td>
                     <div class="btn-group-vertical">
                       <!--<button type="button" class="btn btn-default">Top</button>-->
                       <button type="button" class="btn btn-info" style="min-width: 52px;"
-                              data-toggle="modal" data-target="#policyInfoModal" @click="openModal(2,index)">修改</button>
+                              data-toggle="modal" data-target="#siteInfoModal" @click="openModal(2,index)">修改</button>
                       <button type="button" class="btn btn-danger" style="min-width: 52px;">删除</button>
                     </div>
-                  </th>
+                  </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                   <th>ID</th>
-                  <th>文章下载类型</th>
-                  <th>作者选择器</th>
-                  <th>作者选择器类型</th>
-                  <th>内容选择器</th>
-                  <th>内容选择器类型</th>
-                  <th>列表下载类型</th>
-                  <th>列表选择器</th>
-                  <th>列表选择器类型</th>
                   <th>名称</th>
-                  <th>下一页的CSS</th>
-                  <th>下一页</th>
-                  <th>时间选择器</th>
-                  <th>时间选择器类型</th>
-                  <th>标题选择器</th>
-                  <th>标题选择器类型</th>
+                  <th>网站ID</th>
                   <th>链接url</th>
-                  <th>图片</th>
                   <th>操作</th>
                 </tr>
                 </tfoot>
@@ -448,29 +322,15 @@
     var vm = new Vue({
       el: '#main',
       data: {
-        policyData: [],
+        siteData: [],
         // 添加和修改模态框
         modalModel: 0,
         form_index: 0,
         form_id: '0',
         // 表单
         form_name: '',
-        form_url: '',
-        form_listDownloadType: '',
-        form_listSelector: '',
-        form_listSelectorType: '',
-        form_nextCss: '',
-        form_nextText: '',
-        form_articleDownloadType: '',
-        form_titleSelector: '',
-        form_titleSelectorType: '',
-        form_authorSelector: '',
-        form_authorSelectorType: '',
-        form_timeSelector: '',
-        form_timeSelectorType: '',
-        form_contentSelector: '',
-        form_contentSelectorType: '',
-        form_photoCss: ''
+        form_siteId: 1,
+        form_url: ''
       },
       computed: {
         modalName: function () {
@@ -489,16 +349,16 @@
         }
       },
       methods: {
-        getPolicyData: function() {
+        getSiteData: function() {
           var thisVue = this;
           $.ajax({
-            url: '/api/crawlPolicy/all',
+            url: '/api/subtype/all',
             type: 'POST',
             dataType: "json",
             success: function (data) {
               // console.log(data);
               if (data.code == '000000') {
-                thisVue.policyData = data.data;
+                thisVue.siteData = data.data;
               } else {
                 Toast.fire({
                   type: 'error',
@@ -508,15 +368,15 @@
             }
           });
         },
-        updatePolicyDataTable: function() {
-          $("#policyTable").DataTable({
+        updateSiteDataTable: function() {
+          $("#siteTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
             order: [0,'asc'],
             // ordering: false,
             aoColumnDefs: [
               {"orderable": false,
-                "aTargets": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]}// 制定列不参与排序
+                "aTargets": [1,2,3,4]}// 制定列不参与排序
             ],
             // 水平滚动条
             // scrollX: true,
@@ -550,79 +410,37 @@
         openModal: function (model, index) {
           if (this.modalModel != 1 && model == 1) {
             this.form_name = '';
+            this.form_siteId = '1';
             this.form_url = '';
-            this.form_listDownloadType = '2';
-            this.form_listSelector = '';
-            this.form_listSelectorType = '1';
-            this.form_nextCss = '';
-            this.form_nextText = '';
-            this.form_articleDownloadType = '1';
-            this.form_titleSelector = '';
-            this.form_titleSelectorType = '1';
-            this.form_authorSelector = '';
-            this.form_authorSelectorType = '1';
-            this.form_timeSelector = '';
-            this.form_timeSelectorType = '1';
-            this.form_contentSelector = '';
-            this.form_contentSelectorType = '1';
-            this.form_photoCss = '';
           } else if (this.form_index != index && model == 2) {
             this.form_index = index;
-            this.form_id = this.policyData[index].id;
-            this.form_name = this.policyData[index].name;
-            this.form_url = this.policyData[index].url;
-            this.form_listDownloadType = this.policyData[index].listDownloadType;
-            this.form_listSelector = this.policyData[index].listSelector;
-            this.form_listSelectorType = this.policyData[index].listSelectorType;
-            this.form_nextCss = this.policyData[index].nextCss;
-            this.form_nextText = this.policyData[index].nextText;
-            this.form_articleDownloadType = this.policyData[index].articleDownloadType;
-            this.form_titleSelector = this.policyData[index].titleSelector;
-            this.form_titleSelectorType = this.policyData[index].titleSelectorType;
-            this.form_authorSelector = this.policyData[index].authorSelector;
-            this.form_authorSelectorType = this.policyData[index].authorSelectorType;
-            this.form_timeSelector = this.policyData[index].timeSelector;
-            this.form_timeSelectorType = this.policyData[index].timeSelectorType;
-            this.form_contentSelector = this.policyData[index].contentSelector;
-            this.form_contentSelectorType = this.policyData[index].contentSelectorType;
-            this.form_photoCss = this.policyData[index].photoCss;
+            this.form_id = this.siteData[index].id;
+            this.form_name = this.siteData[index].name;
+            this.form_siteId = this.siteData[index].siteId;
+            this.form_url = this.siteData[index].url;
           }
           this.modalModel = model;
         },
         modalOperate: function () {
           var thisVue = this;
-          var operateUrl = '/api/crawlPolicy/add';
+          var operateUrl = '/api/subtype/add';
           var operateData = {
             name: this.form_name,
-            url: this.form_url,
-            listDownloadType: this.form_listDownloadType,
-            listSelector: this.form_listSelector,
-            listSelectorType: this.form_listSelectorType,
-            nextCss: this.form_nextCss,
-            nextText: this.form_nextText,
-            articleDownloadType: this.form_articleDownloadType,
-            titleSelector: this.form_titleSelector,
-            titleSelectorType: this.form_titleSelectorType,
-            authorSelector: this.form_authorSelector,
-            authorSelectorType: this.form_authorSelectorType,
-            timeSelector: this.form_timeSelector,
-            timeSelectorType: this.form_timeSelectorType,
-            contentSelector: this.form_contentSelector,
-            contentSelectorType: this.form_contentSelectorType,
-            photoCss: this.form_photoCss
+            siteId: this.form_siteId,
+            url: this.form_url
           };
           if (this.modalModel == 2) {
-            operateUrl = '/api/crawlPolicy/update';
+            operateUrl = '/api/subtype/update';
             operateData.id = this.form_id;
           }
-          $('#policyInfoModal').modal('hide');
+          $('#siteInfoModal').modal('hide');
           $.ajax({
             url: operateUrl,
             type: 'POST',
             dataType: "json",
             data: operateData,
             success: function (data) {
-              // console.log(data);
+              console.log(data);
               if (data.code == '000000') {
                 if (thisVue.modalModel == 1) {
                   Toast.fire({
@@ -635,7 +453,7 @@
                     title: "修改成功"
                   });
                 }
-                thisVue.getPolicyData();
+                thisVue.getSiteData();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -647,10 +465,10 @@
         }
       },
       mounted: function () { // 挂载结束状态
-        this.getPolicyData();
+        this.getSiteData();
       },
       updated: function () { // 更新完成状态
-        this.updatePolicyDataTable();
+        this.updateSiteDataTable();
       }
     });
   });
