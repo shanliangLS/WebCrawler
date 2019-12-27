@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>得到 | 让信息获取更简单</title>
+
+  <link rel="icon" href="../../static/image/favicon.ico" type="image/x-icon"/>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+
+  <style>
+    table td{
+      word-break: break-all;
+    }
+  </style>
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+          class="fas fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../index3.html" class="brand-link">
+      <img src="../../static/image/logo-single.png" alt="AdminLTE Logo" class="brand-image img-circle"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">得到</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <!-- -->
+          <li class="nav-item">
+            <a href="../home.html" class="nav-link">
+              <i class="fa fa-user nav-icon"></i>
+              <p>个人首页</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-cog nav-icon"></i>
+              <p>
+                用户设置
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-address-card nav-icon"></i>
+                  <p>修改昵称</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-rocket nav-icon"></i>
+                  <p>修改简介</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../setting/recoverPassword.html" class="nav-link">
+                  <i class="fa fa-anchor nav-icon"></i>
+                  <p>修改密码</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../setting/uploadProfilePicture.html" class="nav-link">
+                  <i class="fa fa-gavel nav-icon"></i>
+                  <p>修改头像</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../setting/uploadBackground.html" class="nav-link">
+                  <i class="fa fa-rocket nav-icon"></i>
+                  <p>修改背景图</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-edit nav-icon"></i>
+              <p>
+                给🎅爪巴
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../working/dataTable.html" class="nav-link">
+                  <i class="fa fa-table nav-icon"></i>
+                  <p>爬取策略</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../working/siteTable.html" class="nav-link">
+                  <i class="fa fa-table nav-icon"></i>
+                  <p>入口网站</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="fas fa-copy nav-icon"></i>
+              <p>
+                主题管理
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="fa fa-file nav-icon"></i>
+                  <p>创建主题</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (WebPage header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>创建主题</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div id="main" class="container-fluid">
+
+        <!-- Horizontal Form -->
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">创建主题</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form class="form-horizontal">
+            <div class="card-body">
+              <div class="form-group row">
+                <label for="name" class="col-sm-1 col-form-label">主题名称</label>
+                <div class="col-sm-11">
+                  <input type="text" class="form-control" id="name" placeholder="请输入主题名称">
+                </div>
+              </div>
+
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">中国科学院</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!--<label>文字说明</label>-->
+                        <select id="siteSelector1" class="duallistbox" multiple="multiple">
+                          <option value="1" selected>政策解读【http://www.cas.ac.cn/zcjd/】</option>
+                          <option value="2">科研进展【http://www.cas.ac.cn/syky/】</option>
+                          <option value="3">传媒扫描【http://www.cas.ac.cn/cm/】</option>
+                          <option value="4">一线动态【http://www.cas.ac.cn/yx/】</option>
+                          <option value="5">工作进展【http://www.cas.cn/sygz/】</option>
+                          <option value="6">访谈·视点【http://www.cas.cn/zjs/】</option>
+                          <option value="6">院内要闻【http://www.cas.ac.cn/yw/】</option>
+                        </select>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <!--<div class="card-footer">
+                  Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                  the plugin.
+                </div>-->
+              </div>
+              <!-- /.card -->
+
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">中国社会科学网</h3>
+                  <div class="card-tools">
+                    <button type="button" id="collapseBtn1" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!--<label>文字说明</label>-->
+                        <select id="siteSelector2" class="duallistbox" multiple="multiple">
+                          <option value="8">今日要闻【http://orig.cssn.cn/sf/】</option>
+                          <option value="9">军事技术【http://mil.cssn.cn/jsx/jszk_jsx/jsjs_jsx/】</option>
+                          <option value="10">国际经济【http://intl.cssn.cn/gj/gj_gwshkx/gj_jj/】</option>
+                          <option value="11">学术视角【http://news.cssn.cn/zx/xshshj/】</option>
+                          <option value="12">社会万象【http://news.cssn.cn/zx/shwx/】</option>
+                          <option value="13">热点回顾【http://news.cssn.cn/zx/djph/】</option>
+                          <option value="14">军事理论【http://mil.cssn.cn/jsx/jszk_jsx/jsll_jsx/】</option>
+                        </select>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <!--<div class="card-footer">
+                  Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                  the plugin.
+                </div>-->
+              </div>
+              <!-- /.card -->
+
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">中国科技新闻网</h3>
+                  <div class="card-tools">
+                    <button type="button" id="collapseBtn2" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!--<label>文字说明</label>-->
+                        <select id="siteSelector3" class="duallistbox" multiple="multiple">
+                          <option value="15">前沿发现【http://www.zgkjxww.com/qyfx/】</option>
+                          <option value="16">科技新闻【http://www.zgkjxww.com/kjxw/】</option>
+                          <option value="17">时政要闻【http://www.zgkjxww.com/szyw/】</option>
+                          <option value="18">军民融合【http://www.zgkjxww.com/jsgf/】</option>
+                          <option value="19">高新企业【http://www.zgkjxww.com/gxqy/】</option>
+                          <option value="20">任务访谈【http://www.zgkjxww.com/rwft/】</option>
+                          <option value="21">电子通讯【http://www.zgkjxww.com/dztx/】</option>
+                        </select>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <!--<div class="card-footer">
+                  Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                  the plugin.
+                </div>-->
+              </div>
+              <!-- /.card -->
+
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">中国科学技术部网站</h3>
+                  <div class="card-tools">
+                    <button type="button" id="collapseBtn3" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!--<label>文字说明</label>-->
+                        <select id="siteSelector4" class="duallistbox" multiple="multiple">
+                          <option value="22">图片新闻【http://www.most.gov.cn/dfkj/dfkjyw/dftpxw/】</option>
+                          <option value="23">最新动态【http://www.most.gov.cn/dfkj/dfkjyw/dfzxdt/】</option>
+                          <option value="24">贯彻落实【http://www.most.gov.cn/dfkj/dfbsld/dfgcls/】</option>
+                          <option value="25">部省会商【http://www.most.gov.cn/dfkj/dfbsld/dfsbhs/】</option>
+                          <option value="26">业务指导【http://www.most.gov.cn/dfkj/dfbsld/dfywzd/】</option>
+                          <option value="27">工作交流【http://www.most.gov.cn/dfkj/dfgzjl/】</option>
+                          <option value="28">科技北京【http://www.most.gov.cn/dfkj/bj/】</option>
+                        </select>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <!--<div class="card-footer">
+                  Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                  the plugin.
+                </div>-->
+              </div>
+              <!-- /.card -->
+
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">中国工程院</h3>
+                  <div class="card-tools">
+                    <button type="button" id="collapseBtn4" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!--<label>文字说明</label>-->
+                        <select id="siteSelector5" class="duallistbox" multiple="multiple">
+                          <option value="29">工程院要闻【http://www.cae.cn/cae/html/main/col1/column_1_1.html】</option>
+                          <option value="30">工程院图片新闻【http://www.cae.cn/cae/html/main/col3/column_3_1.html】</option>
+                          <option value="31">工程院通知公告【http://www.cae.cn/cae/html/main/col4/column_4_1.html】</option>
+                          <option value="32">工程院学术活动【http://www.cae.cn/cae/html/main/col99/column_99_1.html】</option>
+                          <option value="33">工程院研究动态【http://www.cae.cn/cae/html/main/col84/column_84_1.html】</option>
+                          <option value="34">工程院咨询建议【http://www.cae.cn/cae/html/main/col95/column_95_1.html】</option>
+                          <option value="35">工程院研究报告【http://www.cae.cn/cae/html/main/col96/column_96_1.html】</option>
+                        </select>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <!--<div class="card-footer">
+                  Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                  the plugin.
+                </div>-->
+              </div>
+              <!-- /.card -->
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="button" class="btn btn-info" onclick="createThemeFun()">确认创建</button>
+              <!--<button type="button" class="btn btn-default float-right">Cancel</button>-->
+            </div>
+            <!-- /.card-footer -->
+          </form>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 0000-2019 得到 | 让信息获取更简单</strong>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="../plugins/jquery/jquery.min.js"></script>
+<!-- Vue -->
+<script src="../../static/other/vue/vue.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
+<script type="text/javascript">
+
+  var clickable = true;
+  var selector1,selector2,selector3,selector4,selector5;
+  var selector = [selector1,selector2,selector3,selector4,selector5];
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  $(function() {
+    //Bootstrap Duallistbox
+    for (var i = 0; i < 5; i++) {
+      selector[i] = createDualListBox('siteSelector' + (i+1));
+    }
+    for (var i = 1; i < 5; i++) {
+      $('#collapseBtn' + i).click();
+    }
+  });
+
+  function createThemeFun() {
+    if ($('#name').val() == '') {
+      Toast.fire({
+        type: 'warning',
+        title: '请填写主题名称'
+      });
+      return;
+    }
+    var siteIdList = [];
+    for (var k in selector) {
+      siteIdList.push.apply(siteIdList,selector[k].val());
+    }
+    console.log(siteIdList);
+    if (siteIdList.length == 0) {
+      Toast.fire({
+        type: 'warning',
+        title: '请至少选择一个入口'
+      });
+      return;
+    }
+    if (clickable) {
+      clickable = false;
+    } else {
+      return;
+    }
+    Toast.fire({
+      type: 'info',
+      title: '提交中，请稍候'
+    });
+    $.ajax({
+      url: '/api/theme/doCreatTheme',
+      type: 'POST',
+      dataType: "json",
+      data: {
+        name: $('#name').val(),
+        listId: siteIdList
+      },
+      success: function (data) {
+        // console.log(data);
+        if (data.code == '000000') {
+          Toast.fire({
+            type: 'success',
+            title: "创建成功"
+          });
+        } else {
+          Toast.fire({
+            type: 'error',
+            title: data.msg
+          });
+        }
+        clickable = true;
+      }
+    });
+  }
+
+  function createDualListBox(name) {
+    var selector_helper = $('#' + name).bootstrapDualListbox({
+      // 语言
+      nonSelectedListLabel: '未选择的入口',
+      selectedListLabel: '已选择的入口',
+      filterTextClear: '展示所有',
+      filterPlaceHolder: '过滤搜索',
+      moveSelectedLabel: "添加",
+      moveAllLabel: '添加所有',
+      removeSelectedLabel: "移除",
+      removeAllLabel: '移除所有',
+      infoText: '共{0}个入口',
+      infoTextFiltered: '搜索到{0}个入口 ,共{1}个入口',
+      infoTextEmpty: '列表为空'
+    });
+    return selector_helper;
+  }
+
+</script>
+</body>
+</html>
