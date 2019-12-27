@@ -1,6 +1,5 @@
 package com.get.domain;
 
-import com.get.domain.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +18,11 @@ public class WebSiteSubtype extends BaseEntity implements Serializable {
     private String name;
 
     private String url;
+
+    public WebSiteSubtype()
+    {
+
+    }
 
     public WebSiteSubtype(Long siteId, String name, String url) {
         this.siteId = siteId;

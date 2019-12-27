@@ -5,6 +5,7 @@ import com.get.cache.help.DownloadHelp;
 import com.get.cache.repository.WebPageRepository;
 import com.get.cache.service.WebHtmlNeedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,6 +41,19 @@ public class CacheController {
             return true;
         }
         if (s.startsWith("http://pv.cssn.cn/phpstat/count/abceffgh/abceffgh.js")) {
+            return true;
+        }
+        if (s.startsWith("https://hm.baidu.com/hm.js")) {
+            return true;
+        }
+        if (s.startsWith("http://fxsjcj.kaipuyun.cn/count/10007769/10007769.js")) {
+            return true;
+        }
+        if (s.startsWith("http://res.wx.qq.com/open/js/jweixin-1.4.0.js")) {
+            return true;
+        }
+        if(s.startsWith("http://hm.baidu.com/hm.js?d11e62e2e2c8d774bb326bab95dd0a4d"))
+        {
             return true;
         }
         return false;
