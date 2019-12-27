@@ -30,8 +30,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Modifying
     @Transactional
-    @Query("delete from task where id=#{#task.id} and userId=#{#task.userId}")
-    boolean deleteTaskById(@Param("task") Task task);
+    @Query(value = "delete from task where id=#{#task.id} and userId=#{#task.userId}",nativeQuery=true)
+    void deleteTaskById(@Param("task") Task task);
 
 
 }

@@ -14,7 +14,7 @@ import com.get.domain.Theme;
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
-    Theme findThemeByIdAndByUserId(Long id,Long userId);
+    Theme findThemeByIdAndUserId(Long id,Long userId);
     Theme findThemeById(Long id);
 
 
@@ -29,7 +29,7 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
      * @return 0=>无冲突  大于1=>有冲突
      */
 
-    @Query("select count(distinct name) from theme where name=#{#theme.name} and id<>#{#theme.id}")
+    @Query(value = "select count(distinct name) from theme where name=#{#theme.name} and id<>#{#theme.id}",nativeQuery=true)
     int selectName(@Param("theme") Theme theme);
 
     /*
@@ -37,14 +37,14 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
      */
     @Modifying
     @Transactional
-    @Query("update theme set name=#{#theme.name},listId=#{#theme.listId} where id=#{#theme.id} and userId=#{#theme.userId}")
-    boolean updateThemeByIdAndUserId(@Param("theme") Theme theme);
+    @Query(value = "update theme set name=#{#theme.name},listId=#{#theme.listId} where id=#{#theme.id} and userId=#{#theme.userId}",nativeQuery=true)
+    void updateThemeByIdAndUserId(@Param("theme") Theme theme);
 
     /*
      * 删除主题
      */
     @Modifying
     @Transactional
-    @Query("delete from theme where id=#{#theme.id} and userId=#{#theme.userId}")
-    boolean deleteThemeByIdAndUserId(@Param("theme") Theme theme);
+    @Query(value = "delete from theme where id=#{#theme.id} and userId=#{#theme.userId}",nativeQuery=true)
+    void deleteThemeByIdAndUserId(@Param("theme") Theme theme);
 }
