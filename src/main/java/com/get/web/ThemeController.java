@@ -50,20 +50,17 @@ public class ThemeController extends BaseController {
             Gson gson = new Gson();
             Theme theme=gson.fromJson(data, Theme.class);
 
-//            if (theme==null){
-//                System.out.println("ugyufyufyudf");
-//            }
-//            Long userId = getUserId();
-                System.out.println(gson.toJson(theme));
+            Long userId = getUserId();
+//                System.out.println(gson.toJson(theme));
 //            System.out.println(theme.getId()+""+theme.getName()+"");
-//            Theme findTheme = themeRepository.findThemeByUserIdAndName(userId, theme.getName());
-//            if (findTheme != null) {//主题名称已存在
-//                return failAjax(ExceptionMsg.ThemeNameUsed);
-//            }
+            Theme findTheme = themeRepository.findThemeByUserIdAndName(userId, theme.getName());
+            if (findTheme != null) {//主题名称已存在
+                return failAjax(ExceptionMsg.ThemeNameUsed);
+            }
 //            //以下是创建新的主题
-//            theme.setUserId(userId);
+            theme.setUserId(userId);
 //
-//            themeRepository.save(theme);
+            themeRepository.save(theme);
             return successAjax();
         } catch (Exception e) {
             logger.error("创建主题失败", e);
