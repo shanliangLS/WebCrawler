@@ -34,7 +34,7 @@ public class Theme extends BaseEntity implements Serializable {
         super();
     }
 
-    public Theme(Long id, Long userId, String name ,Long uid) {
+    public Theme(Long id, Long userId, String name) {
         super();
         this.id = id;
         this.userId = userId;

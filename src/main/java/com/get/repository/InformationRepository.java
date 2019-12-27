@@ -15,12 +15,10 @@ import java.util.Optional;
 @Repository
 public interface InformationRepository extends JpaRepository<Information,Long> {
 
+    Information findInformationById(Long id);
 
-    @Override
-    Optional<Information> findById(Long Id);
-    Information findByClasses(String Classes);
 
-//    @Transactional
+    //    @Transactional
 //    @Query("select id,title,createTime,author,content,picture,near,keyWords,classes from Information where classes=:classes")
 //    List<Information> getByClasses(@Param("classes") String classes);
 }
