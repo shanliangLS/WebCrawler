@@ -5,6 +5,7 @@ import com.get.domain.enums.TaskEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Task extends BaseEntity implements Serializable {
@@ -16,6 +17,9 @@ public class Task extends BaseEntity implements Serializable {
 
 //    @Column(nullable = false)
 //    private Long themeId;
+
+    @Column(nullable = true)
+    private Long userId;
 
     @Column(nullable = false)
     private String name;
@@ -44,6 +48,8 @@ public class Task extends BaseEntity implements Serializable {
     @Column(nullable = true)
     private Long end;
 
+    @ElementCollection
+    private List<Long> listId;
     // get
     public Long getId() {
         return id;
@@ -52,6 +58,11 @@ public class Task extends BaseEntity implements Serializable {
 //    public Long getThemeId() {
 //        return themeId;
 //    }
+
+
+    public Long getUserId() {
+        return userId;
+    }
 
     public String getName() {
         return name;
@@ -82,6 +93,10 @@ public class Task extends BaseEntity implements Serializable {
         return end;
     }
 
+    public List<Long> getListId() {
+        return listId;
+    }
+
     // set
     public void setId(Long id) {
         this.id = id;
@@ -90,6 +105,11 @@ public class Task extends BaseEntity implements Serializable {
 //    public void setThemeId(Long themeId) {
 //        this.themeId = themeId;
 //    }
+
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -117,5 +137,9 @@ public class Task extends BaseEntity implements Serializable {
 
     public void setEnd(Long end) {
         this.end = end;
+    }
+
+    public void setListId(List<Long> listId) {
+        this.listId = listId;
     }
 }
