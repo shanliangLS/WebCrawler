@@ -474,7 +474,10 @@
     for (var k in selector) {
       siteIdList.push.apply(siteIdList,selector[k].val());
     }
-    console.log(siteIdList);
+    for (var j in siteIdList) {
+      siteIdList[j] = parseInt(siteIdList[j]);
+    }
+    // console.log(siteIdList);
     if (siteIdList.length == 0) {
       Toast.fire({
         type: 'warning',
@@ -491,16 +494,21 @@
       type: 'info',
       title: '提交中，请稍候'
     });
+    var themeData = JSON.stringify({
+      userId: -1,
+      name: $('#name').val(),
+      listId: siteIdList
+    });
+    console.log(themeData);
     $.ajax({
-      url: '/api/theme/doCreatTheme',
+      url: '/api/theme/doCreateTheme',
       type: 'POST',
       dataType: "json",
       data: {
-        name: $('#name').val(),
-        listId: siteIdList
+        data: themeData
       },
       success: function (data) {
-        // console.log(data);
+        console.log(data);
         if (data.code == '000000') {
           Toast.fire({
             type: 'success',

@@ -19,7 +19,9 @@ import com.get.domain.Theme;
 import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
 import com.get.repository.ThemeRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,20 +41,29 @@ public class ThemeController extends BaseController {
 //
 //    }
 
-
+//    @PostMapping(value = "/doCreateTheme")
+//    @LoggerManage(description = "创建主题")
     @RequestMapping(value = "/doCreateTheme", method = RequestMethod.POST)
     @LoggerManage(description = "创建主题")
-    public AjaxResult doCreateTheme(Theme theme) {
+    public AjaxResult doCreateTheme(String data) {
         try {
-            Long userId = getUserId();
-            Theme findTheme = themeRepository.findThemeByUserIdAndName(userId, theme.getName());
-            if (findTheme != null) {//主题名称已存在
-                return failAjax(ExceptionMsg.ThemeNameUsed);
-            }
-            //以下是创建新的主题
-            theme.setUserId(userId);
+            Gson gson = new Gson();
+            Theme theme=gson.fromJson(data, Theme.class);
 
-            themeRepository.save(theme);
+//            if (theme==null){
+//                System.out.println("ugyufyufyudf");
+//            }
+//            Long userId = getUserId();
+                System.out.println(gson.toJson(theme));
+//            System.out.println(theme.getId()+""+theme.getName()+"");
+//            Theme findTheme = themeRepository.findThemeByUserIdAndName(userId, theme.getName());
+//            if (findTheme != null) {//主题名称已存在
+//                return failAjax(ExceptionMsg.ThemeNameUsed);
+//            }
+//            //以下是创建新的主题
+//            theme.setUserId(userId);
+//
+//            themeRepository.save(theme);
             return successAjax();
         } catch (Exception e) {
             logger.error("创建主题失败", e);
