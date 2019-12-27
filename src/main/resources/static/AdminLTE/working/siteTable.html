@@ -325,7 +325,7 @@
         siteData: [],
         // 添加和修改模态框
         modalModel: 0,
-        form_index: 0,
+        form_index: -1,
         form_id: '0',
         // 表单
         form_name: '',
@@ -372,6 +372,7 @@
           $("#siteTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
+            lengthMenu: [50,10,20,100],
             order: [0,'asc'],
             // ordering: false,
             aoColumnDefs: [
@@ -440,7 +441,7 @@
             dataType: "json",
             data: operateData,
             success: function (data) {
-              console.log(data);
+              // console.log(data);
               if (data.code == '000000') {
                 if (thisVue.modalModel == 1) {
                   Toast.fire({
