@@ -14,8 +14,9 @@ import com.get.domain.Theme;
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
-    Theme findThemeByIdAndUserId(Long id,Long userId);
+//    Theme findThemeByIdAndUserId(Long id,Long userId);
     Theme findThemeById(Long id);
+    Theme findThemeByIdAndUserId(Long id ,Long userId);
 
 
     List<Theme> findThemesByUserId(Long userId);
@@ -25,7 +26,7 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
     /**
      * 查询改名之后的主题名是否冲突
-     * @param theme
+     * @param
      * @return 0=>无冲突  大于1=>有冲突
      */
 
