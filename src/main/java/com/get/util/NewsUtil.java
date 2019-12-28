@@ -6,10 +6,21 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class SnowNlpUtil {
-    public static String getZy(String ss) {
+public class NewsUtil {
+    public static String classify(String ss) {
         try {
-            String cmd = "python3 " + Global.snowNlpPath + "  " + ss;
+//            ss = ss.replace(" ", "");
+            ss = ss.replace("\n", "");
+            ss = ss.replace("\r", "");
+            ss = ss.replace("\'", "");
+            ss = ss.replace("\\", "");
+            ss = ss.replace("/", "");
+            ss = ss.replace("(", "");
+            ss = ss.replace(")", "");
+            //            System.out.println(ss);
+            String cmd = String.format("python3 %s '%s'", Global.newsCnnPyPath, ss);
+//            String cmd = "python3 " + Global.newsCnnPyPath + "  \'" + ss + "\'";
+
 //            System.out.println(cmd);
             Runtime rt = Runtime.getRuntime();
             Process pc = rt.exec(cmd);
@@ -22,17 +33,17 @@ public class SnowNlpUtil {
             }
             String s = sb.toString();
 //            System.out.println(s);
-            int left = s.indexOf("start**");
+            int left = s.lastIndexOf("Start**");
             if (left == -1) {
                 return null;
             } else {
                 left += 7;
             }
-            int right = s.indexOf("**end", left);
-            if (left + 5 >= right) {
-                return null;
-            }
+//            System.out.println(left);
+            int right = s.indexOf("**End", left);
+//            System.out.println(right);
             s = s.substring(left, right);
+//            System.out.println(s);
             return s;
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,9 +51,10 @@ public class SnowNlpUtil {
         return null;
     }
 
+
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        String out = getZy("　近日，国际学术期刊Antimicrobial Agents and Chemotherapy(《抗微生物制剂与化学治疗》)在线发表了中国科学院武汉病毒研究所/生物安全大科学研究中心肖庚富、王薇团队的最新研究成果，论文题为Screening of Natural Extracts for Inhibitors against Japanese Encephalitis Virus Infection（《抗乙型脑炎病毒药物的筛选及鉴定》）。该研究发现钠钾泵抑制剂乌本苷和地高辛能有效抑制日本乙型脑炎病毒（Japanese Encephalitis Virus, JEV）感染。\n" +
+        String out = classify("　近日，国际学术期刊Antimicrobial Agents and Chemotherapy(《抗微生物制剂与化学治疗》)在线发表了中国科学院武汉病毒研究所/生物安全大科学研究中心肖庚富、王薇团队的最新研究成果，论文题为Screening of Natural Extracts for Inhibitors against Japanese Encephalitis Virus Infection（《抗乙型脑炎病毒药物的筛选及鉴定》）。该研究发现钠钾泵抑制剂乌本苷和地高辛能有效抑制日本乙型脑炎病毒（Japanese Encephalitis Virus, JEV）感染。\n" +
                 "\n" +
                 "　　JEV属于黄病毒科（Flaviviridae）黄病毒属（Flavivirus），通过蚊虫叮咬传播、引起严重病毒性脑炎。JEV流行区域包含27个国家和地区，波及人口超过30亿。我国是乙型脑炎的高发区，其诱发的乙型脑炎致死、致残率高，对人类的健康产生重大威胁。虽然JEV疫苗的使用在一定程度上减少乙型脑炎的发病率，但目前仍缺乏针对JEV的特异性抗病毒药物，相关药物的研发是目前亟待解决的科学问题。\n" +
                 "\n" +
@@ -52,6 +64,7 @@ public class SnowNlpUtil {
         long endTime = System.currentTimeMillis();
 
         System.out.printf("消耗时间为:%d毫秒\n", (endTime - startTime));
-        System.out.printf("识别的摘要为:%s\n", out);
+        System.out.printf("识别的类别为:%s\n", out);
     }
+
 }

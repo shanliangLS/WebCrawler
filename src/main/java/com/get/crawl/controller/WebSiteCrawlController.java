@@ -102,7 +102,7 @@ public class WebSiteCrawlController extends BaseController {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Crawl.crawlAllList(policy, subtype.getUrl());
+//                    Crawl.crawlAllList(policy, subtype.getUrl());
                 }
             }).start();
             return successAjax();

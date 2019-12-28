@@ -10,23 +10,29 @@ public class Information extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long createTime;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String author;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String content;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String picture;
 
     @Column(nullable = true)
-    private String near;
+    private String url;
+
+//    @Column(nullable = true)
+//    private String near;
+
+    @Column(nullable = true)
+    private String time;
 
     @ElementCollection
     private List<String> keyWords;
@@ -42,27 +48,44 @@ public class Information extends BaseEntity implements Serializable {
         super();
     }
 
-    public Information(String title, Long createTime, String author, String content, String picture, String near, List<String> keyWords, Long classes, Long taskId) {
+    public Information(String title, Long createTime, String author, String content, String picture, List<String> keyWords, Long classes, Long taskId) {
         this.title = title;
         this.createTime = createTime;
         this.author = author;
         this.content = content;
         this.picture = picture;
-        this.near = near;
+//        this.near = near;
         this.keyWords = keyWords;
         this.classes = classes;
         this.taskId = taskId;
     }
 
-    public Information(String title, Long createTime, String author, String content, String picture, String near, List<String> keyWords, Long classes) {
+    public Information(String title, Long createTime, String author, String content, String picture, List<String> keyWords, Long classes) {
         this.title = title;
         this.createTime = createTime;
         this.author = author;
         this.content = content;
         this.picture = picture;
-        this.near = near;
+//        this.near = near;
         this.keyWords = keyWords;
         this.classes = classes;
+    }
+
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Long getId() {
@@ -114,18 +137,17 @@ public class Information extends BaseEntity implements Serializable {
     }
 
 
-
     public void setPicture(String picture) {
         this.picture = picture;
     }
 
-    public String getNear() {
-        return near;
-    }
+//    public String getNear() {
+//        return near;
+//    }
 
-    public void setNear(String near) {
-        this.near = near;
-    }
+//    public void setNear(String near) {
+//        this.near = near;
+//    }
 
     public List<String> getKeyWords() {
         return keyWords;
