@@ -179,7 +179,7 @@ public class TaskController extends BaseController {
                 return failAjax(ExceptionMsg.FAILED);
             }
 //            start 添加时间节点
-            taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId);
+//            taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId);
 
             taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
             List<Long> listId = task.getListId();
@@ -198,13 +198,14 @@ public class TaskController extends BaseController {
                         public void run() {
 
 
-                            crawlAllList(policy, subtype.getUrl(), task.getId());
-                            //已完成数量加一。更新completed_num
-                            taskRepository.updateTaskCompletedNumById(task.getId());
+//                            crawlAllList(policy, subtype.getUrl(), task.getId());
+//                            //已完成数量加一。更新completed_num
+//                            taskRepository.updateTaskCompletedNumById(task.getId());
 
                             /**
                              * 如果已完成数量等于总的数量，添加end节点
                              */
+//                            taskRepository.selectTaskComletedNumByIdAndUserId(task.getId(),userId);
 //                            if ()
 
                         }

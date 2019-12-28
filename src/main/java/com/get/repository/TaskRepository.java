@@ -45,21 +45,23 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * 添加时间节点
      *
      */
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query("update Task set start=:start where userId=:userId and id =:taskId")
-    int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
-
-    /**
-     * 已完成数量加一
-     *
-     */
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query("update Task set completedNum=completedNum+1 where id=:id")
-    int updateTaskCompletedNumById(@Param("id") Long id);
-
-//    @Query("SELECT * from Task ")
+//    @Modifying(clearAutomatically = true)
+//    @Transactional
+//    @Query("update Task set start=:start where userId=:userId and id =:taskId")
+//    int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
+//
+//    /**
+//     * 已完成数量加一
+//     *
+//     */
+//    @Modifying(clearAutomatically = true)
+//    @Transactional
+//    @Query("update Task set completedNum=completedNum+1 where id=:id")
+//    int updateTaskCompletedNumById(@Param("id") Long id);
+//
+//
+//    @Query("SELECT completedNum from Task where id=?1 and userId=?2")
+//    Long selectTaskComletedNumByIdAndUserId(Long id , Long userId);
 
 
 }
