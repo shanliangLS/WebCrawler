@@ -59,6 +59,7 @@ public class TaskController extends BaseController {
             task.setFlag(0);//未执行
             task.setStart(0L);
             task.setEnd(0L);
+            task.setCompletedNum(0L);
             String themeIds[] = themeId.split(",");
 
             List<Long> listId = new ArrayList<Long>();
@@ -136,6 +137,13 @@ public class TaskController extends BaseController {
             if (task == null) {
                 return failAjax(ExceptionMsg.TaskNotExist);
             }
+            if(task.getFlag() != 0)
+            {
+                // 已经启动或者结束
+                System.out.println("任务已经启动");
+                return failAjax(ExceptionMsg.FAILED);
+            }
+            taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
             List<Long> listId = task.getListId();
             for (Long aListId : listId) {
                 WebSiteSubtype subtype = subtypeRepository.findWebSiteSubtypeById(aListId);
