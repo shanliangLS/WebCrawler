@@ -17,6 +17,7 @@ public interface InformationRepository extends JpaRepository<Information,Long> {
 
     Information findInformationById(Long id);
 
+    List<Information> findAllByTaskId(Long taskId);
 
     //    @Transactional
 //    @Query("select id,title,createTime,author,content,picture,near,keyWords,classes from Information where classes=:classes")

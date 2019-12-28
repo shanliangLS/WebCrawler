@@ -14,6 +14,8 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+    List<Task> findAllByUserId(Long userId);
+
     Task findTaskByNameAndUserId(String name, Long userId);
 
     Task findTaskByIdAndUserId(Long id, Long userId);
@@ -42,18 +44,13 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int setTaskCompletedNum(@Param("userId") Long userId, @Param("taskId") Long taskId, @Param("num") Integer num);
 
 
-
-
-
-
     /**
      * 添加开始时间节点
-     *
      */
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update Task set start=:start where userId=:userId and id =:id")
-    int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId,@Param("start") Long start);
+    int updateTaskStartByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId, @Param("start") Long start);
 
     /**
      * 添加结束时间节点
@@ -66,7 +63,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     /**
      * 已完成数量加一
-     *
      */
     @Modifying(clearAutomatically = true)
     @Transactional
@@ -75,17 +71,17 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     /**
      * 查询当前已完成的数据
+     *
      * @param id
      * @param userId
      * @return
      */
     @Query("SELECT completedNum from Task where id=?1 and userId=?2")
-    int selectTaskCompletedNumByIdAndUserId(Long id , Long userId);
+    int selectTaskCompletedNumByIdAndUserId(Long id, Long userId);
 
     /**
      * 查询总的需要完成的数据
-     *
      */
-    @Query(value = "select count(distinct list_id) from task_list_id where task_id=?1",nativeQuery = true)
+    @Query(value = "select count(distinct list_id) from task_list_id where task_id=?1", nativeQuery = true)
     int selectTaskListIdCountListIdByTaskId(Long id);
 }
