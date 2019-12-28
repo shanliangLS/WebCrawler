@@ -39,7 +39,7 @@ public class Task extends BaseEntity implements Serializable {
 
     // 状态
     @Column(nullable = false)
-    private TaskEnum taskEnum;
+    private int flag;
 
 
     @Column(nullable = true)
@@ -80,8 +80,8 @@ public class Task extends BaseEntity implements Serializable {
 //        return createTime;
 //    }
 
-    public TaskEnum getTaskEnum() {
-        return taskEnum;
+    public int getTaskEnum() {
+        return flag;
     }
 
 
@@ -127,8 +127,8 @@ public class Task extends BaseEntity implements Serializable {
 //        this.createTime = createTime;
 //    }
 
-    public void setTaskEnum(TaskEnum taskEnum) {
-        this.taskEnum = taskEnum;
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public void setStart(Long start) {
@@ -141,5 +141,9 @@ public class Task extends BaseEntity implements Serializable {
 
     public void setListId(List<Long> listId) {
         this.listId = listId;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 }

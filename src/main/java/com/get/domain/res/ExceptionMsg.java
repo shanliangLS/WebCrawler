@@ -26,7 +26,8 @@ public enum ExceptionMsg {
     ThemeNotExist("000501","主题不存在"),
 
     TaskNameUsed("000600","任务名已被使用"),
-    TaskNotExist("000601","任务不存在");
+    TaskNotExist("000601","任务不存在"),
+    NoTask("000602","无任务");
     ;
 
     private ExceptionMsg(String code, String msg) {

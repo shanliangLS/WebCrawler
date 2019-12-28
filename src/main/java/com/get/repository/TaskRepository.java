@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
@@ -15,6 +16,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     Task findTaskByNameAndUserId(String name,Long userId);
     Task findTaskByIdAndUserId(Long id,Long userId);
     Task findTaskByIdAndNameAndUserId(Long id ,String name,Long userId);
+    List<Task> findTaskByUserId(Long userId);
 
     /**
      * 新增任务
