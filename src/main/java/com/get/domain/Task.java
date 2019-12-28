@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Task extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-//id name,TaskEnum、start、end
+    //id name,TaskEnum、start、end
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +33,8 @@ public class Task extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private Long createTime;
 
+    @Column(nullable = false)
+    private Long completedNum;
     // 最小值为0,
 //    @Column(nullable = false)
 //    private Integer sleepTime;
@@ -50,6 +52,7 @@ public class Task extends BaseEntity implements Serializable {
 
     @ElementCollection
     private List<Long> listId;
+
     // get
     public Long getId() {
         return id;
@@ -59,6 +62,22 @@ public class Task extends BaseEntity implements Serializable {
 //        return themeId;
 //    }
 
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCompletedNum(Long completedNum) {
+        this.completedNum = completedNum;
+    }
+
+    public Long getCompletedNum() {
+        return completedNum;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
 
     public Long getUserId() {
         return userId;

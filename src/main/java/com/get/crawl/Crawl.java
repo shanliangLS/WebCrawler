@@ -1,14 +1,10 @@
 package com.get.crawl;
 
-import com.get.crawl.domain.HtmlArticle;
 import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.spider.util.DownloadUtil;
 import com.get.spider.util.UserAgentUtil;
-import com.get.util.JiebaUtil;
-import com.get.util.SnowNlpUtil;
 import com.get.util.StringUtil;
 import com.get.util.UrlUtil;
-import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,7 +24,7 @@ public class Crawl {
      * @param url url
      * @return 运行完js的网页源代码
      */
-    private static Document getRunDocument(String url) {
+    public static Document getRunDocument(String url) {
         for (int j = 0; j < 3; j++) {
             System.out.printf("PhantomJs 第%d次下载,URL为:%s\n", j, url);
             String html = DownloadUtil.downRunHtml(url);
@@ -47,7 +43,7 @@ public class Crawl {
      * @param url url
      * @return doc
      */
-    private static Document getStaticDocument(String url) {
+    public static Document getStaticDocument(String url) {
         for (int j = 0; j < 3; j++) {
             try {
                 String userAgent = UserAgentUtil.random();
@@ -68,7 +64,7 @@ public class Crawl {
      * @param type type
      * @return doc
      */
-    private static Document getDocument(String url, int type) {
+    public static Document getDocument(String url, int type) {
         if (type == WebSiteCrawlPolicy.jSoup) {
             System.out.println("选择JSoup下载器");
             return getStaticDocument(url);
@@ -80,30 +76,8 @@ public class Crawl {
         return null;
     }
 
-    /**
-     * 爬取所有页面
-     *
-     * @param crawlPolicy policy
-     * @param url         url
-     */
-    public static void crawlAllList(WebSiteCrawlPolicy crawlPolicy, String url) {
-        int i = 0;
-        String nextPageUrl = url;
-        while (true) {
-            nextPageUrl = crawlOneList(crawlPolicy, nextPageUrl);
-            if (StringUtil.isEmpty(nextPageUrl)) {
-                break;
-            }
-            i++;
-            if (i > 2) {
-                break;
-            }
-            nextPageUrl = UrlUtil.join(url, nextPageUrl);
-            System.out.printf("下一页url:%s\n", nextPageUrl);
-        }
-    }
 
-    private static List<String> getListLinks(Document doc, WebSiteCrawlPolicy crawlPolicy, String url) {
+    public static List<String> getListLinks(Document doc, WebSiteCrawlPolicy crawlPolicy, String url) {
         final String listSelector = crawlPolicy.getListSelector();
         final int listSelectorType = crawlPolicy.getListSelectorType();
 
@@ -132,7 +106,7 @@ public class Crawl {
         return null;
     }
 
-    private static String getOneText(Document doc, int type, String selector) {
+    public static String getOneText(Document doc, int type, String selector) {
         if (type == WebSiteCrawlPolicy.css) {
             Elements elements = doc.select(selector);
             if (elements == null || elements.size() <= 0) {
@@ -156,30 +130,6 @@ public class Crawl {
         return null;
     }
 
-    /**
-     * 爬取一个list页面
-     *
-     * @param crawlPolicy policy
-     * @param url         url
-     * @return next url
-     */
-    private static String crawlOneList(WebSiteCrawlPolicy crawlPolicy, String url) {
-        final int downloadType = crawlPolicy.getListDownloadType();
-
-        Document doc = getDocument(url, downloadType);
-        if (doc != null) {
-            List<String> articleUrlList = getListLinks(doc, crawlPolicy, url);
-            System.out.printf("筛选页面:%s,得到文章链接:%s\n", url, articleUrlList);
-            if (articleUrlList != null && articleUrlList.size() > 0) {
-                for (String articleUrl : articleUrlList) {
-                    crawlOneArticle(crawlPolicy, articleUrl);
-                }
-            }
-            return getNextPageUrl(crawlPolicy, doc);
-        }
-        return null;
-    }
-
 
     /**
      * 获取next page url
@@ -188,7 +138,7 @@ public class Crawl {
      * @param doc         doc
      * @return next url
      */
-    private static String getNextPageUrl(WebSiteCrawlPolicy crawlPolicy, Document doc) {
+    public static String getNextPageUrl(WebSiteCrawlPolicy crawlPolicy, Document doc) {
         final String nextCss = crawlPolicy.getNextCss();
         final String nextText = crawlPolicy.getNextText();
         Elements elements = doc.select(nextCss);
@@ -200,55 +150,115 @@ public class Crawl {
         return null;
     }
 
-    /**
-     * 爬取一个文章
-     */
-    private static HtmlArticle crawlOneArticle(WebSiteCrawlPolicy crawlPolicy, String url) {
-        if (url.endsWith(".pdf")) {
+    public static String getOnePhoto(Document doc, String css, String url) {
+        if (StringUtil.isEmpty(css) || doc == null) {
             return null;
         }
-        final int downloadType = crawlPolicy.getArticleDownloadType();
-        final Document document = getDocument(url, downloadType);
-        if (document != null) {
-            HtmlArticle htmlArticle = new HtmlArticle();
-            //
-            String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
-            if(StringUtil.isEmpty(author))
-            {
-                author = crawlPolicy.getName();
-            }
-            htmlArticle.setAuthor(author);
-
-            String title = getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector());
-            if(StringUtil.isEmpty(title))
-            {
-                title = "";
-            }
-
-            htmlArticle.setTitle(title);
-
-            final String content = getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector());
-            htmlArticle.setContent(content);
-
-            final String timeSelector = getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector());
-            htmlArticle.setTime(timeSelector);
-
-            final String photoUrl = getOnePhoto(document, crawlPolicy.getPhotoCss(), url);
-
-            htmlArticle.setCrawlTime(System.currentTimeMillis());
-            htmlArticle.setUrl(url);
-            // 保存
-            System.out.printf("提取信息为:%s\n", new Gson().toJson(htmlArticle));
-            System.out.printf("图片为:%s\n", photoUrl);
-            System.out.printf("关键词为:%s\n", JiebaUtil.getKeyWords(title + content));
-
-            System.out.printf("摘要为:%s\n", SnowNlpUtil.getZy(title + content));
-            return htmlArticle;
+        Elements elements = doc.select(css);
+        if (elements == null || elements.size() <= 0) {
+            return null;
         }
-        return null;
+        String imgUrl = elements.first().attr("src");
+        return UrlUtil.join(url, imgUrl);
     }
 
-//    private static List<String> getAllPhoto(Document doc, String css, String url) {
+//    /**
+//     * 爬取所有页面
+//     *
+//     * @param crawlPolicy policy
+//     * @param url         url
+//     */
+//    public static void crawlAllList(WebSiteCrawlPolicy crawlPolicy, String url) {
+//        int i = 0;
+//        String nextPageUrl = url;
+//        while (true) {
+//            nextPageUrl = crawlOneList(crawlPolicy, nextPageUrl);
+//            if (StringUtil.isEmpty(nextPageUrl)) {
+//                break;
+//            }
+//            i++;
+//            if (i > 2) {
+//                break;
+//            }
+//            nextPageUrl = UrlUtil.join(url, nextPageUrl);
+//            System.out.printf("下一页url:%s\n", nextPageUrl);
+//        }
+//    }
+//
+//
+//
+//    /**
+//     * 爬取一个list页面
+//     *
+//     * @param crawlPolicy policy
+//     * @param url         url
+//     * @return next url
+//     */
+//    public static String crawlOneList(WebSiteCrawlPolicy crawlPolicy, String url) {
+//        final int downloadType = crawlPolicy.getListDownloadType();
+//
+//        Document doc = getDocument(url, downloadType);
+//        if (doc != null) {
+//            List<String> articleUrlList = getListLinks(doc, crawlPolicy, url);
+//            System.out.printf("筛选页面:%s,得到文章链接:%s\n", url, articleUrlList);
+//            if (articleUrlList != null && articleUrlList.size() > 0) {
+//                for (String articleUrl : articleUrlList) {
+//                    crawlOneArticle(crawlPolicy, articleUrl);
+//                }
+//            }
+//            return getNextPageUrl(crawlPolicy, doc);
+//        }
+//        return null;
+//    }
+//
+//
+//    /**
+//     * 爬取一个文章
+//     */
+//    public static HtmlArticle crawlOneArticle(WebSiteCrawlPolicy crawlPolicy, String url) {
+//        if (url.endsWith(".pdf")) {
+//            return null;
+//        }
+//        final int downloadType = crawlPolicy.getArticleDownloadType();
+//        final Document document = getDocument(url, downloadType);
+//        if (document != null) {
+//            HtmlArticle htmlArticle = new HtmlArticle();
+//            //
+//            String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
+//            if (StringUtil.isEmpty(author)) {
+//                author = crawlPolicy.getName();
+//            }
+//            htmlArticle.setAuthor(author);
+//
+//            String title = getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector());
+//            if (StringUtil.isEmpty(title)) {
+//                title = "";
+//            }
+//
+//            htmlArticle.setTitle(title);
+//
+//            final String content = getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector());
+//            htmlArticle.setContent(content);
+//
+//            final String timeSelector = getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector());
+//            htmlArticle.setTime(timeSelector);
+//
+//            final String photoUrl = getOnePhoto(document, crawlPolicy.getPhotoCss(), url);
+//
+//            htmlArticle.setCrawlTime(System.currentTimeMillis());
+//            htmlArticle.setUrl(url);
+//            // 保存
+//            System.out.printf("提取信息为:%s\n", new Gson().toJson(htmlArticle));
+//            System.out.printf("图片为:%s\n", photoUrl);
+//            System.out.printf("关键词为:%s\n", JiebaUtil.getKeyWords(title + content));
+//
+//            System.out.printf("摘要为:%s\n", SnowNlpUtil.getZy(title + content));
+//            return htmlArticle;
+//        }
+//        return null;
+//    }
+
+//    public static List<String> getAllPhoto(Document doc, String css, String url) {
 //        if (doc == null || css == null) {
 //            return null;
 //        }
@@ -263,17 +273,6 @@ public class Crawl {
 //        return strings;
 //    }
 
-    private static String getOnePhoto(Document doc, String css, String url) {
-        if (StringUtil.isEmpty(css) || doc == null) {
-            return null;
-        }
-        Elements elements = doc.select(css);
-        if (elements == null || elements.size() <= 0) {
-            return null;
-        }
-        String imgUrl = elements.first().attr("src");
-        return UrlUtil.join(url, imgUrl);
-    }
 
 //    public static void crawlCasAllList(String url) {
 //        String nextPageUrl = url;
@@ -293,7 +292,7 @@ public class Crawl {
      */
 
     // 获得中科院文章选择器
-//    private static HtmlArticleSelector getCasArticleSelector() {
+//    public static HtmlArticleSelector getCasArticleSelector() {
 //        HtmlArticleSelector selector = new HtmlArticleSelector();
 //        selector.setTitleCss("h2.xl_title");
 //        selector.setTimeCss(".xl_title2 .fl_all span:nth-of-type(1)");
@@ -312,7 +311,7 @@ public class Crawl {
 //        return null;
 //    }
 
-//    private static String crawlCasOneList(String url) {
+//    public static String crawlCasOneList(String url) {
 //        final String listCss = "#content a";
 //        final String nextPageCss = ".page a";
 //        String html = getRunDocument(url);
@@ -331,7 +330,7 @@ public class Crawl {
 //    }
 
 
-//    private static void crawlCas() {
+//    public static void crawlCas() {
 //
 //        List<TextLink> textLinks = new ArrayList<>();
 //        textLinks.add(new TextLink("政策解读", "http://www.cas.ac.cn/zcjd/"));
@@ -347,7 +346,7 @@ public class Crawl {
 //    }
 
 
-//    private static String cssGetOneText(Document doc, String css) {
+//    public static String cssGetOneText(Document doc, String css) {
 //        try {
 //            if (doc == null) {
 //                return null;
@@ -359,7 +358,7 @@ public class Crawl {
 //        }
 //    }
 
-//    private static List<String> cssGetAllLink(Document doc, String css, String baseUrl) {
+//    public static List<String> cssGetAllLink(Document doc, String css, String baseUrl) {
 //        try {
 //            if (doc == null) {
 //                return null;
@@ -391,8 +390,8 @@ public class Crawl {
 }
 
 //class TextLink {
-//    private String link;
-//    private String text;
+//    public String link;
+//    public String text;
 //
 //    public TextLink() {
 //

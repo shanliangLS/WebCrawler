@@ -4,18 +4,22 @@ import java.io.File;
 
 public class Global {
 
-    public static final String outPath = "D:\\youGet\\";
+    public static final boolean isLinux = System.getProperty("os.name").contains("Linux");
+
+    public static final String outPath = isLinux ? "/home/dong/youGet/" : "D:\\youGet\\";
     // 缓存路径
-    public static final String cachePath = "cache\\";
+    public static final String cachePath = isLinux ? "cache/" : "cache\\";
 
     // 用户头像路径
-    public static final String profilePicturesPath = "profilePictures\\";
+    public static final String profilePicturesPath = isLinux ? "profilePictures/" : "profilePictures\\";
 
     // 背景图像路径
-    public static final String backgroundPicturesPath = "backgroundPictures\\";
+    public static final String backgroundPicturesPath = isLinux ? "backgroundPictures/" : "backgroundPictures\\";
 
     // phantomJs路径
-    public static final String phantomJsPath = "D:\\youGet\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe";
+    public static final String phantomJsPath = isLinux ? "/home/dong/youGet/phantomjs-2.1.1-linux-x86_64/bin/phantomjs" : "D:\\youGet\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe";
+
+    public static final String newsCnnPyPath = "/home/dong/untitled3/news_cnn.py";
 
     // 项目路径
     public static final String downHtmlJs;
@@ -35,6 +39,7 @@ public class Global {
     public static final String snowNlpPath;
 
     static {
+
         FILE_SEPARATOR = System.getProperty("file.separator");
         File file = new File("");
         projectPath = getRealFilePath(file.getAbsolutePath() + "/");
@@ -58,5 +63,6 @@ public class Global {
         System.out.println(userAgentJsonPath);
         System.out.println(downHtmlJs);
         System.out.println(FILE_SEPARATOR);
+        System.out.println();
     }
 }
