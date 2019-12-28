@@ -94,20 +94,26 @@ public class ThemeController extends BaseController {
             Gson gson = new Gson();
             Theme theme=gson.fromJson(data, Theme.class);
             Long userId = getUserId();
+            theme.setUserId(userId);
+            System.out.println(gson.toJson(theme));
             Theme findTheme = themeRepository.findThemeByIdAndUserId(theme.getId(),userId);
             if (findTheme == null) {//主题不存在，无法修改
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //主题存在
             //先判断改之后的名字是否有冲突
-            int conflict=themeRepository.selectName(theme);
+            int conflict=themeRepository.selectName(theme.getId(),theme.getName(),theme.getUserId()).size();
             if (conflict>0){
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //以下是修改主题
             findTheme.setName(theme.getName());
             findTheme.setListId(theme.getListId());
-            themeRepository.updateThemeByIdAndUserId(theme);
+            themeRepository.updateThemeByIdAndUserId(findTheme.getName(),findTheme.getId(),findTheme.getUserId());
+            themeRepository.deleteThemeListIdByThemeId(findTheme.getId());
+            for (int i=0;i<findTheme.getListId().size();i++){
+                themeRepository.insertThemeListIdByThemeId(findTheme.getId(),findTheme.getListId().get(i));
+            }
             return successAjax();
         }catch (Exception e) {
             logger.error("修改主题失败", e);
