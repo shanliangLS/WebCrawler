@@ -53,6 +53,9 @@ public class Task extends BaseEntity implements Serializable {
     @ElementCollection
     private List<Long> listId;
 
+    @ElementCollection
+    private List<Long> themeIds;
+
     // get
     public Long getId() {
         return id;
@@ -87,7 +90,11 @@ public class Task extends BaseEntity implements Serializable {
         return name;
     }
 
-//    public String getDescription() {
+    public List<Long> getThemeIds() {
+        return themeIds;
+    }
+
+    //    public String getDescription() {
 //        return description;
 //    }
 
@@ -164,5 +171,9 @@ public class Task extends BaseEntity implements Serializable {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+    public void setThemeIds(List<Long> themeIds) {
+        this.themeIds = themeIds;
     }
 }

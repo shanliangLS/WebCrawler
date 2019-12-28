@@ -41,27 +41,51 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "update Task set completedNum=:num where userId=:userId and id =:taskId")
     int setTaskCompletedNum(@Param("userId") Long userId, @Param("taskId") Long taskId, @Param("num") Integer num);
 
+
+
+
+
+
     /**
-     * 添加时间节点
+     * 添加开始时间节点
      *
      */
-//    @Modifying(clearAutomatically = true)
-//    @Transactional
-//    @Query("update Task set start=:start where userId=:userId and id =:taskId")
-//    int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
-//
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update Task set start=:start where userId=:userId and id =:id")
+    int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId,@Param("start") Long start);
+
 //    /**
-//     * 已完成数量加一
+//     * 添加结束时间节点
 //     *
 //     */
 //    @Modifying(clearAutomatically = true)
 //    @Transactional
-//    @Query("update Task set completedNum=completedNum+1 where id=:id")
-//    int updateTaskCompletedNumById(@Param("id") Long id);
-//
-//
-//    @Query("SELECT completedNum from Task where id=?1 and userId=?2")
-//    Long selectTaskComletedNumByIdAndUserId(Long id , Long userId);
+//    @Query("update Task set end=:endTime where userId=:userId and id =:id")
+//    int updateTaskEndByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId,@Param("endTime") Long endTime);
 
+    /**
+     * 已完成数量加一
+     *
+     */
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update Task set completedNum=completedNum+1 where id=:id")
+    int updateTaskCompletedNumById(@Param("id") Long id);
 
+    /**
+     * 查询当前已完成的数据
+     * @param id
+     * @param userId
+     * @return
+     */
+    @Query("SELECT completedNum from Task where id=?1 and userId=?2")
+    int selectTaskCompletedNumByIdAndUserId(Long id , Long userId);
+
+    /**
+     * 查询总的需要完成的数据
+     *
+     */
+    @Query(value = "select count(distinct list_id) from task_list_id where task_id=?1",nativeQuery = true)
+    int selectTaskListIdCountListIdByTaskId(Long id);
 }
