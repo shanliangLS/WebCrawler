@@ -55,14 +55,14 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("update Task set start=:start where userId=:userId and id =:id")
     int updateTaskStartByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId,@Param("start") Long start);
 
-//    /**
-//     * 添加结束时间节点
-//     *
-//     */
-//    @Modifying(clearAutomatically = true)
-//    @Transactional
-//    @Query("update Task set end=:endTime where userId=:userId and id =:id")
-//    int updateTaskEndByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId,@Param("endTime") Long endTime);
+    /**
+     * 添加结束时间节点
+     *
+     */
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "update task set end=?3 where user_id=?2 and id =?1",nativeQuery = true)
+    int updateTaskEndByIdAndUserId(Long id , Long userId, Long end);
 
     /**
      * 已完成数量加一

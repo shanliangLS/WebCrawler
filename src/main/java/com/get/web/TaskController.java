@@ -184,7 +184,10 @@ public class TaskController extends BaseController {
                 System.out.println("任务已经启动");
                 return failAjax(ExceptionMsg.FAILED);
             }
-//            start 添加时间节点
+            /**
+             * start 添加时间节点
+             */
+
             taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
 
             taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
@@ -214,7 +217,7 @@ public class TaskController extends BaseController {
                             int cur=taskRepository.selectTaskCompletedNumByIdAndUserId(task.getId(),userId);
                             int finish=taskRepository.selectTaskListIdCountListIdByTaskId(task.getId());
                             if (cur==finish){//添加end节点
-//                                taskRepository.updateTaskEndByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
+                                taskRepository.updateTaskEndByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
                             }
 
                         }
