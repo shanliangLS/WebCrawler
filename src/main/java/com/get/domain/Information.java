@@ -19,7 +19,7 @@ public class Information extends BaseEntity implements Serializable {
     @Column(nullable = true)
     private String author;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String content;
 
     @Column(nullable = true)
