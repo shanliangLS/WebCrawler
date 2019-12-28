@@ -152,6 +152,29 @@
                   <p>创建主题</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="themeTable.html" class="nav-link">
+                  <i class="fa fa-file nav-icon"></i>
+                  <p>主题列表</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-copy nav-icon"></i>
+              <p>
+                任务管理
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../task/createTask.html" class="nav-link">
+                  <i class="fa fa-file nav-icon"></i>
+                  <p>创建任务</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -185,7 +208,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form class="form-horizontal">
+          <div class="form-horizontal">
             <div class="card-body">
               <div class="form-group row">
                 <label for="name" class="col-sm-1 col-form-label">主题名称</label>
@@ -215,7 +238,7 @@
                           <option value="4">一线动态【http://www.cas.ac.cn/yx/】</option>
                           <option value="5">工作进展【http://www.cas.cn/sygz/】</option>
                           <option value="6">访谈·视点【http://www.cas.cn/zjs/】</option>
-                          <option value="6">院内要闻【http://www.cas.ac.cn/yw/】</option>
+                          <option value="7">院内要闻【http://www.cas.ac.cn/yw/】</option>
                         </select>
                       </div>
                       <!-- /.form-group -->
@@ -391,7 +414,7 @@
               <!--<button type="button" class="btn btn-default float-right">Cancel</button>-->
             </div>
             <!-- /.card-footer -->
-          </form>
+          </div>
         </div>
         <!-- /.card -->
 
@@ -442,8 +465,7 @@
 <script type="text/javascript">
 
   var clickable = true;
-  var selector1,selector2,selector3,selector4,selector5;
-  var selector = [selector1,selector2,selector3,selector4,selector5];
+  var selector = [];
 
   const Toast = Swal.mixin({
     toast: true,
@@ -457,6 +479,7 @@
     for (var i = 0; i < 5; i++) {
       selector[i] = createDualListBox('siteSelector' + (i+1));
     }
+    // console.log(selector[0]);
     for (var i = 1; i < 5; i++) {
       $('#collapseBtn' + i).click();
     }
@@ -499,7 +522,7 @@
       name: $('#name').val(),
       listId: siteIdList
     });
-    console.log(themeData);
+    // console.log(themeData);
     $.ajax({
       url: '/api/theme/doCreateTheme',
       type: 'POST',
@@ -508,7 +531,7 @@
         data: themeData
       },
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         if (data.code == '000000') {
           Toast.fire({
             type: 'success',
