@@ -5,6 +5,7 @@ import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.crawl.repository.WebSiteCrawlPolicyRepository;
 import com.get.domain.Information;
 import com.get.domain.Task;
+import com.get.domain.Theme;
 import com.get.domain.WebSiteSubtype;
 import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
@@ -29,8 +30,11 @@ import static com.get.crawl.Crawl.*;
 public class TaskController extends BaseController {
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
     private ThemeRepository themeRepository;
+    @Autowired
     private WebSiteSubtypeRepository subtypeRepository;
+    @Autowired
     private WebSiteCrawlPolicyRepository policyRepository;
 
     @Autowired
@@ -62,12 +66,17 @@ public class TaskController extends BaseController {
             task.setCompletedNum(0L);
             String themeIds[] = themeId.split(",");
 
+            Gson gson1=new Gson();
+
+            System.out.println(gson1.toJson(themeIds));
             List<Long> listId = new ArrayList<Long>();
+
+//            Theme temp = themeRepository.findThemeByIdAndUserId(3L,userId);
+//            System.out.println("测试"+gson1.toJson(temp));
+
             for (int i = 0; i < themeIds.length; i++) {
                 List<Long> temp = themeRepository.findThemeById(Long.parseLong(themeIds[i])).getListId();
-//                for (int j=0;j<temp.size();j++){
-//                    listId.add(temp.get(j));
-//                }
+                System.out.println("测试"+gson1.toJson(temp));
                 listId.addAll(temp);
             }
             task.setListId(listId);
