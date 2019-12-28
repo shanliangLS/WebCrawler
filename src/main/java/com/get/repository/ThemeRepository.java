@@ -1,10 +1,11 @@
 package com.get.repository;
 
 import com.get.domain.Theme;
-import io.lettuce.core.dynamic.annotation.Param;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -43,15 +44,15 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
     /*
      * 更新主题
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update Theme set name=?1 where id=?2 and userId=?3")
     void updateThemeByIdAndUserId(String name,Long id,Long userId);
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "delete from theme_list_id where theme_id=?1",nativeQuery = true)
     void deleteThemeListIdByThemeId(Long id);
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "insert into theme_list_id(theme_id, list_id) VALUES (?1,?2)",nativeQuery = true)
     void insertThemeListIdByThemeId(Long theme_id,Long list_id);
@@ -60,8 +61,17 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
     /*
      * 删除主题
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "delete from Theme where id=:id and userId=:userId")
-    void deleteThemeByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
+    void deleteThemeByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId);
+
+    /**
+     * 根据list号查找主题号
+     *
+     */
+    @Query(value = "select theme_id from theme_list_id where list_id=?1",nativeQuery = true)
+    Long selectThemeListIdByListId(Long listId);
+
+
 }

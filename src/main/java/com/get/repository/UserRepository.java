@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query("update User set name=:name where email=:email")
+    @Query(value = "update User set name=:name where email=:email")
     int setName(@Param("name") String name, @Param("email") String email);
 
     @Modifying(clearAutomatically = true)
@@ -52,4 +52,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query("update User set backgroundPicture=:backgroundPicture where id=:id")
     int setBackgroundPicture(@Param("backgroundPicture") String backgroundPicture, @Param("id") Long id);
+
+
+
 }
