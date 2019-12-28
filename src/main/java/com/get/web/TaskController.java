@@ -79,6 +79,15 @@ public class TaskController extends BaseController {
                 System.out.println("测试"+gson1.toJson(temp));
                 listId.addAll(temp);
             }
+            //去重
+            // 利用list中的元素创建HashSet集合，此时set中进行了去重操作
+            HashSet<Long> set = new HashSet<Long>(listId);
+            // 清空list集合
+            listId.clear();
+            // 将去重后的元素重新添加到list中
+            listId.addAll(set);
+
+
             task.setListId(listId);
             taskRepository.save(task);
             return successAjax();
@@ -98,11 +107,28 @@ public class TaskController extends BaseController {
             if (findTasks == null) {//没有任务
                 return failAjax(ExceptionMsg.NoTask);
             }
+            List<Long> themeIds=new ArrayList<Long>();
+            for (int i=0;i<findTasks.size();i++){
+                List<Long> listId=findTasks.get(i).getListId();
+                for (int j=0;j<listId.size();j++){
+                    //根据listId.get(j)寻找主题号
+                    themeIds.add(themeRepository.selectThemeListIdByListId(listId.get(j)));
+                }
+            }
+            //然后对themeIds进行去重
+            // 利用list中的元素创建HashSet集合，此时set中进行了去重操作
+            HashSet<Long> set = new HashSet<Long>(themeIds);
+            // 清空list集合
+            themeIds.clear();
+            // 将去重后的元素重新添加到list中
+            themeIds.addAll(set);
+
+
             //以下是返回任务
 //            taskRepository.deleteTaskById(task);
-            return successAjax(findTasks);
+            return successAjax(themeIds);
         } catch (Exception e) {
-            logger.error("删除任务失败", e);
+            logger.error("获取任务失败", e);
             return errorAjax();
         }
 
@@ -152,6 +178,9 @@ public class TaskController extends BaseController {
                 System.out.println("任务已经启动");
                 return failAjax(ExceptionMsg.FAILED);
             }
+//            start 添加时间节点
+            taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId);
+
             taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
             List<Long> listId = task.getListId();
             for (Long aListId : listId) {
@@ -167,9 +196,21 @@ public class TaskController extends BaseController {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+
+
                             crawlAllList(policy, subtype.getUrl(), task.getId());
+                            //已完成数量加一。更新completed_num
+                            taskRepository.updateTaskCompletedNumById(task.getId());
+
+                            /**
+                             * 如果已完成数量等于总的数量，添加end节点
+                             */
+//                            if ()
+
                         }
                     }).start();
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
