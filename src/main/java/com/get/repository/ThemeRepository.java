@@ -29,9 +29,10 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
      * @return 0=>无冲突  大于1=>有冲突
      */
 
-    @Query(value = "select count(distinct name) from theme where name=#{#theme.name} and id<>#{#theme.id}",nativeQuery=true)
-    int selectName(@Param("theme") Theme theme);
-
+    @Query(value = "select id,user_id,name from theme where name=?1 and id!=?2 and user_id=?3",nativeQuery = true)
+    List<Theme> selectName(Long id,String name,Long userId);
+//    @Query("update User set name=:name where email=:email")
+//    int setName(@Param("name") String name, @Param("email") String email);
 //    /**
 //     * 根据多个id查询主题
 //     * @param theme
@@ -43,14 +44,23 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
      */
     @Modifying
     @Transactional
-    @Query(value = "update theme set name=#{#theme.name},listId=#{#theme.listId} where id=#{#theme.id} and userId=#{#theme.userId}",nativeQuery=true)
-    void updateThemeByIdAndUserId(@Param("theme") Theme theme);
+    @Query("update Theme set name=?1 where id=?2 and userId=?3")
+    void updateThemeByIdAndUserId(String name,Long id,Long userId);
+    @Modifying
+    @Transactional
+    @Query(value = "delete from theme_list_id where theme_id=?1",nativeQuery = true)
+    void deleteThemeListIdByThemeId(Long id);
+    @Modifying
+    @Transactional
+    @Query(value = "insert into theme_list_id(theme_id, list_id) VALUES (?1,?2)",nativeQuery = true)
+    void insertThemeListIdByThemeId(Long theme_id,Long list_id);
+
 
     /*
      * 删除主题
      */
     @Modifying
     @Transactional
-    @Query(value = "delete from theme where id=:id and userId=:userId",nativeQuery=true)
+    @Query(value = "delete from Theme where id=:id and userId=:userId")
     void deleteThemeByIdAndUserId(@Param("id") Long id,@Param("userId") Long userId);
 }

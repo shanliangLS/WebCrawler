@@ -13,9 +13,12 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    Task findTaskByNameAndUserId(String name,Long userId);
-    Task findTaskByIdAndUserId(Long id,Long userId);
-    Task findTaskByIdAndNameAndUserId(Long id ,String name,Long userId);
+    Task findTaskByNameAndUserId(String name, Long userId);
+
+    Task findTaskByIdAndUserId(Long id, Long userId);
+
+    Task findTaskByIdAndNameAndUserId(Long id, String name, Long userId);
+
     List<Task> findTaskByUserId(Long userId);
 
     /**
@@ -24,16 +27,17 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
 
 
-
-
     /**
      * 删除任务
-     *
      */
     @Modifying
     @Transactional
-    @Query(value = "delete from task where id=#{#task.id} and userId=#{#task.userId}",nativeQuery=true)
+    @Query(value = "delete from task where id=#{#task.id} and userId=#{#task.userId}", nativeQuery = true)
     void deleteTaskById(@Param("task") Task task);
 
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "update Task set completedNum=:num where userId=:userId and id =:taskId")
+    int setTaskCompletedNum(@Param("userId") Long userId, @Param("taskId") Long taskId, @Param("num") Integer num);
 
 }
