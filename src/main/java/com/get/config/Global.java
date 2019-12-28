@@ -32,6 +32,8 @@ public class Global {
 
     public static final String jieBaPyPath;
 
+    public static final String snowNlpPath;
+
     static {
         FILE_SEPARATOR = System.getProperty("file.separator");
         File file = new File("");
@@ -41,6 +43,7 @@ public class Global {
         downHtmlConfigJson = getRealFilePath(javaPath + "com/get/spider/util/js/downHtmlConfigJson.json");
         downHtmlJs = getRealFilePath(javaPath + "com/get/spider/util/js/downHtml.js");
         jieBaPyPath = getRealFilePath(javaPath + "com/get/util/jiebaKeywords.py");
+        snowNlpPath = getRealFilePath(javaPath + "com/get/util/snowNlpZy.py");
     }
 
 

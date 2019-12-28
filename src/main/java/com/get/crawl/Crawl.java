@@ -5,6 +5,7 @@ import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.spider.util.DownloadUtil;
 import com.get.spider.util.UserAgentUtil;
 import com.get.util.JiebaUtil;
+import com.get.util.SnowNlpUtil;
 import com.get.util.StringUtil;
 import com.get.util.UrlUtil;
 import com.google.gson.Gson;
@@ -114,14 +115,19 @@ public class Crawl {
             }
             return strings;
         } else if (listSelectorType == WebSiteCrawlPolicy.re) {
-            Pattern pattern = Pattern.compile(listSelector);
-            Matcher matcher = pattern.matcher(doc.html());
-            ArrayList<String> strings = new ArrayList<>();
-            while (matcher.find()) {
-                strings.add(matcher.group(1));
-                System.out.println("found: " + matcher.group(1));
+            try {
+                Pattern pattern = Pattern.compile(listSelector);
+                Matcher matcher = pattern.matcher(doc.html());
+                ArrayList<String> strings = new ArrayList<>();
+                while (matcher.find()) {
+                    strings.add(matcher.group(1));
+                    System.out.println("found: " + matcher.group(1));
+                }
+                return strings;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
             }
-            return strings;
         }
         return null;
     }
@@ -138,7 +144,7 @@ public class Crawl {
                 Pattern pattern = Pattern.compile(selector);
                 Matcher matcher = pattern.matcher(doc.html());
                 if (matcher.find()) {
-                    return matcher.group(0);
+                    return matcher.group(1);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -205,10 +211,20 @@ public class Crawl {
         final Document document = getDocument(url, downloadType);
         if (document != null) {
             HtmlArticle htmlArticle = new HtmlArticle();
-            final String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
+            //
+            String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
+            if(StringUtil.isEmpty(author))
+            {
+                author = crawlPolicy.getName();
+            }
             htmlArticle.setAuthor(author);
 
-            final String title = getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector());
+            String title = getOneText(document, crawlPolicy.getTitleSelectorType(), crawlPolicy.getTitleSelector());
+            if(StringUtil.isEmpty(title))
+            {
+                title = "";
+            }
+
             htmlArticle.setTitle(title);
 
             final String content = getOneText(document, crawlPolicy.getContentSelectorType(), crawlPolicy.getContentSelector());
@@ -224,7 +240,9 @@ public class Crawl {
             // 保存
             System.out.printf("提取信息为:%s\n", new Gson().toJson(htmlArticle));
             System.out.printf("图片为:%s\n", photoUrl);
-            System.out.printf("关键词为:%s\n", JiebaUtil.getKeyWords(content));
+            System.out.printf("关键词为:%s\n", JiebaUtil.getKeyWords(title + content));
+
+            System.out.printf("摘要为:%s\n", SnowNlpUtil.getZy(title + content));
             return htmlArticle;
         }
         return null;
