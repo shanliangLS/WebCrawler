@@ -11,16 +11,18 @@
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Bootstrap4 Duallistbox -->
   <link rel="stylesheet" href="../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <style>
     .icheck-primary>input:first-child:checked+input[type=hidden]+label::before, .icheck-primary>input:first-child:checked+label::before {
@@ -200,7 +202,73 @@
 
     <!-- Main content -->
     <section class="content">
-      <div id="main" class="row">
+      <!--<ul class="todo-list ui-sortable">
+        <li>
+          &lt;!&ndash; drag handle &ndash;&gt;
+          <span class="handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </span>
+          &lt;!&ndash; checkbox &ndash;&gt;
+          <div  class="icheck-primary d-inline ml-2">
+            <input type="checkbox" value="" name="todo1" id="todoCheck1">
+            <label for="todoCheck1"></label>
+          </div>
+          &lt;!&ndash; todo text &ndash;&gt;
+          <span class="text">Design a nice theme</span>
+          &lt;!&ndash; Emphasis label &ndash;&gt;
+          <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+          &lt;!&ndash; General tools such as edit or delete&ndash;&gt;
+          <div class="tools">
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-o"></i>
+          </div>
+        </li>
+        <li>
+          &lt;!&ndash; drag handle &ndash;&gt;
+          <span class="handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </span>
+          &lt;!&ndash; checkbox &ndash;&gt;
+          <div  class="icheck-primary d-inline ml-2">
+            <input type="checkbox" value="" name="todo1" id="todoCheck1">
+            <label for="todoCheck1"></label>
+          </div>
+          &lt;!&ndash; todo text &ndash;&gt;
+          <span class="text">Design a nice theme</span>
+          &lt;!&ndash; Emphasis label &ndash;&gt;
+          <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+          &lt;!&ndash; General tools such as edit or delete&ndash;&gt;
+          <div class="tools">
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-o"></i>
+          </div>
+        </li>
+      </ul>-->
+
+      <div id="mainVue" class="row">
+
+        <!-- Modal -->
+        <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">{{modalName}}任务</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <p>确定{{modalOperation}}任务 “ {{modal_taskName}} ” 吗？</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn" :class="{'btn-primary': modalModel==1,'btn-danger': modalModel==2}"
+                        @click="modalOperate">确认{{modalOperation}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal -->
 
         <div class="col-12">
           <!-- TO DO List -->
@@ -223,13 +291,13 @@
             <!-- /.card-header -->
             <div class="card-body">
               <h3 class="card-title" style="color: gray;" v-if="taskData.length==0 || taskListLoading">{{taskListLoadingText}}</h3>
-              <ul class="todo-list">
+              <ul class="todo-list ui-sortable">
                 <li v-for="(task,index) in taskData" :key="index" :class="{'done': task.flag==2}">
                   <!-- drag handle -->
                   <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </span>
                   <!-- checkbox -->
                   <div  class="icheck-primary d-inline ml-2">
                     <input type="checkbox" value="" name="" id="todoCheck1" :checked="task.flag==2" disabled>
@@ -244,8 +312,10 @@
                   </small>
                   <!-- General tools such as edit or delete-->
                   <div class="tools">
-                    <i class="fas fa-paper-plane" style="color: green;">&nbsp;开始</i>&nbsp;&nbsp;&nbsp;
-                    <i class="fas fa-trash">&nbsp;删除</i>
+                    <i class="fas fa-paper-plane" style="color: green;" data-toggle="modal" data-target="#checkModal"
+                       @click="openModal(1,index)">&nbsp;开始</i>&nbsp;&nbsp;&nbsp;
+                    <i class="fas fa-trash" data-toggle="modal" data-target="#checkModal"
+                       @click="openModal(2,index)">&nbsp;删除</i>
                     <i class="fas fa-trash-o"></i>
                   </div>
                 </li>
@@ -326,12 +396,14 @@
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- Vue -->
 <script src="../../static/other/vue/vue.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="../plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Bootstrap4 Duallistbox -->
@@ -348,8 +420,13 @@
 
   $(function() {
     var vm = new Vue({
-      el: '#main',
+      el: '#mainVue',
       data: {
+        // 模态框
+        modalModel: 1,
+        modal_taskName: '',
+        modal_taskId: '',
+        // 主要数据
         taskData: [],
         taskListLoading: true,
         taskListLoadingText: "正在请求主题列表...",
@@ -362,6 +439,20 @@
         selectorX: null
       },
       computed: {
+        modalName: function () {
+          if (this.modalModel == 1) {
+            return "开始";
+          } else if (this.modalModel == 2) {
+            return "删除";
+          }
+        },
+        modalOperation: function () {
+          if (this.modalModel == 1) {
+            return "开始";
+          } else if (this.modalModel == 2) {
+            return "删除";
+          }
+        }
       },
       methods: {
         getThemeList: function() {
@@ -438,6 +529,7 @@
                   type: 'success',
                   title: "创建成功"
                 });
+                thisVue.getTaskData();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -493,6 +585,56 @@
                   type: 'error',
                   title: data.msg
                 });
+              }
+            }
+          });
+        },
+        openModal: function (model, index) {
+          this.modalModel = model;
+          this.modal_taskName = this.taskData[index].name;
+          this.modal_taskId = this.taskData[index].id;
+        },
+        modalOperate: function () {
+          $('#checkModal').modal('hide');
+          var operateUrl = '/api/task/startTask ';
+          if (this.modalModel == 2) {
+            operateUrl = '/api/task/deleteTask  ';
+          }
+          var thisVue = this;
+          $.ajax({
+            url: operateUrl,
+            type: 'POST',
+            dataType: "json",
+            data: {
+              sid: thisVue.modal_taskId
+            },
+            success: function (data) {
+              // console.log(data);
+              if (data.code == '000000') {
+                if (thisVue.modalModel == 1) {
+                  Toast.fire({
+                    type: 'success',
+                    title: "开始成功"
+                  });
+                } else if (thisVue.modalModel == 2) {
+                  Toast.fire({
+                    type: 'success',
+                    title: "删除成功"
+                  });
+                }
+                thisVue.getTaskData();
+              } else {
+                if (thisVue.modalModel == 1) {
+                  Toast.fire({
+                    type: 'error',
+                    title: "开始失败: \n" + data.msg
+                  });
+                } else if (thisVue.modalModel == 2) {
+                  Toast.fire({
+                    type: 'error',
+                    title: "删除失败: \n" + data.msg
+                  });
+                }
               }
             }
           });

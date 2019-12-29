@@ -35,7 +35,17 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "delete from Task where id=?1 and userId=?2")
+    @Query(value = "delete from task_list_id where task_id=?1",nativeQuery = true)
+    void deleteTaskListIdByTaskId(Long id);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "delete from task_theme_ids where task_id=?1",nativeQuery = true)
+    void deleteTaskThemeIdsByTaskId(Long id);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "delete from task where id=?1 and user_id=?2",nativeQuery = true)
     void deleteTaskById(Long id,Long userId);
 
     @Modifying(clearAutomatically = true)

@@ -146,13 +146,18 @@ public class TaskController extends BaseController {
     @LoggerManage(description = "删除任务")
     public AjaxResult deleteTask(String sid) {
         try {
-            Long userId = getUserId();
+
+System.out.println(sid);
             Long id=Long.parseLong(sid);
+//            Long id=6L;
+            Long userId = getUserId();
             Task findTask = taskRepository.findTaskByIdAndUserId(id, userId);
             if (findTask == null) {//任务不存在，无法删除
                 return failAjax(ExceptionMsg.TaskNotExist);
             }
             //以下是删除任务
+            taskRepository.deleteTaskListIdByTaskId(id);
+            taskRepository.deleteTaskThemeIdsByTaskId(id);
             taskRepository.deleteTaskById(id,userId);
             return successAjax();
         } catch (Exception e) {
@@ -167,13 +172,6 @@ public class TaskController extends BaseController {
     public AjaxResult startTask(String sid) {
         try {
             Long userId = getUserId();
-//            Task findTask = taskRepository.findTaskByIdAndUserId(task.getId(),userId);
-//            if (findTask == null) {//任务不存在，无法删除
-//                return failAjax(ExceptionMsg.TaskNotExist);
-//            }
-//            //以下是删除任务
-//            taskRepository.deleteTaskById(task);
-
             Long id = Long.parseLong(sid);
             Task task = taskRepository.findTaskByIdAndUserId(id, userId);
             if (task == null) {
