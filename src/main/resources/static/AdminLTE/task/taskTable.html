@@ -319,9 +319,9 @@
                   <!-- General tools such as edit or delete-->
                   <div class="tools">
                     <i class="fas fa-paper-plane" style="color: green;" data-toggle="modal" data-target="#checkModal"
-                       @click="openModal(1,index)">&nbsp;开始</i>&nbsp;&nbsp;&nbsp;
+                       v-if="task.flag==0" @click="openModal(1,index)">&nbsp;开始</i>&nbsp;&nbsp;&nbsp;
                     <i class="fas fa-trash" data-toggle="modal" data-target="#checkModal"
-                       @click="openModal(2,index)">&nbsp;删除</i>
+                       v-if="task.flag==0" @click="openModal(2,index)">&nbsp;删除</i>
                     <i class="fas fa-trash-o"></i>
                   </div>
                 </li>
@@ -430,6 +430,7 @@
       data: {
         // 模态框
         modalModel: 1,
+        modal_index: -1,
         modal_taskName: '',
         modal_taskId: '',
         // 主要数据
@@ -597,6 +598,7 @@
         },
         openModal: function (model, index) {
           this.modalModel = model;
+          this.modal_index = index;
           this.modal_taskName = this.taskData[index].name;
           this.modal_taskId = this.taskData[index].id;
         },
@@ -622,13 +624,15 @@
                     type: 'success',
                     title: "开始成功"
                   });
+                  thisVue.taskData[thisVue.modal_index].flag = 1;
+                  thisVue.taskData[thisVue.modal_index].flagText = " 已开始";
                 } else if (thisVue.modalModel == 2) {
                   Toast.fire({
                     type: 'success',
                     title: "删除成功"
                   });
+                  thisVue.getTaskData();
                 }
-                thisVue.getTaskData();
               } else {
                 if (thisVue.modalModel == 1) {
                   Toast.fire({
