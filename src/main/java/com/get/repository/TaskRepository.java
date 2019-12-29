@@ -113,6 +113,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "update task set flag=?2 where id=?1")
+    @Query(value = "update task set flag=?2 where id=?1",nativeQuery = true)
     int updateTaskFlagById(Long id,Long flag);
 }
