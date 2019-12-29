@@ -144,15 +144,16 @@ public class TaskController extends BaseController {
 
     @RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
     @LoggerManage(description = "删除任务")
-    public AjaxResult deleteTask(Task task) {
+    public AjaxResult deleteTask(String sid) {
         try {
             Long userId = getUserId();
-            Task findTask = taskRepository.findTaskByIdAndUserId(task.getId(), userId);
+            Long id=Long.parseLong(sid);
+            Task findTask = taskRepository.findTaskByIdAndUserId(id, userId);
             if (findTask == null) {//任务不存在，无法删除
                 return failAjax(ExceptionMsg.TaskNotExist);
             }
             //以下是删除任务
-            taskRepository.deleteTaskById(task);
+            taskRepository.deleteTaskById(id,userId);
             return successAjax();
         } catch (Exception e) {
             logger.error("删除任务失败", e);
