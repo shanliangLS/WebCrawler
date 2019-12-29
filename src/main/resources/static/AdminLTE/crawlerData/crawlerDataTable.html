@@ -114,7 +114,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="fas fa-edit nav-icon"></i>
               <p>
@@ -124,13 +124,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="policyTable.html" class="nav-link">
+                <a href="../working/policyTable.html" class="nav-link">
                   <i class="fa fa-table nav-icon"></i>
                   <p>爬取策略</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="../working/siteTable.html" class="nav-link">
                   <i class="fa fa-table nav-icon"></i>
                   <p>入口网站</p>
                 </a>
@@ -167,7 +167,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../crawlerData/crawlerDataTable.html" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="fa fa-th nav-icon"></i>
               <p>爬取数据</p>
             </a>
@@ -186,7 +186,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>表格</h1>
+            <h1>爬取数据列表</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -197,41 +197,30 @@
       <div id="main" class="row">
 
         <!-- Modal -->
-        <div class="modal fade" id="siteInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
+        <div class="modal fade" id="dataInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">{{modalName}}</h4>
+                <h4 class="modal-title" id="myModalLabel">{{modal_title}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               </div>
               <div class="modal-body">
-                <div class="form-horizontal">
-                  <div class="card-body">
-                    <div class="form-group row">
-                      <label for="name" class="col-sm-4 col-form-label">名称</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="name" v-model="form_name">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="siteID" class="col-sm-4 col-form-label">网站ID</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="siteId" v-model="form_siteId">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="url" class="col-sm-4 col-form-label">链接url</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="url" v-model="form_url">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
+                <div style="display: flex; font-size: 18px; padding: 10px;">
+                  <div style="flex: 1">{{modal_author}}</div>
+                  <a :href="modal_url" target="_blank">原文{{modal_url}}</a>
                 </div>
+                <p v-html="modal_content"></p>
+
+                <div style="width: 100%" align="center">
+                  <a :href="modal_picture" target="_blank">
+                    <img :src="modal_picture" :alt="modal_title" style="height: 400px;"/>
+                  </a>
+                </div>
+
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" @click="modalOperate">确认{{modalOperation}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <!--<button type="button" class="btn btn-primary" @click="modalOperate">确认{{modalOperation}}</button>-->
               </div>
             </div>
           </div>
@@ -242,54 +231,67 @@
             <div class="card-header">
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-sm-10">
-                    <h3 class="card-title" style="line-height: 36px;">表格标题</h3>
+                  <div class="col-sm-9">
+                    <h3 class="card-title" style="line-height: 36px;">数据列表</h3>
                   </div>
                   <div class="col-sm-1">
-                    <button type="button" class="btn btn-block btn-default"
-                            onclick="window.open('/excel/test/subtype')">导出</button>
+                    <button type="button" class="btn btn-block btn-default">导出</button>
                   </div>
                   <div class="col-sm-1">
-                    <button type="button" class="btn btn-block btn-primary"
-                            data-toggle="modal" data-target="#siteInfoModal" @click="openModal(1,0)">添加</button>
+                    <button type="button" class="btn btn-block btn-default" style="padding: 0.375rem 0.55rem;">生成摘要</button>
+                  </div>
+                  <div class="col-sm-1">
+                    <button type="button" class="btn btn-block btn-default" style="padding: 0.375rem 0.55rem;">热词提取</button>
                   </div>
                 </div>
               </div><!-- /.container-fluid -->
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="siteTable" class="table table-bordered table-striped">
+              <table id="crawlerTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>名称</th>
-                  <th>网站ID</th>
-                  <th>链接url</th>
-                  <th style="width: 60px;">操作</th>
+                  <th>任务</th>
+                  <th>爬取时间</th>
+                  <th>标题</th>
+                  <!--<th>作者</th>-->
+                  <th>关键字</th>
+                  <th>发布时间</th>
+                  <!--<th>链接url</th>-->
+                  <th>分类</th>
+                  <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(site,index) in siteData" :key="index">
-                  <td>{{site.id}}</td>
-                  <td>{{site.name}}</td>
-                  <td>{{site.siteId}}</td>
-                  <td>{{site.url}}</td>
+                <tr v-for="(crawler,index) in crawlerData" :key="index">
+                  <td>{{crawler.taskId}}</td>
+                  <td>{{crawler.createTime}}</td>
+                  <td>{{crawler.title}}</td>
+                  <!--<td>{{crawler.author}}</td>-->
+                  <td>{{crawler.keyWords.toString()}}</td>
+                  <td>{{crawler.time}}</td>
+                  <!--<td>{{crawler.url}}</td>-->
+                  <td>{{crawler.classes}}</td>
                   <td>
                     <div class="btn-group-vertical">
                       <!--<button type="button" class="btn btn-default">Top</button>-->
-                      <button type="button" class="btn btn-info" style="min-width: 52px;"
-                              data-toggle="modal" data-target="#siteInfoModal" @click="openModal(2,index)">修改</button>
-                      <button type="button" class="btn btn-danger" style="min-width: 52px;">删除</button>
+                      <button type="button" class="btn btn-info"
+                              data-toggle="modal" data-target="#dataInfoModal" @click="openModal(index)">查看</button>
+                      <!--<button type="button" class="btn btn-danger" style="min-width: 52px;">删除</button>-->
                     </div>
                   </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>名称</th>
-                  <th>网站ID</th>
-                  <th>链接url</th>
+                  <th>任务</th>
+                  <th>爬取时间</th>
+                  <th>标题</th>
+                  <!--<th>作者</th>-->
+                  <th>关键字</th>
+                  <th>发布时间</th>
+                  <!--<th>链接url</th>-->
+                  <th>分类</th>
                   <th>操作</th>
                 </tr>
                 </tfoot>
@@ -347,54 +349,43 @@
 
 <script type="text/javascript">
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
   $(function() {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top',
-      showConfirmButton: false,
-      timer: 3000
-    });
 
     var vm = new Vue({
       el: '#main',
       data: {
-        siteData: [],
-        // 添加和修改模态框
-        modalModel: 0,
-        form_index: -1,
-        form_id: '0',
-        // 表单
-        form_name: '',
-        form_siteId: 1,
-        form_url: ''
+        crawlerData: [],
+        // 模态框
+        modal_title: '',
+        modal_content: '',
+        modal_author: '',
+        modal_url: '',
+        modal_picture: ''
       },
       computed: {
-        modalName: function () {
-          if (this.modalModel == 1) {
-            return "添加";
-          } else if (this.modalModel == 2) {
-            return "修改";
-          }
-        },
-        modalOperation: function () {
-          if (this.modalModel == 1) {
-            return "添加";
-          } else if (this.modalModel == 2) {
-            return "修改";
-          }
-        }
       },
       methods: {
-        getSiteData: function() {
+        getCrawlerData: function() {
           var thisVue = this;
           $.ajax({
-            url: '/api/subtype/all',
+            url: '/api/info/all',
             type: 'POST',
             dataType: "json",
             success: function (data) {
-              // console.log(data);
+              console.log(data);
               if (data.code == '000000') {
-                thisVue.siteData = data.data;
+                thisVue.crawlerData = data.data;
+                // .filter(function(item){
+                //   item.selectedSite = thisVue.selectedSite(item.listId);
+                //   return item;
+                // });
               } else {
                 Toast.fire({
                   type: 'error',
@@ -404,8 +395,8 @@
             }
           });
         },
-        updateSiteDataTable: function() {
-          $("#siteTable").DataTable({
+        updateCrawlerDataTable: function() {
+          $("#crawlerTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
             lengthMenu: [50,10,20,100],
@@ -413,7 +404,7 @@
             // ordering: false,
             aoColumnDefs: [
               {"orderable": false,
-                "aTargets": [1,2,3,4]}// 制定列不参与排序
+                "aTargets": [1,2,3,4,5,6]}// 制定列不参与排序
             ],
             // 水平滚动条
             // scrollX: true,
@@ -444,68 +435,19 @@
             }
           });
         },
-        openModal: function (model, index) {
-          if (this.modalModel != 1 && model == 1) {
-            this.form_name = '';
-            this.form_siteId = '1';
-            this.form_url = '';
-          } else if (this.form_index != index && model == 2) {
-            this.form_index = index;
-            this.form_id = this.siteData[index].id;
-            this.form_name = this.siteData[index].name;
-            this.form_siteId = this.siteData[index].siteId;
-            this.form_url = this.siteData[index].url;
-          }
-          this.modalModel = model;
-        },
-        modalOperate: function () {
-          var thisVue = this;
-          var operateUrl = '/api/subtype/add';
-          var operateData = {
-            name: this.form_name,
-            siteId: this.form_siteId,
-            url: this.form_url
-          };
-          if (this.modalModel == 2) {
-            operateUrl = '/api/subtype/update';
-            operateData.id = this.form_id;
-          }
-          $('#siteInfoModal').modal('hide');
-          $.ajax({
-            url: operateUrl,
-            type: 'POST',
-            dataType: "json",
-            data: operateData,
-            success: function (data) {
-              // console.log(data);
-              if (data.code == '000000') {
-                if (thisVue.modalModel == 1) {
-                  Toast.fire({
-                    type: 'success',
-                    title: "添加成功"
-                  });
-                } else if (thisVue.modalModel == 2) {
-                  Toast.fire({
-                    type: 'success',
-                    title: "修改成功"
-                  });
-                }
-                thisVue.getSiteData();
-              } else {
-                Toast.fire({
-                  type: 'error',
-                  title: data.msg
-                });
-              }
-            }
-          });
+        openModal: function (index) {
+          this.modal_title = this.crawlerData[index].title;
+          this.modal_content = this.crawlerData[index].content.replace(/\s{3,}/g,'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+          this.modal_author = this.crawlerData[index].author;
+          this.modal_url = this.crawlerData[index].url;
+          this.modal_picture = this.crawlerData[index].picture;
         }
       },
       mounted: function () { // 挂载结束状态
-        this.getSiteData();
+        this.getCrawlerData();
       },
       updated: function () { // 更新完成状态
-        this.updateSiteDataTable();
+        this.updateCrawlerDataTable();
       }
     });
   });
