@@ -294,10 +294,10 @@
               <ul class="todo-list ui-sortable">
                 <li v-for="(task,index) in taskData" :key="index" :class="{'done': task.flag==2}">
                   <!-- drag handle -->
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
+                  <!--<span class="handle">-->
+                    <!--<i class="fas fa-ellipsis-v"></i>-->
+                    <!--<i class="fas fa-ellipsis-v"></i>-->
+                  <!--</span>-->
                   <!-- checkbox -->
                   <div  class="icheck-primary d-inline ml-2">
                     <input type="checkbox" value="" name="" id="todoCheck1" :checked="task.flag==2" disabled>
