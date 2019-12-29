@@ -48,6 +48,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "delete from task where id=?1 and user_id=?2",nativeQuery = true)
     void deleteTaskById(Long id,Long userId);
 
+
+
+
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "update Task set completedNum=:num where userId=:userId and id =:taskId")
@@ -94,4 +97,20 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Query(value = "select count(distinct list_id) from task_list_id where task_id=?1", nativeQuery = true)
     int selectTaskListIdCountListIdByTaskId(Long id);
+
+
+    /**
+     * 查询某个任务所需要爬取的list
+     * @param id
+     * @return
+     */
+    @Query(value = "select list_id from task_list_id where task_id=?1",nativeQuery = true)
+    List<Long> selectTaskListIdByTaskId(Long id);
+
+    /**
+     * 修改标志位flag
+     * 为
+     */
+    @Query(value = "update task set flag=?2 where id=?1")
+    int updateTaskFlagById(Long id,Long flag);
 }
