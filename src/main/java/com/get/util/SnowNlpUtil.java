@@ -19,10 +19,10 @@ public class SnowNlpUtil {
 //            ss = m.replaceAll("");
             ss=ss.replaceAll("\\s*|\t|\r|\n|　", "");
 
-            String sss="感染。　　JEV属于黄病毒科（Flaviviridae）黄病毒属（";
-            System.out.println(sss.replaceAll("\\s*|\t|\r|\n|[JEV]", ""));
+//            String sss="感染。　　JEV属于黄病毒科（Flaviviridae）黄病毒属（";
+//            System.out.println(sss.replaceAll("\\s*|\t|\r|\n|[JEV]", ""));
 
-            String cmd = "python " + Global.snowNlpPath + " " + ss;
+            String cmd = "python3 " + Global.snowNlpPath + " " + ss;
             System.out.println(cmd);
             Runtime rt = Runtime.getRuntime();
             Process pc = rt.exec(cmd);
