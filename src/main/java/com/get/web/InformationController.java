@@ -45,11 +45,21 @@ public class InformationController extends BaseController {
             List<Information> informationList = new ArrayList<>();
             class ReturnData{
                 private Long id;
+                private Long taskId;
+                private String taskName;
                 private Long createTime;
                 private String title;
                 private List<String> keyWords;
                 private String time;
                 private String className;
+
+                public Long getTaskId() {
+                    return taskId;
+                }
+
+                public String getTaskName() {
+                    return taskName;
+                }
 
                 public Long getId() {
                     return id;
@@ -98,6 +108,14 @@ public class InformationController extends BaseController {
                 public void setClassName(String className) {
                     this.className = className;
                 }
+
+                public void setTaskId(Long taskId) {
+                    this.taskId = taskId;
+                }
+
+                public void setTaskName(String taskName) {
+                    this.taskName = taskName;
+                }
             }
             List<ReturnData> returnData=new ArrayList<ReturnData>();
 
@@ -106,7 +124,10 @@ public class InformationController extends BaseController {
                 List<Information> informationList1 = informationRepository.findAllExcludeContentByTaskId(taskList.get(i).getId());
                 for (int j=0;j<informationList1.size();j++){
                     ReturnData tempReturnData=new ReturnData();
-                    tempReturnData.setId(taskList.get(i).getId());//初始化一条返回数据的id
+                    tempReturnData.setTaskId(taskList.get(i).getId());//初始化一条返回数据的taskId
+                    tempReturnData.setTaskName(taskList.get(i).getName());
+
+                    tempReturnData.setId(informationList1.get(j).getId());
                     tempReturnData.setTitle(informationList1.get(j).getTitle());//标题
                     tempReturnData.setCreateTime(informationList1.get(j).getCreateTime());//爬取时间
                     tempReturnData.setTime(informationList1.get(j).getTime());//发布时间
