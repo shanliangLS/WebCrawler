@@ -189,8 +189,8 @@ System.out.println(sid);
 
             taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
 
-            taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
-            List<Long> listId = task.getListId();
+//            taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
+            List<Long> listId = taskRepository.selectTaskListIdByTaskId(task.getId());
             for (Long aListId : listId) {
                 WebSiteSubtype subtype = subtypeRepository.findWebSiteSubtypeById(aListId);
                 if (subtype == null) {
@@ -211,12 +211,13 @@ System.out.println(sid);
                             taskRepository.updateTaskCompletedNumById(task.getId());
 
                             /**
-                             * 如果已完成数量等于总的数量，添加end节点
+                             * 如果已完成数量等于总的数量，添加end节点和修改标志位flag
                              */
                             int cur=taskRepository.selectTaskCompletedNumByIdAndUserId(task.getId(),userId);
                             int finish=taskRepository.selectTaskListIdCountListIdByTaskId(task.getId());
                             if (cur==finish){//添加end节点
                                 taskRepository.updateTaskEndByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
+                                taskRepository.updateTaskFlagById(task.getId(),2L);
                             }
 
                         }
@@ -229,7 +230,7 @@ System.out.println(sid);
             }
             return successAjax();
         } catch (Exception e) {
-            logger.error("删除任务失败", e);
+            logger.error("开始任务失败", e);
             return errorAjax();
         }
     }

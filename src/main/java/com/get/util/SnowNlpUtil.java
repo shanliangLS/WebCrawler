@@ -5,12 +5,25 @@ import com.get.config.Global;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SnowNlpUtil {
     public static String getZy(String ss) {
         try {
-            String cmd = "python3 " + Global.snowNlpPath + "  " + ss;
-//            System.out.println(cmd);
+
+//            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+//
+//            Matcher m = p.matcher(ss);
+//
+//            ss = m.replaceAll("");
+            ss=ss.replaceAll("\\s*|\t|\r|\n|　", "");
+
+            String sss="感染。　　JEV属于黄病毒科（Flaviviridae）黄病毒属（";
+            System.out.println(sss.replaceAll("\\s*|\t|\r|\n|[JEV]", ""));
+
+            String cmd = "python " + Global.snowNlpPath + " " + ss;
+            System.out.println(cmd);
             Runtime rt = Runtime.getRuntime();
             Process pc = rt.exec(cmd);
             InputStream is = pc.getInputStream();
