@@ -111,6 +111,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * 修改标志位flag
      * 为
      */
+    @Modifying(clearAutomatically = true)
+    @Transactional
     @Query(value = "update task set flag=?2 where id=?1")
     int updateTaskFlagById(Long id,Long flag);
 }
