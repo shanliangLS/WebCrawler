@@ -9,8 +9,6 @@
   <link rel="icon" href="../../static/image/favicon.ico" type="image/x-icon"/>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ekko Lightbox -->
-  <link rel="stylesheet" href="../plugins/ekko-lightbox/ekko-lightbox.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
@@ -213,12 +211,10 @@
                 </div>
                 <p v-html="modal_content"></p>
 
-                <div class="filter-container p-0 row">
-                  <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
-                    <a :href="modal_picture" data-toggle="lightbox" data-title="查看图片">
-                      <img :src="modal_picture" class="img-fluid mb-2" alt="modal_title"/>
-                    </a>
-                  </div>
+                <div style="width: 100%" align="center">
+                  <a :href="modal_picture" target="_blank">
+                    <img :src="modal_picture" :alt="modal_title" style="height: 400px;"/>
+                  </a>
                 </div>
 
               </div>
@@ -339,8 +335,6 @@
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
-<!-- Ekko Lightbox -->
-<script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
 <!-- Vue -->
 <script src="../../static/other/vue/vue.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -447,12 +441,6 @@
           this.modal_author = this.crawlerData[index].author;
           this.modal_url = this.crawlerData[index].url;
           this.modal_picture = this.crawlerData[index].picture;
-          $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-              alwaysShowClose: true
-            });
-          });
         }
       },
       mounted: function () { // 挂载结束状态
