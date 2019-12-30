@@ -23,6 +23,8 @@ public class ReturnInformation extends BaseEntity implements Serializable {
     private String name;
     @ElementCollection
     private List<String> keyWords;
+    @Column(nullable = true)
+    private Integer classes;
 
     public ReturnInformation(Long id, String title, Long createTime, String time, Long taskId, String name) {
         this.id = id;
@@ -92,5 +94,13 @@ public class ReturnInformation extends BaseEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Integer classes) {
+        this.classes = classes;
     }
 }

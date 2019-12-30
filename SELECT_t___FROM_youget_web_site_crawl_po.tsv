@@ -1,5 +1,0 @@
-1	1	.fl_all span:nth-of-type(2)	1	div.TRS_Editor	1	2	#content a	1	中国科学院	.page a	下一页	.xl_title2 .fl_all span:nth-of-type(1)	h2.xl_title	1	http://www.cas.cn/	.TRS_Editor img	1
-2	1	(来源：.{0,}作者：.{0,})	2	div.f-main-leftMain-content	1	2	ol a	1	中国社会科学网	.ImageListViewpage a	下一页	(\d{4}年\d{1,2}月\d{1,2}日 \d{2}:\d{2})	span.TitleFont	1	http://www.cssn.cn/index.shtml		2
-3	1	span:nth-of-type(4)	1	div.neirongnewstext	1	1	.p_1 a	1	中国科技新闻网	.pagination a	下一页	span:nth-of-type(2)	div.neirongnewstitle	1	http://www.zgkjxww.com/	center img	1
-4	1	var str='(.{0,})';	2	div.trshui13	1	2	li a	1	中国科学技术部网站	.nav_r2 td a	下一页	日期：(\d{4}年\d\d月\d\d日　\d\d:\d\d)	div.style14	1	http://www.most.gov.cn/	p img	2
-5	1	meta name="ContentSource" content="(.{0,})"	2	div.right_md_text	1	1	.right_md_list a	1	中国工程院	b:nth-of-type(4) a	下一页	(\d{4}-\d{2}-\d{2})	div.right_md_titltop	1	http://www.cae.cn/cae/html/main/index.html	p img	2

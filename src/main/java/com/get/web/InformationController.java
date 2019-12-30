@@ -57,6 +57,7 @@ public class InformationController extends BaseController {
                 private String title;
                 private List<String> keyWords;
                 private String time;
+                private Integer classes;
                 private String className;
 
 //                private Long id;
@@ -74,6 +75,13 @@ public class InformationController extends BaseController {
 //                private List<Long> keyWords;
 
 
+                public Integer getClasses() {
+                    return classes;
+                }
+
+                public void setClasses(Integer classes) {
+                    this.classes = classes;
+                }
 
                 public Long getTaskId() {
                     return taskId;
@@ -142,6 +150,7 @@ public class InformationController extends BaseController {
 
             //找到该账号下所有的任务
 //            循环找到任务id下的information
+            System.out.println(userId);
             List<InformationKeyWord> informationKeyWords= informationKeyWordRepository.selectKeyWordByUserId(userId);
 
             List<ReturnInformation> returnInformations=returnInformationRepository.selectInformationEumByUserId(userId);

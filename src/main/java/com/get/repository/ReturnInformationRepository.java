@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ReturnInformationRepository extends JpaRepository<ReturnInformation,Long> {
-    @Query(value = "select I.id,title,I.create_time,time,task_id,name from information AS I,task where I.task_id in (select id from task where user_id=?1) and task.id=I.task_id",nativeQuery = true)
+public interface ReturnInformationRepository extends JpaRepository<ReturnInformation, Long> {
+    @Query(value = "select I.id,title,I.create_time,time,task_id,name,I.classes from information AS I,task where I.task_id in (select id from task where user_id=?1) and task.id=I.task_id", nativeQuery = true)
 //    select I.id,title,I.create_time,time,task_id,name from information AS I,task where I.task_id in (select id from task where user_id=1) and task.id=I.task_id;
 //    @Query("select Task.id,title,Task.createTime,time,taskId,name,keyWords from Information,Task where I.taskId in (select id from Task where userId=?1)")
     List<ReturnInformation> selectInformationEumByUserId(Long userId);

@@ -1,5 +1,7 @@
 package com.get.web;
 
+import com.get.cache.domain.WebPage;
+import com.get.cache.help.DownloadHelp;
 import com.get.comm.aop.LoggerManage;
 import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.crawl.repository.WebSiteCrawlPolicyRepository;
@@ -66,7 +68,7 @@ public class TaskController extends BaseController {
             task.setCompletedNum(0L);
             String[] themeIds = themeId.split(",");
 
-            Gson gson1=new Gson();
+            Gson gson1 = new Gson();
 
             System.out.println(gson1.toJson(themeIds));
             List<Long> listId = new ArrayList<Long>();
@@ -76,7 +78,7 @@ public class TaskController extends BaseController {
 
             for (int i = 0; i < themeIds.length; i++) {
                 List<Long> temp = themeRepository.findThemeById(Long.parseLong(themeIds[i])).getListId();
-                System.out.println("测试"+gson1.toJson(temp));
+                System.out.println("测试" + gson1.toJson(temp));
                 listId.addAll(temp);
             }
             //去重
@@ -90,8 +92,8 @@ public class TaskController extends BaseController {
 
             task.setListId(listId);
 
-            List<Long> tempThemeIds=new ArrayList<Long>();
-            for (int i=0;i< themeIds.length;i++){
+            List<Long> tempThemeIds = new ArrayList<Long>();
+            for (int i = 0; i < themeIds.length; i++) {
                 tempThemeIds.add(Long.parseLong(themeIds[i]));
             }
             task.setThemeIds(tempThemeIds);
@@ -113,7 +115,7 @@ public class TaskController extends BaseController {
             if (findTasks == null) {//没有任务
                 return failAjax(ExceptionMsg.NoTask);
             }
-            List<Long> themeIds=new ArrayList<Long>();
+            List<Long> themeIds = new ArrayList<Long>();
 //            for (int i=0;i<findTasks.size();i++){
 //                List<Long> listId=findTasks.get(i).getThemeIds();
 //                for (int j=0;j<listId.size();j++){
@@ -147,8 +149,8 @@ public class TaskController extends BaseController {
     public AjaxResult deleteTask(String sid) {
         try {
 
-System.out.println(sid);
-            Long id=Long.parseLong(sid);
+            System.out.println(sid);
+            Long id = Long.parseLong(sid);
 //            Long id=6L;
             Long userId = getUserId();
             Task findTask = taskRepository.findTaskByIdAndUserId(id, userId);
@@ -158,7 +160,7 @@ System.out.println(sid);
             //以下是删除任务
             taskRepository.deleteTaskListIdByTaskId(id);
             taskRepository.deleteTaskThemeIdsByTaskId(id);
-            taskRepository.deleteTaskById(id,userId);
+            taskRepository.deleteTaskById(id, userId);
             return successAjax();
         } catch (Exception e) {
             logger.error("删除任务失败", e);
@@ -177,8 +179,7 @@ System.out.println(sid);
             if (task == null) {
                 return failAjax(ExceptionMsg.TaskNotExist);
             }
-            if(task.getFlag() != 0)
-            {
+            if (task.getFlag() != 0) {
                 // 已经启动或者结束
                 System.out.println("任务已经启动");
                 return failAjax(ExceptionMsg.FAILED);
@@ -186,8 +187,9 @@ System.out.println(sid);
             /**
              * start 添加时间节点
              */
-
-            taskRepository.updateTaskStartByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
+            // 修改
+            taskRepository.updateTaskFlagById(task.getId(), 1L);
+            taskRepository.updateTaskStartByIdAndUserId(task.getId(), userId, (Long) System.currentTimeMillis());
 
 //            taskRepository.setTaskCompletedNum(getUserId(), task.getId(), 0);
             List<Long> listId = taskRepository.selectTaskListIdByTaskId(task.getId());
@@ -213,11 +215,11 @@ System.out.println(sid);
                             /**
                              * 如果已完成数量等于总的数量，添加end节点和修改标志位flag
                              */
-                            int cur=taskRepository.selectTaskCompletedNumByIdAndUserId(task.getId(),userId);
-                            int finish=taskRepository.selectTaskListIdCountListIdByTaskId(task.getId());
-                            if (cur==finish){//添加end节点
-                                taskRepository.updateTaskEndByIdAndUserId(task.getId(),userId,(Long)System.currentTimeMillis());
-                                taskRepository.updateTaskFlagById(task.getId(),2L);
+                            int cur = taskRepository.selectTaskCompletedNumByIdAndUserId(task.getId(), userId);
+                            int finish = taskRepository.selectTaskListIdCountListIdByTaskId(task.getId());
+                            if (cur == finish) {//添加end节点
+                                taskRepository.updateTaskEndByIdAndUserId(task.getId(), userId, (Long) System.currentTimeMillis());
+                                taskRepository.updateTaskFlagById(task.getId(), 2L);
                             }
 
                         }
@@ -271,6 +273,8 @@ System.out.println(sid);
         final int downloadType = crawlPolicy.getArticleDownloadType();
         final Document document = getDocument(url, downloadType);
         if (document != null) {
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(crawlPolicy));
             // 作者
             String author = getOneText(document, crawlPolicy.getAuthorSelectorType(), crawlPolicy.getAuthorSelector());
             if (StringUtil.isEmpty(author)) {
@@ -286,7 +290,9 @@ System.out.println(sid);
             // 时间
             final String time = getOneText(document, crawlPolicy.getTimeSelectorType(), crawlPolicy.getTimeSelector());
             // 图片 url
-            final String photoUrl = getOnePhoto(document, crawlPolicy.getPhotoCss(), url);
+            String photoUrl = getOnePhoto(document, crawlPolicy.getPhotoCss(), url);
+            // 尝试下载图片
+            String downloadPicture = downloadPicture(photoUrl);
 
             // 关键词
             String keywords = JiebaUtil.getKeyWords(title + content);
@@ -301,7 +307,13 @@ System.out.println(sid);
             // 爬去时间
             information.setCreateTime(System.currentTimeMillis());
             // 设置photo url
-            information.setPicture(photoUrl);
+            if (StringUtil.isEmpty(downloadPicture)) {
+                // 下载未成功
+                information.setPicture(photoUrl);
+            } else {
+                // 下载成功
+                information.setPicture(downloadPicture);
+            }
             // 设置标题
             information.setTitle(title);
             // 设置关键词
@@ -315,13 +327,26 @@ System.out.println(sid);
             // 设置任务id
             information.setTaskId(taskId);
 
-            Gson gson = new Gson();
             System.out.println(gson.toJson(information));
             System.out.printf("图片为:%s\n", photoUrl);
-            System.out.printf("摘要为:%s\n", SnowNlpUtil.getZy(title + content));
+//            System.out.printf("摘要为:%s\n", SnowNlpUtil.getZy(title + content));
             System.out.printf("关键词为:%s\n", keywords);
             informationRepository.save(information);
         }
+    }
+
+    private String downloadPicture(String pic) {
+        for (int i = 0; i < 3; i++) {
+            try {
+                WebPage webPage = DownloadHelp.down(pic);
+                if (webPage.getSuccess()) {
+                    return "/cache/" + webPage.getFileName();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     /**

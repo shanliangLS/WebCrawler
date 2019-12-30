@@ -1,0 +1,11 @@
+INSERT INTO youget.classes (id, name) VALUES (1, '体育');
+INSERT INTO youget.classes (id, name) VALUES (2, '财经');
+INSERT INTO youget.classes (id, name) VALUES (3, '房产');
+INSERT INTO youget.classes (id, name) VALUES (4, '家居');
+INSERT INTO youget.classes (id, name) VALUES (5, '教育');
+INSERT INTO youget.classes (id, name) VALUES (6, '科技');
+INSERT INTO youget.classes (id, name) VALUES (7, '时尚');
+INSERT INTO youget.classes (id, name) VALUES (8, '时政');
+INSERT INTO youget.classes (id, name) VALUES (9, '游戏');
+INSERT INTO youget.classes (id, name) VALUES (10, '娱乐');
+INSERT INTO youget.classes (id, name) VALUES (0, '其他');
