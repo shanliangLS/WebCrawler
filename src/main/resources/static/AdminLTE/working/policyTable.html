@@ -537,7 +537,6 @@
               if (data.code == '000000') {
                 thisVue.policyData = data.data;
                 thisVue.dataTableLoading = false;
-                thisVue.updatePolicyDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -548,11 +547,17 @@
           });
         },
         updatePolicyDataTable: function() {
-          if (this.dataTableLoading) {
-            return;
-          }
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
+          // if($('#policyTable').DataTable()){
+          //   $('#policyTable').DataTable().destroy()
+          // }
           $("#policyTable").DataTable({
             retrieve: true,
+            // bFilter: false,
+            // bDestroy: true,
+            // destroy: true,
             bStateSave: true, //状态保存
             order: [0,'asc'],
             // ordering: false,

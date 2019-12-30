@@ -397,7 +397,7 @@
               if (data.code == '000000') {
                 thisVue.siteData = data.data;
                 thisVue.dataTableLoading = false;
-                thisVue.updateSiteDataTable();
+                // thisVue.updateSiteDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -408,9 +408,9 @@
           });
         },
         updateSiteDataTable: function() {
-          if (this.dataTableLoading) {
-            return;
-          }
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
           $("#siteTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存

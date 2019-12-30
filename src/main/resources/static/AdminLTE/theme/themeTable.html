@@ -637,7 +637,7 @@
                   return item;
                 });
                 thisVue.dataTableLoading = false;
-                thisVue.updateThemeDataTable();
+                // thisVue.updateThemeDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -648,9 +648,9 @@
           });
         },
         updateThemeDataTable: function() {
-          if (this.dataTableLoading) {
-            return;
-          }
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
           $("#themeTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
