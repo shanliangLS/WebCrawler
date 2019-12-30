@@ -12,11 +12,7 @@ public class NewsUtil {
 //            ss = ss.replace(" ", "");
             ss = ss.replace("\n", "");
             ss = ss.replace("\r", "");
-            ss = ss.replace("\'", "");
-            ss = ss.replace("\\", "");
-            ss = ss.replace("/", "");
-            ss = ss.replace("(", "");
-            ss = ss.replace(")", "");
+            ss = ss.replace("\'", "|");
             //            System.out.println(ss);
             String cmd = String.format("python3 %s '%s'", Global.newsCnnPyPath, ss);
 //            String cmd = "python3 " + Global.newsCnnPyPath + "  \'" + ss + "\'";

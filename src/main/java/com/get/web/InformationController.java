@@ -12,6 +12,8 @@ import com.get.repository.InformationKeyWordRepository;
 import com.get.repository.InformationRepository;
 import com.get.repository.ReturnInformationRepository;
 import com.get.repository.TaskRepository;
+import com.get.util.JiebaUtil;
+import com.get.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,12 +37,12 @@ public class InformationController extends BaseController {
 
     @Autowired
     private ReturnInformationRepository returnInformationRepository;
-@Autowired
+    @Autowired
     private InformationKeyWordRepository informationKeyWordRepository;
 
-    @RequestMapping(value = "/getAllInformationList",method = RequestMethod.POST)
+    @RequestMapping(value = "/getAllInformationList", method = RequestMethod.POST)
     @LoggerManage(description = "返回该用户所爬取的信息列表")
-    public  AjaxResult getAllInformationList(){
+    public AjaxResult getAllInformationList() {
         try {
             Long userId = getUserId();
             //任务id
@@ -49,7 +51,7 @@ public class InformationController extends BaseController {
 
 //
             //任务id   （task ）   标题   关键字    发布时间 爬取时间 （information）   分类名称（classes）
-            class ReturnData{
+            class ReturnData {
                 private Long id;
                 private Long taskId;
                 private String taskName;
@@ -151,10 +153,10 @@ public class InformationController extends BaseController {
             //找到该账号下所有的任务
 //            循环找到任务id下的information
             System.out.println(userId);
-            List<InformationKeyWord> informationKeyWords= informationKeyWordRepository.selectKeyWordByUserId(userId);
+            List<InformationKeyWord> informationKeyWords = informationKeyWordRepository.selectKeyWordByUserId(userId);
 
-            List<ReturnInformation> returnInformations=returnInformationRepository.selectInformationEumByUserId(userId);
-            List<String> tempList=new ArrayList<String>();
+            List<ReturnInformation> returnInformations = returnInformationRepository.selectInformationEumByUserId(userId);
+            List<String> tempList = new ArrayList<String>();
 //            for(int i=returnInformations.size()-1;i>=0;i++){
 //
 //                for(int j=informationKeyWords.size()-1;informationKeyWords.get(j).getInformationId()>=returnInformations.get(i).getId();){
@@ -169,9 +171,8 @@ public class InformationController extends BaseController {
 //            }
 
 
-
-System.out.println(informationKeyWords.size());//1750
-System.out.println(returnInformations.size());//2100
+            System.out.println(informationKeyWords.size());//1750
+            System.out.println(returnInformations.size());//2100
 //            for (int i=0,j=0;j<returnInformations.size()&&i<informationKeyWords.size();j++){
 //                if (informationKeyWords.get(i).getInformationId().longValue()==returnInformations.get(j).getId().longValue()){
 //
@@ -188,13 +189,12 @@ System.out.println(returnInformations.size());//2100
 //            }
 
 
-
-            for (int i=0,j=0;j<returnInformations.size();){
+            for (int i = 0, j = 0; j < returnInformations.size(); ) {
                 tempList.add(informationKeyWords.get(j).getKeyWords());
                 System.out.println(informationKeyWords.get(j));
                 System.out.println(j);
-                j=j+1;
-                if (j%5==0){
+                j = j + 1;
+                if (j % 5 == 0) {
                     returnInformations.get(i).setKeyWords(tempList);
 
                     tempList.clear();
@@ -202,8 +202,6 @@ System.out.println(returnInformations.size());//2100
                     i++;
                 }
             }
-
-
 
 
 //            List<Task> taskList = taskRepository.findAllByUserId(userId);
@@ -240,16 +238,16 @@ System.out.println(returnInformations.size());//2100
 //            }
 
             return successAjax(returnInformations);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return errorAjax();
         }
     }
 
 
-    @RequestMapping(value = "/getDetailInformation",method = RequestMethod.POST)
+    @RequestMapping(value = "/getDetailInformation", method = RequestMethod.POST)
     @LoggerManage(description = "返回该用户所爬取的具体信息")
-    public  AjaxResult getDetailInformation(String sid) {
+    public AjaxResult getDetailInformation(String sid) {
         try {
             Long userId = getUserId();
 //            title，content，author，url，picture
@@ -262,12 +260,12 @@ System.out.println(returnInformations.size());//2100
                 private String picture;
 
                 public ReturnDetailData() {
-                    id=0L;
-                    title="";
-                    content="";
-                    author="";
-                    url="";
-                    picture="";
+                    id = 0L;
+                    title = "";
+                    content = "";
+                    author = "";
+                    url = "";
+                    picture = "";
                 }
 
                 public Long getId() {
@@ -318,17 +316,17 @@ System.out.println(returnInformations.size());//2100
                     this.picture = picture;
                 }
             }
-            Long id=Long.parseLong(sid);
-            Information information= informationRepository.selectInformationDetailById(id);
+            Long id = Long.parseLong(sid);
+            Information information = informationRepository.selectInformationDetailById(id);
 
-            ReturnDetailData returnDetailData =new ReturnDetailData();
+            ReturnDetailData returnDetailData = new ReturnDetailData();
             returnDetailData.setId(information.getId());
             returnDetailData.setTitle(information.getTitle());
             returnDetailData.setAuthor(information.getAuthor());
             returnDetailData.setContent(information.getContent());
             returnDetailData.setUrl(information.getUrl());
             returnDetailData.setPicture(information.getPicture());
-            return  successAjax(returnDetailData);
+            return successAjax(returnDetailData);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -355,4 +353,40 @@ System.out.println(returnInformations.size());//2100
             return errorAjax();
         }
     }
+
+
+    @RequestMapping(value = "/export/keyword")
+    public AjaxResult getKeyWord(String infoIdListStr) {
+        try {
+            if (infoIdListStr == null || "".equals(infoIdListStr)) {
+                return failAjax(ExceptionMsg.ParamError);
+            }
+            StringBuilder text = new StringBuilder();
+            for (String infoIdStr : infoIdListStr.split(",")) {
+                if (infoIdStr == null || "".equals(infoIdStr)) {
+                    continue;
+                }
+                int infoId = Integer.parseInt(infoIdStr);
+                Information information = informationRepository.findInformationById((long) infoId);
+                if (information == null) {
+                    continue;
+                }
+                String content = information.getContent();
+                String title = information.getContent();
+                if (content == null) {
+                    content = "";
+                }
+                if (title == null) {
+                    title = "";
+                }
+                text.append(title).append(content);
+            }
+            String keywords = JiebaUtil.getRc(text.toString());
+            return successAjax(keywords);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return errorAjax();
+    }
+
 }
