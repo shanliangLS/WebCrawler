@@ -706,10 +706,12 @@
                   return;
                 }
                 var dataLabels = [],dataData = [];
-                data.data.filter(function (item) {
-                  dataLabels.push(item.name);
-                  dataData.push(item.num);
-                });
+                if (!(data.data == '' || typeof (data.data) == 'undefined')) {
+                  data.data.filter(function (item) {
+                    dataLabels.push(item.name);
+                    dataData.push(item.num);
+                  });
+                }
                 var ticksStyle = {
                   fontColor: '#495057',
                   fontStyle: 'bold'
