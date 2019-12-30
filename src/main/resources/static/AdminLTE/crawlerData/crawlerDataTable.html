@@ -264,13 +264,20 @@
                 </div>
                 <div class="icheck-primary d-inline ml-2" v-for="(task,index) in taskData" :key="index"
                      onclick="$('#crawlerTable').DataTable().destroy();" v-if="!dataTableLoading">
-                  <input type="checkbox" :id="task.checkboxId" :value="task.id" v-model="checkedTask">
+                  <input type="checkbox" :id="task.checkboxId" :value="task.id" v-model="checkedTask" @click="clearSelectAll()">
                   <label :for="task.checkboxId">{{task.name}}</label>
                 </div>
               </div>
               <table id="crawlerTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>
+                    <div class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" id="selectAll1" v-model="selectAll"
+                             @click="filteredCrawlerSelectAll()">
+                      <label for="selectAll1"></label>
+                    </div>
+                  </th>
                   <th>所属任务</th>
                   <th>爬取时间</th>
                   <th>标题</th>
@@ -284,6 +291,12 @@
                 </thead>
                 <tbody>
                 <tr v-for="(crawler,index) in filteredCrawlerData" :key="index">
+                  <td>
+                    <div class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" :id="'crawler'+crawler.id" :value="crawler.id" v-model="checkedCrawlerData">
+                      <label :for="'crawler'+crawler.id"></label>
+                    </div>
+                  </td>
                   <td>{{crawler.name}}</td>
                   <td>{{createTimeToString(crawler.createTime)}}</td>
                   <td>{{crawler.title}}</td>
@@ -304,6 +317,12 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                  <th>
+                    <div class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" id="selectAll2" v-model="selectAll">
+                      <label for="selectAll2"></label>
+                    </div>
+                  </th>
                   <th>所属任务</th>
                   <th>爬取时间</th>
                   <th>标题</th>
@@ -380,13 +399,16 @@
     var vm = new Vue({
       el: '#main',
       data: {
-        dataTableLoading: true,
-        // 主要数据
+        // 任务
         taskData: [],
         taskListLoading: true,
         taskListLoadingText: "正在请求已完成任务列表...",
         checkedTask: [],
+        // 爬取数据
         crawlerData: [],
+        dataTableLoading: true,
+        selectAll: false,
+        checkedCrawlerData: [],
         classNameArr: ["其他", "体育", "财经", "房产", "家居", "教育", "科技", "时尚", "时政", "游戏", "娱乐"],
         // 模态框
         modal_index: -1,
@@ -410,6 +432,19 @@
           return filteredCrawler;
         }
       },
+      watch: {
+        checkedCrawlerData: function () {
+          if (this.filteredCrawlerData.length == 0) {
+            this.selectAll = false;
+          } else {
+            if (this.checkedCrawlerData.length == this.filteredCrawlerData.length) {
+              this.selectAll = true;
+            } else {
+              this.selectAll = false;
+            }
+          }
+        }
+      },
       methods: {
         createTimeToString: function(str) {
           var oDate = new Date(str),
@@ -423,6 +458,23 @@
             // +' '+ addZero(oHour) +':'+ addZero(oMin) +':'+addZero(oSen);
           return oTime;
         },
+        clearSelectAll: function() {
+          this.selectAll = false;
+          this.checkedCrawlerData = [];
+        },
+        filteredCrawlerSelectAll: function() {
+          if (this.selectAll) {
+            this.selectAll = false;
+            this.checkedCrawlerData = [];
+          } else {
+            this.selectAll = true;
+            this.checkedCrawlerData = [];
+            var thisVue = this;
+            this.filteredCrawlerData.filter(function(item){
+              thisVue.checkedCrawlerData.push(item.id);
+            });
+          }
+        },
         getCrawlerData: function() {
           var thisVue = this;
           $.ajax({
@@ -430,7 +482,7 @@
             type: 'POST',
             dataType: "json",
             success: function (data) {
-              console.log(data.data);
+              // console.log(data.data);
               if (data.code == '000000') {
                 thisVue.crawlerData = data.data;
                 thisVue.dataTableLoading = false;
@@ -455,11 +507,11 @@
             retrieve: true,
             bStateSave: true, //状态保存
             lengthMenu: [50,10,20,100],
-            order: [0,'asc'],
+            order: [1,'asc'],
             // ordering: false,
             aoColumnDefs: [
               {"orderable": false,
-                "aTargets": [2,3,6]}// 制定列不参与排序
+                "aTargets": [0,3,4,7]}// 制定列不参与排序
             ],
             // 水平滚动条
             // scrollX: true,
