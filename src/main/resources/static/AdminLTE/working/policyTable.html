@@ -485,6 +485,7 @@
       el: '#main',
       data: {
         policyData: [],
+        dataTableLoading: true,
         // 添加和修改模态框
         modalModel: 0,
         form_index: -1,
@@ -535,6 +536,7 @@
               // console.log(data);
               if (data.code == '000000') {
                 thisVue.policyData = data.data;
+                thisVue.dataTableLoading = false;
               } else {
                 Toast.fire({
                   type: 'error',
@@ -545,8 +547,17 @@
           });
         },
         updatePolicyDataTable: function() {
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
+          // if($('#policyTable').DataTable()){
+          //   $('#policyTable').DataTable().destroy()
+          // }
           $("#policyTable").DataTable({
             retrieve: true,
+            // bFilter: false,
+            // bDestroy: true,
+            // destroy: true,
             bStateSave: true, //状态保存
             order: [0,'asc'],
             // ordering: false,

@@ -540,6 +540,7 @@
       el: '#main',
       data: {
         themeData: [],
+        dataTableLoading: true,
         // 添加和修改模态框
         modalModel: 0,
         form_index: -1,
@@ -635,6 +636,8 @@
                   item.selectedSite = thisVue.selectedSite(item.listId);
                   return item;
                 });
+                thisVue.dataTableLoading = false;
+                // thisVue.updateThemeDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -645,6 +648,9 @@
           });
         },
         updateThemeDataTable: function() {
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
           $("#themeTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存

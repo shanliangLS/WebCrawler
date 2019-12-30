@@ -359,6 +359,7 @@
       el: '#main',
       data: {
         siteData: [],
+        dataTableLoading: true,
         // 添加和修改模态框
         modalModel: 0,
         form_index: -1,
@@ -395,6 +396,8 @@
               // console.log(data);
               if (data.code == '000000') {
                 thisVue.siteData = data.data;
+                thisVue.dataTableLoading = false;
+                // thisVue.updateSiteDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -405,6 +408,9 @@
           });
         },
         updateSiteDataTable: function() {
+          // if (this.dataTableLoading) {
+          //   return;
+          // }
           $("#siteTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
