@@ -68,12 +68,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-address-card nav-icon"></i>
-                  <p>个人信息</p>
-                </a>
-              </li>
+              <!--<li class="nav-item">-->
+                <!--<a href="#" class="nav-link">-->
+                  <!--<i class="fa fa-address-card nav-icon"></i>-->
+                  <!--<p>个人信息</p>-->
+                <!--</a>-->
+              <!--</li>-->
               <li class="nav-item">
                 <a href="setting/recoverPassword.html" class="nav-link">
                   <i class="fa fa-anchor nav-icon"></i>
@@ -98,7 +98,7 @@
             <a href="#" class="nav-link">
               <i class="fas fa-edit nav-icon"></i>
               <p>
-                给🎅爪巴
+                爬虫策略
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -173,14 +173,15 @@
                 <div style="background-size: cover;">
                   <div class="text-center text-white" style="padding: 20px !important;">
                     <a href="javascript:void(0);">
-                      <img id="headerImg" class="img-thumbnail img-circle" onerror="javascript:this.src='../static/image/favicon.png'"
+                      <img id="headerImg" class="img-thumbnail img-circle"
+                           onerror="javascript:this.src='../static/image/favicon.png'"
                            src="" style="width: 128px !important;height: 128px !important;"/>
                     </a>
-                    <h3 style="margin: 10px 0 0 !important;font-size:24px;font-weight: bold;">
+                    <h3 id="userName" style="margin: 10px 0 0 !important;font-size:24px;font-weight: bold;">
                       用户昵称
                     </h3>
-                    <p>123456789@qq.com</p>
-                    <p>
+                    <p id="userEmail">123456789@qq.com</p>
+                    <p id="userIntroduction">
                       暂无简介
                     </p>
                   </div>
@@ -200,7 +201,8 @@
                       </div>
                       <!-- /.setting-block -->
                       <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                          class="fas fa-minus"></i>
                         </button>
                       </div>
                       <!-- /.card-tools -->
@@ -216,36 +218,36 @@
                     </div>
                     <!-- /.card-body -->
                     <!--<div class="card-footer card-comments">-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--政策解读-->
-                      <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
+                    <!--政策解读-->
+                    <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--侦测解毒-->
-                      <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
+                    <!--侦测解毒-->
+                    <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                     <!--<div class="card-footer">
@@ -264,12 +266,14 @@
                     <div class="card-header">
                       <div class="user-block">
                         <img class="img-circle" src="../static/image/shky.jpg" alt="User Image">
-                        <span class="username"><a href="http://www.cssn.cn/index.shtml" target="_blank">中国社会科学网</a></span>
+                        <span class="username"><a href="http://www.cssn.cn/index.shtml"
+                                                  target="_blank">中国社会科学网</a></span>
                         <span class="description">中国社会科学网-全球最大学术门户网站</span>
                       </div>
                       <!-- /.setting-block -->
                       <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                          class="fas fa-minus"></i>
                         </button>
                       </div>
                       <!-- /.card-tools -->
@@ -285,46 +289,46 @@
                     </div>
                     <!-- /.card-body -->
                     <!--<div class="card-footer card-comments">-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Maria Gonzales-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Maria Gonzales-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Luna Stark-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Luna Stark-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                     <!--<div class="card-footer">-->
-                      <!--<form action="#" method="post">-->
-                        <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
-                        <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
-                        <!--<div class="img-push">-->
-                          <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
-                        <!--</div>-->
-                      <!--</form>-->
+                    <!--<form action="#" method="post">-->
+                    <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
+                    <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
+                    <!--<div class="img-push">-->
+                    <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
+                    <!--</div>-->
+                    <!--</form>-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                   </div>
@@ -338,7 +342,8 @@
                       </div>
                       <!-- /.setting-block -->
                       <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                          class="fas fa-minus"></i>
                         </button>
                       </div>
                       <!-- /.card-tools -->
@@ -354,46 +359,46 @@
                     </div>
                     <!-- /.card-body -->
                     <!--<div class="card-footer card-comments">-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Maria Gonzales-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Maria Gonzales-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Luna Stark-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Luna Stark-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                     <!--<div class="card-footer">-->
-                      <!--<form action="#" method="post">-->
-                        <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
-                        <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
-                        <!--<div class="img-push">-->
-                          <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
-                        <!--</div>-->
-                      <!--</form>-->
+                    <!--<form action="#" method="post">-->
+                    <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
+                    <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
+                    <!--<div class="img-push">-->
+                    <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
+                    <!--</div>-->
+                    <!--</form>-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                   </div>
@@ -410,7 +415,8 @@
                       </div>
                       <!-- /.setting-block -->
                       <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                          class="fas fa-minus"></i>
                         </button>
                       </div>
                       <!-- /.card-tools -->
@@ -426,36 +432,36 @@
                     </div>
                     <!-- /.card-body -->
                     <!--<div class="card-footer card-comments">-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--政策解读-->
-                      <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
+                    <!--政策解读-->
+                    <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--侦测解毒-->
-                      <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
+                    <!--侦测解毒-->
+                    <!--&lt;!&ndash;<span class="text-muted float-right">8:03 PM Today</span>&ndash;&gt;-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                     <!--<div class="card-footer">
@@ -479,7 +485,8 @@
                       </div>
                       <!-- /.setting-block -->
                       <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                          class="fas fa-minus"></i>
                         </button>
                       </div>
                       <!-- /.card-tools -->
@@ -495,46 +502,46 @@
                     </div>
                     <!-- /.card-body -->
                     <!--<div class="card-footer card-comments">-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Maria Gonzales-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Maria Gonzales-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
-                      <!--<div class="card-comment">-->
-                        <!--&lt;!&ndash; User image &ndash;&gt;-->
-                        <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--<div class="card-comment">-->
+                    <!--&lt;!&ndash; User image &ndash;&gt;-->
+                    <!--<img class="img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="User Image">-->
 
-                        <!--<div class="comment-text">-->
+                    <!--<div class="comment-text">-->
                     <!--<span class="username">-->
-                      <!--Luna Stark-->
-                      <!--<span class="text-muted float-right">8:03 PM Today</span>-->
+                    <!--Luna Stark-->
+                    <!--<span class="text-muted float-right">8:03 PM Today</span>-->
                     <!--</span>&lt;!&ndash; /.username &ndash;&gt;-->
-                          <!--It is a long established fact that a reader will be distracted-->
-                          <!--by the readable content of a page when looking at its layout.-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
-                      <!--</div>-->
-                      <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
+                    <!--It is a long established fact that a reader will be distracted-->
+                    <!--by the readable content of a page when looking at its layout.-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.comment-text &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-comment &ndash;&gt;-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                     <!--<div class="card-footer">-->
-                      <!--<form action="#" method="post">-->
-                        <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
-                        <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
-                        <!--<div class="img-push">-->
-                          <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
-                        <!--</div>-->
-                      <!--</form>-->
+                    <!--<form action="#" method="post">-->
+                    <!--<img class="img-fluid img-circle img-sm" src="dist/img/user4-128x128.jpg" alt="Alt Text">-->
+                    <!--&lt;!&ndash; .img-push is used to add margin to elements next to floating images &ndash;&gt;-->
+                    <!--<div class="img-push">-->
+                    <!--<input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">-->
+                    <!--</div>-->
+                    <!--</form>-->
                     <!--</div>-->
                     <!-- /.card-footer -->
                   </div>
@@ -610,12 +617,23 @@
         // console.log(data);
         if (data.code == '000000') {
           //头像
-          var profilePictureSrc = 'http://localhost:8888/' + data.data.profilePicture.replace('\\','/');
-          $("#headerImg").attr("src", profilePictureSrc);
+          if (data.data.hasOwnProperty('profilePicture') && data.data.profilePicture != null) {
+            var profilePictureSrc = '/' + data.data.profilePicture.replace('\\', '/');
+            $("#headerImg").attr("src", profilePictureSrc);
+          }
           //背景图片
-          var backgroundPictureSrc = 'http://localhost:8888/' + data.data.backgroundPicture.replace('\\','/');
-          $("#backgroundImg").css("background","url(" + backgroundPictureSrc + ") no-repeat center");
-          $("#backgroundImg").css("background-size","cover");
+          if (data.data.hasOwnProperty('backgroundPicture') && data.data.backgroundPicture != null) {
+            var backgroundPictureSrc = 'http://localhost:8888/' + data.data.backgroundPicture.replace('\\', '/');
+            $("#backgroundImg").css("background", "url(" + backgroundPictureSrc + ") no-repeat center");
+            $("#backgroundImg").css("background-size", "cover");
+          }
+          // 简介
+          if(data.data.hasOwnProperty('introduction') && data.data.introduction != null)
+          {
+              $('#userIntroduction').text(data.data.introduction);
+          }
+          $('#userName').text(data.data.name);
+          $('#userEmail').text(data.data.email);
         } else {
         }
       }

@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Theme style -->
@@ -23,6 +25,13 @@
   <style>
     table td{
       word-break: break-all;
+    }
+    .icheck-primary>input:first-child:checked+input[type=hidden]+label::before, .icheck-primary>input:first-child:checked+label::before {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .icheck-primary>input:first-child:not(:checked):not(:disabled):hover+input[type=hidden]+label::before, .icheck-primary>input:first-child:not(:checked):not(:disabled):hover+label::before {
+      border-color: #007bff;
     }
   </style>
 
@@ -82,18 +91,18 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-address-card nav-icon"></i>
-                  <p>个人信息</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-rocket nav-icon"></i>
-                  <p>修改简介</p>
-                </a>
-              </li>
+              <!--<li class="nav-item">-->
+                <!--<a href="#" class="nav-link">-->
+                  <!--<i class="fa fa-address-card nav-icon"></i>-->
+                  <!--<p>个人信息</p>-->
+                <!--</a>-->
+              <!--</li>-->
+              <!--<li class="nav-item">-->
+                <!--<a href="#" class="nav-link">-->
+                  <!--<i class="fa fa-rocket nav-icon"></i>-->
+                  <!--<p>修改简介</p>-->
+                <!--</a>-->
+              <!--</li>-->
               <li class="nav-item">
                 <a href="../setting/recoverPassword.html" class="nav-link">
                   <i class="fa fa-anchor nav-icon"></i>
@@ -118,7 +127,7 @@
             <a href="#" class="nav-link">
               <i class="fas fa-edit nav-icon"></i>
               <p>
-                给🎅爪巴
+                爬虫策略
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -206,8 +215,8 @@
               </div>
               <div class="modal-body">
                 <div style="display: flex; font-size: 18px; padding: 10px;">
-                  <div style="flex: 1">{{modal_author}}</div>
-                  <a :href="modal_url" target="_blank">原文{{modal_url}}</a>
+                  <div style="flex: 1; text-decoration: underline;">{{modal_author}}</div>
+                  <a :href="modal_url" target="_blank" style="max-width: 55%; word-break: break-all;">原文:{{modal_url}}</a>
                 </div>
                 <p v-html="modal_content"></p>
 
@@ -248,6 +257,16 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+              <div class="form-group">
+                <label>任务过滤 </label>
+                <div class="d-inline ml-2" v-if="taskData.length==0 || taskListLoading">
+                  <label>{{taskListLoadingText}}</label>
+                </div>
+                <div class="icheck-primary d-inline ml-2" v-for="(task,index) in taskData" :key="index">
+                  <input type="checkbox" :id="task.checkboxId" :value="task.id" v-model="checkedTask">
+                  <label :for="task.checkboxId">{{task.name}}</label>
+                </div>
+              </div>
               <table id="crawlerTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -264,14 +283,14 @@
                 </thead>
                 <tbody>
                 <tr v-for="(crawler,index) in crawlerData" :key="index">
-                  <td>{{crawler.taskId}}</td>
-                  <td>{{crawler.createTime}}</td>
+                  <td>{{crawler.taskName}}</td>
+                  <td>{{crawler.createDateTime}}</td>
                   <td>{{crawler.title}}</td>
                   <!--<td>{{crawler.author}}</td>-->
                   <td>{{crawler.keyWords.toString()}}</td>
                   <td>{{crawler.time}}</td>
                   <!--<td>{{crawler.url}}</td>-->
-                  <td>{{crawler.classes}}</td>
+                  <td>{{crawler.className}}</td>
                   <td>
                     <div class="btn-group-vertical">
                       <!--<button type="button" class="btn btn-default">Top</button>-->
@@ -361,8 +380,15 @@
     var vm = new Vue({
       el: '#main',
       data: {
+        dataTableLoading: true,
+        // 主要数据
+        taskData: [],
+        taskListLoading: true,
+        taskListLoadingText: "正在请求已完成任务列表...",
+        checkedTask: [],
         crawlerData: [],
         // 模态框
+        modal_index: -1,
         modal_title: '',
         modal_content: '',
         modal_author: '',
@@ -370,22 +396,47 @@
         modal_picture: ''
       },
       computed: {
+        filteredCrawlerData: function () {
+          if (this.checkedTask.length == 0) {
+            return this.crawlerData;
+          }
+          var thisVue = this;
+          var filteredCrawler = this.crawlerData.filter(function(item){
+            if(thisVue.checkedTask.indexOf(item.taskId) > -1) {
+              return item;
+            }
+          });
+          return filteredCrawler;
+        }
       },
       methods: {
+        createTimeToString: function(str) {
+          var oDate = new Date(str),
+            oYear = oDate.getFullYear(),
+            oMonth = oDate.getMonth()+1,
+            oDay = oDate.getDate(),
+            // oHour = oDate.getHours(),
+            // oMin = oDate.getMinutes(),
+            // oSen = oDate.getSeconds(),
+            oTime = oYear +'-'+ oMonth +'-'+ oDay;
+            // +' '+ addZero(oHour) +':'+ addZero(oMin) +':'+addZero(oSen);
+          return oTime;
+        },
         getCrawlerData: function() {
           var thisVue = this;
           $.ajax({
-            url: '/api/info/all',
+            url: '/api/info/getAllInformationList',
             type: 'POST',
             dataType: "json",
             success: function (data) {
               console.log(data);
               if (data.code == '000000') {
-                thisVue.crawlerData = data.data;
-                // .filter(function(item){
-                //   item.selectedSite = thisVue.selectedSite(item.listId);
-                //   return item;
-                // });
+                thisVue.crawlerData = data.data.filter(function(item){
+                  item.createDateTime = thisVue.createTimeToString(item.createTime);
+                  return item;
+                });
+                thisVue.dataTableLoading = false;
+                thisVue.updateCrawlerDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -396,6 +447,9 @@
           });
         },
         updateCrawlerDataTable: function() {
+          if (this.dataTableLoading) {
+            return;
+          }
           $("#crawlerTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
@@ -436,14 +490,74 @@
           });
         },
         openModal: function (index) {
-          this.modal_title = this.crawlerData[index].title;
-          this.modal_content = this.crawlerData[index].content.replace(/\s{3,}/g,'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-          this.modal_author = this.crawlerData[index].author;
-          this.modal_url = this.crawlerData[index].url;
-          this.modal_picture = this.crawlerData[index].picture;
+          if (this.modal_index != index) {
+            this.modal_title = this.crawlerData[index].title;
+            this.modal_content = "加载中...";
+            this.modal_author = '';
+            this.modal_url = '';
+            this.modal_picture = '';
+            this.modal_index = index;
+            var thisVue = this;
+            $.ajax({
+              url: '/api/info/getDetailInformation',
+              type: 'POST',
+              dataType: "json",
+              data: {
+                sid: thisVue.crawlerData[index].id
+              },
+              success: function (data) {
+                console.log(data);
+                if (data.code == '000000') {
+                  thisVue.modal_title = data.data.title;
+                  thisVue.modal_content = data.data.content.replace(/\s{3,}/g,'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                  thisVue.modal_author = data.data.author;
+                  thisVue.modal_url = data.data.url;
+                  thisVue.modal_picture = data.data.picture;
+                  // thisVue.crawlerData = data.data;
+                  // .filter(function(item){
+                  //   item.selectedSite = thisVue.selectedSite(item.listId);
+                  //   return item;
+                  // });
+                } else {
+                  Toast.fire({
+                    type: 'error',
+                    title: data.msg
+                  });
+                }
+              }
+            });
+          }
+        },
+        getTaskData: function () {
+          var thisVue = this;
+          $.ajax({
+            url: '/api/task/getTask',
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+              // console.log(data);
+              if (data.code == '000000') {
+                thisVue.taskListLoading = false;
+                thisVue.taskData = data.data.filter(function(item){
+                  if (item.flag == 2) {
+                    item.checkboxId = 'checkbox' + item.id;
+                    return item;
+                  }
+                });
+                thisVue.taskListLoadingText = "没有已完成的任务";
+              } else {
+                thisVue.taskListLoadingText = "获取任务列表失败";
+                Toast.fire({
+                  type: 'error',
+                  title: data.msg
+                });
+              }
+            }
+          });
         }
       },
       mounted: function () { // 挂载结束状态
+        this.getTaskData();
         this.getCrawlerData();
       },
       updated: function () { // 更新完成状态
