@@ -91,7 +91,7 @@ public class ExcelUtil {
         int rowIndex = 0;
         rowIndex = writeTitlesToExcel(wb, sheet, data.getTitles());
         rowIndex = writeRowsToExcel(wb, sheet, data.getRows(), rowIndex);
-        autoSizeColumns(sheet, data.getTitles().size() + 1);
+//        autoSizeColumns(sheet, data.getTitles().size() + 1);
         return rowIndex;
     }
 

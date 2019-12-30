@@ -2,28 +2,119 @@ package com.get.excel;
 
 import com.get.crawl.domain.WebSiteCrawlPolicy;
 import com.get.crawl.repository.WebSiteCrawlPolicyRepository;
+import com.get.domain.Information;
 import com.get.domain.WebSiteSubtype;
+import com.get.domain.res.AjaxResult;
 import com.get.domain.res.ExceptionMsg;
 import com.get.excel.domain.ExcelData;
 import com.get.excel.util.ExcelUtil;
+import com.get.repository.InformationRepository;
 import com.get.repository.WebSiteSubtypeRepository;
+import com.get.spider.util.UUIDUtil;
+import com.get.util.StringUtil;
+import com.get.web.BaseController;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/excel")
-public class ExcelController {
+public class ExcelController extends BaseController {
 
     @Autowired
     private WebSiteSubtypeRepository subtypeRepository;
 
     @Autowired
     private WebSiteCrawlPolicyRepository policyRepository;
+
+    @Autowired
+    private InformationRepository informationRepository;
+
+    private HashMap<String, String> hashMap = new HashMap<>();
+
+    @RequestMapping("export/infoDataUpload")
+    public AjaxResult exportInformationUpload(String infoIdListStr) {
+        try {
+            if (infoIdListStr == null || "".equals(infoIdListStr)) {
+                return failAjax(ExceptionMsg.ParamError);
+            }
+            String uuid = UUIDUtil.random();
+            hashMap.put(uuid, infoIdListStr);
+            return AjaxResult.success(uuid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return errorAjax();
+        }
+    }
+
+    @RequestMapping("/export/infoData")
+    public void exportInformation(String uuid, HttpServletResponse response) {
+        try {
+            if (uuid == null || "".equals(uuid)) {
+                return;
+            }
+            // 生成information list
+            String infoIdListStr = hashMap.get(uuid);
+            if (infoIdListStr == null || "".equals(infoIdListStr)) {
+                return;
+            }
+            List<Information> informationList = new ArrayList<>();
+            for (String idStr : infoIdListStr.split(",")) {
+                if (idStr == null || "".equals(idStr)) {
+                    continue;
+                }
+                int id = Integer.parseInt(idStr);
+                Information information = informationRepository.findInformationById((long) id);
+                informationList.add(information);
+            }
+            ExcelData data = new ExcelData();
+            data.setName("导出信息表");
+            List<String> titles = new ArrayList<>();
+            titles.add("编号");
+            titles.add("标题");
+            titles.add("作者");
+            titles.add("发布时间");
+            titles.add("分类");
+            titles.add("关键词");
+            titles.add("文章链接");
+            titles.add("爬取时间");
+            titles.add("文章内容");
+            data.setTitles(titles);
+            Gson gson = new Gson();
+            List<List<Object>> rows = new ArrayList<>();
+            for (Information information : informationList) {
+                System.out.println(gson.toJson(information));
+                List<Object> row = new ArrayList<>();
+                row.add(information.getId());
+                row.add(information.getTitle());
+                row.add(information.getAuthor());
+                row.add(information.getTime());
+                row.add(information.getClasses());
+                row.add(information.getKeyWords());
+                row.add(information.getUrl());
+                row.add(information.getCreateTime());
+                String content = information.getContent();
+                if (content != null && content.length() > 250) {
+                    content = content.substring(100);
+                }
+                row.add(content);
+                rows.add(row);
+            }
+            data.setRows(rows);
+            try {
+                ExcelUtil.exportExcel(response, "导出信息表", data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @RequestMapping("/test/subtype")
     public void testSubtype(HttpServletResponse response) {
