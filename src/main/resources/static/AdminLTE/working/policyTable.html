@@ -485,6 +485,7 @@
       el: '#main',
       data: {
         policyData: [],
+        dataTableLoading: true,
         // 添加和修改模态框
         modalModel: 0,
         form_index: -1,
@@ -535,6 +536,8 @@
               // console.log(data);
               if (data.code == '000000') {
                 thisVue.policyData = data.data;
+                thisVue.dataTableLoading = false;
+                thisVue.updatePolicyDataTable();
               } else {
                 Toast.fire({
                   type: 'error',
@@ -545,6 +548,9 @@
           });
         },
         updatePolicyDataTable: function() {
+          if (this.dataTableLoading) {
+            return;
+          }
           $("#policyTable").DataTable({
             retrieve: true,
             bStateSave: true, //状态保存
