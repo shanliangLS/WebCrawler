@@ -26,6 +26,9 @@ for chara in words1:
         data1[chara]=1
 
 data1=sorted(data1.items(),key = lambda x:x[1],reverse = True) #排序
+data1Map = {}
+for aData in data1[:10]:
+	data1Map[aData[0]] = aData[1]
 print('start**', end='')
-print(data1[:10])
+print(data1Map)
 print('**end', end='')
