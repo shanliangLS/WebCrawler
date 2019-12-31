@@ -2,7 +2,7 @@
   "ignoreSslErrors": true,
   "outputEncoding": "utf8",
   "autoLoadImages": false,
-  "localToRemoteUrlAccessEnabled":true,
+  "localToRemoteUrlAccessEnabled": true,
   "diskCacheEnabled": true,
   "printDebugMessages": false
 }

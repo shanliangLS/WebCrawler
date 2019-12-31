@@ -2,46 +2,46 @@ package com.get.cache.domain;
 
 import com.get.domain.BaseEntity;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+//@Entity
 public class WebPage extends BaseEntity implements Serializable {
     // id
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // url
-    @Column(nullable = false, length = 65535, columnDefinition = "Text", unique = true)
+//    @Column(nullable = false, length = 65535, columnDefinition = "Text", unique = true)
     private String url;
 
     // 下载时间
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Long downloadTime;
 
     // 下载次数
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Integer downloadCount;
 
     // 是否下载完成
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Boolean success;
 
     // 失败原因
-    @Column(nullable = true, length = 65535, columnDefinition = "Text")
+//    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String reason;
 
     // 保存路径
-    @Column(nullable = true, length = 65535, columnDefinition = "Text")
+//    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String filePath;
 
     // 文件名
-    @Column(nullable = true, length = 65535, columnDefinition = "Text")
+//    @Column(nullable = true, length = 65535, columnDefinition = "Text")
     private String fileName;
 
     // 文件扩展名
-    @Column(nullable = true)
+//    @Column(nullable = true)
     private String fileExtension;
 
     public String getFilePath() {
