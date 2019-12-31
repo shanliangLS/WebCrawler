@@ -13,17 +13,14 @@ import com.get.repository.InformationRepository;
 import com.get.repository.ReturnInformationRepository;
 import com.get.repository.TaskRepository;
 import com.get.util.JiebaUtil;
-import com.get.util.StringUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/info")
@@ -156,7 +153,6 @@ public class InformationController extends BaseController {
             List<InformationKeyWord> informationKeyWords = informationKeyWordRepository.selectKeyWordByUserId(userId);
 
             List<ReturnInformation> returnInformations = returnInformationRepository.selectInformationEumByUserId(userId);
-            List<String> tempList = new ArrayList<String>();
 //            for(int i=returnInformations.size()-1;i>=0;i++){
 //
 //                for(int j=informationKeyWords.size()-1;informationKeyWords.get(j).getInformationId()>=returnInformations.get(i).getId();){
@@ -187,21 +183,42 @@ public class InformationController extends BaseController {
 //                }
 //
 //            }
-
-
-            for (int i = 0, j = 0; j < returnInformations.size(); ) {
-                tempList.add(informationKeyWords.get(j).getKeyWords());
-                System.out.println(informationKeyWords.get(j));
-                System.out.println(j);
-                j = j + 1;
-                if (j % 5 == 0) {
-                    returnInformations.get(i).setKeyWords(tempList);
-
-                    tempList.clear();
-//                    System.out.println(returnInformations.get(i).getKeyWords());
-                    i++;
+            for (ReturnInformation returnInformation : returnInformations) {
+                if (returnInformation == null) {
+                    continue;
+                }
+                List<String> tempList = new ArrayList<String>();
+                for (InformationKeyWord informationKeyWord : informationKeyWords) {
+//                    System.out.println(informationKeyWord);
+                    Long informationId1 = informationKeyWord.getInformationId();
+                    Long informationId2 = returnInformation.getId();
+                    if (informationId1 == null || informationId2 == null) {
+                        continue;
+                    }
+                    if (informationId1.equals(informationId2)) {
+                        tempList.add(informationKeyWord.getKeyWords());
+                        if (tempList.size() >= 5) {
+                            returnInformation.setKeyWords(tempList);
+                            System.out.println(tempList);
+                            break;
+                        }
+                    }
                 }
             }
+
+//            for (int i = 0, j = 0; j < returnInformations.size(); ) {
+//                tempList.add(informationKeyWords.get(j).getKeyWords());
+//                System.out.println(informationKeyWords.get(j));
+//                System.out.println(j);
+//                j = j + 1;
+//                if (j % 5 == 0) {
+//                    returnInformations.get(i).setKeyWords(tempList);
+//
+//                    tempList.clear();
+////                    System.out.println(returnInformations.get(i).getKeyWords());
+//                    i++;
+//                }
+//            }
 
 
 //            List<Task> taskList = taskRepository.findAllByUserId(userId);
@@ -382,7 +399,40 @@ public class InformationController extends BaseController {
                 text.append(title).append(content);
             }
             String keywords = JiebaUtil.getRc(text.toString());
-            return successAjax(keywords);
+            if (keywords == null || "".equals(keywords)) {
+                return successAjax();
+            }
+            class ReturnData {
+                private String name;
+                private Integer num;
+
+                public Integer getNum() {
+                    return num;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public void setNum(Integer num) {
+                    this.num = num;
+                }
+            }
+            Map<String, Integer> map = new Gson().fromJson(keywords, new TypeToken<Map<String, Integer>>() {
+            }.getType());
+            List<ReturnData> returnDataList = new ArrayList<>();
+            for (String key : map.keySet()) {
+                Integer val = map.get(key);
+                ReturnData returnData = new ReturnData();
+                returnData.setName(key);
+                returnData.setNum(val);
+                returnDataList.add(returnData);
+            }
+            return successAjax(returnDataList);
         } catch (Exception e) {
             e.printStackTrace();
         }

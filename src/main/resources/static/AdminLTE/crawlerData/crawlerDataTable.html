@@ -576,7 +576,7 @@
         },
         openModal: function (index) {
           if (this.modal_index != index) {
-            this.modal_title = this.crawlerData[index].title;
+            this.modal_title = this.filteredCrawlerData[index].title;
             this.modal_content = "加载中...";
             this.modal_author = '';
             this.modal_url = '';
@@ -588,7 +588,7 @@
               type: 'POST',
               dataType: "json",
               data: {
-                sid: thisVue.crawlerData[index].id
+                sid: thisVue.filteredCrawlerData[index].id
               },
               success: function (data) {
                 // console.log(data);

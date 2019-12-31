@@ -36,6 +36,15 @@
                 </w:r>
             </w:p>
        </#list>
+        <w:p xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0">
+            <w:pPr>
+                <w:pStyle w:val="P1"/>
+            </w:pPr>
+            <w:r>
+                <w:t>总摘要:${totalZy}</w:t>
+            </w:r>
+        </w:p>
+
         <w:sectPr>
             <w:type w:val="next-page"/>
             <w:pgSz xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" w:w="11907.5525" w:h="16839.881" w:orient="portrait"/>

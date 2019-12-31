@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/theme")
 public class ThemeController extends BaseController {
-//
+    //
     @Autowired
     private ThemeRepository themeRepository;
 //
@@ -41,14 +41,14 @@ public class ThemeController extends BaseController {
 //
 //    }
 
-//    @PostMapping(value = "/doCreateTheme")
+    //    @PostMapping(value = "/doCreateTheme")
 //    @LoggerManage(description = "创建主题")
     @RequestMapping(value = "/doCreateTheme", method = RequestMethod.POST)
     @LoggerManage(description = "创建主题")
     public AjaxResult doCreateTheme(String data) {
         try {
             Gson gson = new Gson();
-            Theme theme=gson.fromJson(data, Theme.class);
+            Theme theme = gson.fromJson(data, Theme.class);
 
             Long userId = getUserId();
 //                System.out.println(gson.toJson(theme));
@@ -67,7 +67,8 @@ public class ThemeController extends BaseController {
             return errorAjax();
         }
     }
-//
+
+    //
 //    @LoginRequired
     @RequestMapping(value = "/doGetThemesByUserId", method = RequestMethod.POST)
     @LoggerManage(description = "得到主题")
@@ -88,34 +89,34 @@ public class ThemeController extends BaseController {
 
     @RequestMapping(value = "/modifyTheme", method = RequestMethod.POST)
     @LoggerManage(description = "修改主题")
-    public AjaxResult modifyTheme(String data){
+    public AjaxResult modifyTheme(String data) {
         try {
 
             Gson gson = new Gson();
-            Theme theme=gson.fromJson(data, Theme.class);
+            Theme theme = gson.fromJson(data, Theme.class);
             Long userId = getUserId();
             theme.setUserId(userId);
             System.out.println(gson.toJson(theme));
-            Theme findTheme = themeRepository.findThemeByIdAndUserId(theme.getId(),userId);
+            Theme findTheme = themeRepository.findThemeByIdAndUserId(theme.getId(), userId);
             if (findTheme == null) {//主题不存在，无法修改
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //主题存在
             //先判断改之后的名字是否有冲突
-            int conflict=themeRepository.selectName(theme.getId(),theme.getName(),theme.getUserId()).size();
-            if (conflict>0){
+            int conflict = themeRepository.selectName(theme.getId(), theme.getName(), theme.getUserId()).size();
+            if (conflict > 0) {
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //以下是修改主题
             findTheme.setName(theme.getName());
             findTheme.setListId(theme.getListId());
-            themeRepository.updateThemeByIdAndUserId(findTheme.getName(),findTheme.getId(),findTheme.getUserId());
+            themeRepository.updateThemeByIdAndUserId(findTheme.getName(), findTheme.getId(), findTheme.getUserId());
             themeRepository.deleteThemeListIdByThemeId(findTheme.getId());
-            for (int i=0;i<findTheme.getListId().size();i++){
-                themeRepository.insertThemeListIdByThemeId(findTheme.getId(),findTheme.getListId().get(i));
+            for (int i = 0; i < findTheme.getListId().size(); i++) {
+                themeRepository.insertThemeListIdByThemeId(findTheme.getId(), findTheme.getListId().get(i));
             }
             return successAjax();
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error("修改主题失败", e);
             return errorAjax();
         }
@@ -123,18 +124,18 @@ public class ThemeController extends BaseController {
 
     @RequestMapping(value = "/deleteTheme", method = RequestMethod.POST)
     @LoggerManage(description = "删除主题")
-    public AjaxResult deleteTheme(String sid){
+    public AjaxResult deleteTheme(String sid) {
         try {
-            Long id= Long.parseLong(sid);
+            Long id = Long.parseLong(sid);
             Long userId = getUserId();
             Theme findTheme = themeRepository.findThemeById(id);
             if (findTheme == null) {//主题不存在，无法删除
                 return failAjax(ExceptionMsg.ThemeNotExist);
             }
             //以下是删除主题
-            themeRepository.deleteThemeByIdAndUserId(id,userId);
+            themeRepository.deleteThemeByIdAndUserId(id, userId);
             return successAjax();
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error("删除主题失败", e);
             return errorAjax();
         }
