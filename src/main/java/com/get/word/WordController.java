@@ -31,6 +31,7 @@ public class WordController extends BaseController {
             if (infoIdListStr == null || "".equals(infoIdListStr)) {
                 return failAjax(ExceptionMsg.ParamError);
             }
+            StringBuilder totalText = new StringBuilder();
             List<Map<String, Object>> mapList = new ArrayList<>();
             for (String infoIdStr : infoIdListStr.split(",")) {
                 if (infoIdStr == null || "".equals(infoIdStr)) {
@@ -46,15 +47,16 @@ public class WordController extends BaseController {
                 String title = information.getContent();
                 String url = information.getUrl();
                 if (content == null) {
-                    content = "未知";
+                    content = "";
                 }
                 if (title == null) {
-                    title = "未知";
+                    title = "";
                 }
                 if (url == null) {
-                    url = "未知";
+                    url = "";
                 }
                 String zy = SnowNlpUtil.getZy(title + content);
+                totalText.append(title).append(content);
                 if (zy == null) {
                     zy = "未知";
                 }
@@ -64,8 +66,10 @@ public class WordController extends BaseController {
                 map.put("zy", zy);
                 mapList.add(map);
             }
+            String totalZy = SnowNlpUtil.getZy(totalText.toString());
             Map<String, Object> hashMap = new HashMap<>();
             hashMap.put("myArticleList", mapList);
+            hashMap.put("totalZy", totalZy);
             // 生成uuid
             String uuid = UUIDUtil.random();
             String fileOnlyName = uuid + ".doc";

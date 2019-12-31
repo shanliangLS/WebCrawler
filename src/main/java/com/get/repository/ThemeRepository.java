@@ -10,14 +10,16 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 import com.get.domain.Theme;
 
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
-//    Theme findThemeByIdAndUserId(Long id,Long userId);
+    //    Theme findThemeByIdAndUserId(Long id,Long userId);
     Theme findThemeById(Long id);
-    Theme findThemeByIdAndUserId(Long id ,Long userId);
+
+    Theme findThemeByIdAndUserId(Long id, Long userId);
 
 
     List<Theme> findThemesByUserId(Long userId);
@@ -27,13 +29,15 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
     /**
      * 查询改名之后的主题名是否冲突
+     *
      * @param
      * @return 0=>无冲突  大于1=>有冲突
      */
 
-    @Query(value = "select id,user_id,name from theme where name=?1 and id!=?2 and user_id=?3",nativeQuery = true)
-    List<Theme> selectName(Long id,String name,Long userId);
-//    @Query("update User set name=:name where email=:email")
+    @Query(value = "select id,user_id,name from theme where name=?1 and id!=?2 and user_id=?3", nativeQuery = true)
+    List<Theme> selectName(Long id, String name, Long userId);
+
+    //    @Query("update User set name=:name where email=:email")
 //    int setName(@Param("name") String name, @Param("email") String email);
 //    /**
 //     * 根据多个id查询主题
@@ -47,15 +51,17 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update Theme set name=?1 where id=?2 and userId=?3")
-    void updateThemeByIdAndUserId(String name,Long id,Long userId);
+    void updateThemeByIdAndUserId(String name, Long id, Long userId);
+
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "delete from theme_list_id where theme_id=?1",nativeQuery = true)
+    @Query(value = "delete from theme_list_id where theme_id=?1", nativeQuery = true)
     void deleteThemeListIdByThemeId(Long id);
+
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "insert into theme_list_id(theme_id, list_id) VALUES (?1,?2)",nativeQuery = true)
-    void insertThemeListIdByThemeId(Long theme_id,Long list_id);
+    @Query(value = "insert into theme_list_id(theme_id, list_id) VALUES (?1,?2)", nativeQuery = true)
+    void insertThemeListIdByThemeId(Long theme_id, Long list_id);
 
 
     /*
@@ -68,9 +74,8 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
     /**
      * 根据list号查找主题号
-     *
      */
-    @Query(value = "select theme_id from theme_list_id where list_id=?1",nativeQuery = true)
+    @Query(value = "select theme_id from theme_list_id where list_id=?1", nativeQuery = true)
     Long selectThemeListIdByListId(Long listId);
 
 

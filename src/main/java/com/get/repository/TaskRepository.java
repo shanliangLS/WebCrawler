@@ -35,20 +35,18 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "delete from task_list_id where task_id=?1",nativeQuery = true)
+    @Query(value = "delete from task_list_id where task_id=?1", nativeQuery = true)
     void deleteTaskListIdByTaskId(Long id);
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "delete from task_theme_ids where task_id=?1",nativeQuery = true)
+    @Query(value = "delete from task_theme_ids where task_id=?1", nativeQuery = true)
     void deleteTaskThemeIdsByTaskId(Long id);
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "delete from task where id=?1 and user_id=?2",nativeQuery = true)
-    void deleteTaskById(Long id,Long userId);
-
-
+    @Query(value = "delete from task where id=?1 and user_id=?2", nativeQuery = true)
+    void deleteTaskById(Long id, Long userId);
 
 
     @Modifying(clearAutomatically = true)
@@ -67,12 +65,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     /**
      * 添加结束时间节点
-     *
      */
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "update task set end=?3 where user_id=?2 and id =?1",nativeQuery = true)
-    int updateTaskEndByIdAndUserId(Long id , Long userId, Long end);
+    @Query(value = "update task set end=?3 where user_id=?2 and id =?1", nativeQuery = true)
+    int updateTaskEndByIdAndUserId(Long id, Long userId, Long end);
 
     /**
      * 已完成数量加一
@@ -101,10 +98,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     /**
      * 查询某个任务所需要爬取的list
+     *
      * @param id
      * @return
      */
-    @Query(value = "select list_id from task_list_id where task_id=?1",nativeQuery = true)
+    @Query(value = "select list_id from task_list_id where task_id=?1", nativeQuery = true)
     List<Long> selectTaskListIdByTaskId(Long id);
 
     /**
@@ -113,6 +111,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "update task set flag=?2 where id=?1",nativeQuery = true)
-    int updateTaskFlagById(Long id,Long flag);
+    @Query(value = "update task set flag=?2 where id=?1", nativeQuery = true)
+    int updateTaskFlagById(Long id, Long flag);
 }

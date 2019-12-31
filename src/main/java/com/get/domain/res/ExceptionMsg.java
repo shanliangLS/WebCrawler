@@ -23,12 +23,11 @@ public enum ExceptionMsg {
     LimitPictureType("000402", "图片格式必须为'jpg'、'png'、'jpge'、'gif'、'bmp'"),
 
     ThemeNameUsed("000500", "主题名字已被使用"),
-    ThemeNotExist("000501","主题不存在"),
+    ThemeNotExist("000501", "主题不存在"),
 
-    TaskNameUsed("000600","任务名已被使用"),
-    TaskNotExist("000601","任务不存在"),
-    NoTask("000602","无任务");
-    ;
+    TaskNameUsed("000600", "任务名已被使用"),
+    TaskNotExist("000601", "任务不存在"),
+    NoTask("000602", "无任务");;
 
     private ExceptionMsg(String code, String msg) {
         this.code = code;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 public class ReturnInformation extends BaseEntity implements Serializable {
-//    .id,title,I.createTime,time,taskId,name
+    //    .id,title,I.createTime,time,taskId,name
     @Id
     @GeneratedValue()
     private Long id;
@@ -43,8 +43,8 @@ public class ReturnInformation extends BaseEntity implements Serializable {
         return keyWords;
     }
 
-    public void setKeyWords( List<String> keyWords) {
-        this.keyWords=new ArrayList<String>();
+    public void setKeyWords(List<String> keyWords) {
+        this.keyWords = new ArrayList<String>();
         this.keyWords.addAll(keyWords);
     }
 

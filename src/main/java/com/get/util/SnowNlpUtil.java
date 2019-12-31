@@ -17,7 +17,7 @@ public class SnowNlpUtil {
 //            Matcher m = p.matcher(ss);
 //
 //            ss = m.replaceAll("");
-            ss=ss.replaceAll("\\s*|\t|\r|\n|　", "");
+            ss = ss.replaceAll("\\s*|\t|\r|\n|　", "");
 
 //            String sss="感染。　　JEV属于黄病毒科（Flaviviridae）黄病毒属（";
 //            System.out.println(sss.replaceAll("\\s*|\t|\r|\n|[JEV]", ""));

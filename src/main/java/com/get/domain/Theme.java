@@ -59,7 +59,6 @@ public class Theme extends BaseEntity implements Serializable {
     }
 
 
-
     //    public String getDescription() {
 //        return description;
 //    }
@@ -84,7 +83,6 @@ public class Theme extends BaseEntity implements Serializable {
     public void setListId(List<Long> listId) {
         this.listId = listId;
     }
-
 
 
     //    public void setDescription(String description) {

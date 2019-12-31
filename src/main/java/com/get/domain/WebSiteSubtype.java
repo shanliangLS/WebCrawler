@@ -19,8 +19,7 @@ public class WebSiteSubtype extends BaseEntity implements Serializable {
 
     private String url;
 
-    public WebSiteSubtype()
-    {
+    public WebSiteSubtype() {
 
     }
 

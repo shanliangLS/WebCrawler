@@ -54,5 +54,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int setBackgroundPicture(@Param("backgroundPicture") String backgroundPicture, @Param("id") Long id);
 
 
-
 }

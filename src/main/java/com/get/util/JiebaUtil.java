@@ -46,8 +46,7 @@ public class JiebaUtil {
         return null;
     }
 
-    public static String getRc(String ss)
-    {
+    public static String getRc(String ss) {
         try {
             ss = ss.replace("\n", "");
             ss = ss.replace("\r", "");
