@@ -1,4 +1,4 @@
-# 网络爬虫网站
+## 网络爬虫网站
 WebCrawler网络爬虫网站  
   
 功能导航：  
@@ -17,3 +17,11 @@ WebCrawler网络爬虫网站
   
 爬取数据：查看爬取后的数据并可查看详细信息，导出数据、生成摘要、热词提取  
 ![Image text](https://github.com/shanliangLS/WebCrawler/blob/master/screenShot/%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE.gif)
+
+## 运行
+
+在 mysql 中创建名为 youget 的数据库，修改 `src/main/resources/application.properties` 中对应名称与账号密码
+
+点击 IDEA 右上角绿色三角形运行，自动建表
+
+运行完成后打开浏览器访问 [localhost://8888](http://localhost:8888/)，注册账号并登录
