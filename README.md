@@ -20,8 +20,12 @@ WebCrawler网络爬虫网站
 
 ## 运行
 
-在 mysql 中创建名为 youget 的数据库，修改 `src/main/resources/application.properties` 中对应名称与账号密码
+在 mysql 中创建名为 youget 的数据库，修改 `src/main/resources/application.properties` 中对应 jdbc 数据库名称与账号密码
 
-点击 IDEA 右上角绿色三角形运行，自动建表
+点击 IDEA 右上角绿色三角形运行，系统自动建表
 
 运行完成后打开浏览器访问 [localhost://8888](http://localhost:8888/)，注册账号并登录
+
+连接数据库，在 youget 数据库中运行根目录下的3个 youget_*.sql 文件
+
+前端按流程先创建主题，再创建任务并开始任务，后台开始爬取数据存入数据库，爬取完成后可查看
